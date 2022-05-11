@@ -1,0 +1,23 @@
+.gradle
+build/
+
+# Source code
+src/main/java/com
+src/main/java/mcp
+src/main/java/net
+
+#Run files
+runclient
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+#IDE files
+.idea
+*.iml
+run/
+
+out/
