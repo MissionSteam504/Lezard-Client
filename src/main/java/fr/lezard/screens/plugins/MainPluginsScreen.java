@@ -37,6 +37,7 @@ public class MainPluginsScreen extends Screen {
         }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new PluginsLocationScreen());
+            PluginsLocationScreen.dragMenu = true;
         }));
     }
 

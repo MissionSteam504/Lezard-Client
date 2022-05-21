@@ -19,7 +19,7 @@ public class LezardCore {
     public static final String PREFIX = "[LezardClient] ";
     public static final String CLIENT_USERNAME = "LezardUser";
     private final String CLIENT_NAME = "Lezard Client";
-    private final String CLIENT_VERSION = "alpha2";
+    private final String CLIENT_VERSION = "0.3.0";
 
     Minecraft minecraft;
 

@@ -10,7 +10,7 @@ public abstract class Plugin {
     protected Plugin(String name){
         this.name = name;
         this.enabled = PluginsManager.getInstance().getEnabled(name);
-        plugin = this;
+        this.plugin = this;
     }
     public static String getName(){
         return name;

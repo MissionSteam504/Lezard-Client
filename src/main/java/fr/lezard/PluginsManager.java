@@ -3,12 +3,14 @@ package fr.lezard;
 import fr.lezard.plugins.*;
 import net.minecraft.client.Minecraft;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
+import java.util.List;
 
 public class PluginsManager {
     protected Minecraft minecraft;
@@ -17,7 +19,8 @@ public class PluginsManager {
 
     private static final PluginsManager instance = new PluginsManager();
     public static final List<Plugin> plugins = new ArrayList<>();
-    private final Map<String, Plugin> pluginsByName = new HashMap<>();
+    public static final List<HudPlugin> hudPlugins = new ArrayList<>();
+    public static final List<String> pluginsName = new ArrayList<>();
 
     public void launch(){
         minecraft = Minecraft.getInstance();
@@ -40,19 +43,23 @@ public class PluginsManager {
             }
         }
 
+        PluginPos.init();
+
         instance.registerPlugin(new ItemPhysicsPlugin("Item Physics"));
-        instance.registerPlugin(new InGameTimeHudPlugin("In Game Time HUD"));
-        instance.registerPlugin(new RealTimeHudPlugin("Real Time HUD"));
-        instance.registerPlugin(new ArmorHudPlugin("Armor HUD"));
-        instance.registerPlugin(new FpsHudPlugin("FPS HUD"));
-        instance.registerPlugin(new CompassHudPlugin("Compass Hud"));
+        instance.registerPlugin(new InGameTimeHudPlugin("In Game Time HUD", PluginPos.loadPosX("In Game Time HUD"), PluginPos.loadPosY("In Game Time HUD")));
+        instance.registerPlugin(new RealTimeHudPlugin("Real Time HUD", PluginPos.loadPosX("Real Time HUD"), PluginPos.loadPosY("Real Time HUD")));
+        instance.registerPlugin(new ArmorHudPlugin("Armor HUD", PluginPos.loadPosX("Armor HUD"), PluginPos.loadPosY("Armor HUD")));
+        instance.registerPlugin(new FpsHudPlugin("FPS HUD", PluginPos.loadPosX("FPS HUD"), PluginPos.loadPosY("FPS HUD")));
+        instance.registerPlugin(new CompassHudPlugin("Compass HUD", PluginPos.loadPosX("Compass HUD"), PluginPos.loadPosY("Compass HUD")));
     }
 
     private void registerPlugin(Plugin plugin) {
+        pluginsName.add(plugin.getName());
         plugins.add(plugin);
-        pluginsByName.put(plugin.getName(),plugin);
+        if(plugin instanceof HudPlugin hudPlugin){
+            hudPlugins.add(hudPlugin);
+        }
         plugin.init();
-        System.out.println(plugin.getName() + " | Loaded. Activated : " + plugin.enabled);
     }
 
     public static PluginsManager getInstance(){

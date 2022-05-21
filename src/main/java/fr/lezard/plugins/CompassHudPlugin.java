@@ -1,44 +1,54 @@
 package fr.lezard.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import fr.lezard.LezardCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.util.Mth;
 
 import java.awt.*;
 
-import static fr.lezard.plugins.Plugin.isEnabled;
 import static net.minecraft.client.gui.GuiComponent.drawCenteredString;
 import static net.minecraft.client.gui.GuiComponent.drawString;
 
-public class CompassHudPlugin extends Plugin{
+public class CompassHudPlugin extends HudPlugin{
     public static boolean enabled;
+    public static boolean blit;
     private static Minecraft minecraft;
     public static String name;
+    public static int posX;
+    public static int posY;
+    private static int width;
 
-    public CompassHudPlugin(String name) {
-        super(name);
+    public CompassHudPlugin(String name, int posX, int posY) {
+        super(name, posX, posY);
         this.name = name;
+        this.posX = posX;
+        this.posY = posY;
     }
 
     public void init() {
         minecraft = Minecraft.getInstance();
         this.enabled = isEnabled();
+        this.blit = isBlit();
+        width = PluginPos.getWidth(name);
         System.out.println("Compass Enabled");
     }
 
     public static void renderHud(PoseStack p_93031_){
-        int posX = HudPlugin.loadPosX(plugin);
-        int posY = HudPlugin.loadPosY(plugin);
+        posX = PluginPos.loadPosX(name);
+        posY = PluginPos.loadPosY(name);
 
-        int screenWidth = minecraft.getWindow().getGuiScaledWidth();
+        if(blit) {
+            GuiComponent.fill(p_93031_, posX - 4, posY - 4, PluginPos.getWidth(name) + posX + 4, PluginPos.getHeight(name) + posY + 4, 0x2929292F);
+        }
+
+        int middle = PluginPos.getWidth(name) / 2;
 
         int angle = (int) Mth.wrapDegrees(minecraft.player.getYRot());
-        int width = screenWidth / 2;
+        Font font = minecraft.font;
 
-        drawString(p_93031_, minecraft.font, "V", posX, posY, Color.WHITE.getRGB());
+        drawString(p_93031_, font, "V", posX + middle, posY, Color.WHITE.getRGB());
 
         for(int i =0; i<=1; i++){
             for(double d=0.0D; d<=3.5D; d+=0.5D){
@@ -72,8 +82,7 @@ public class CompassHudPlugin extends Plugin{
                         // s = String.valueOf(new TranslatableComponent("lezard.southEast"));
                         s = "South-East";
                     }
-                    Font font = minecraft.font;
-                    drawString(p_93031_, font, s, posX + angle, posY + 8, Color.WHITE.getRGB());
+                    drawString(p_93031_, font, s, posX + middle + angle, posY + 8, Color.WHITE.getRGB());
                 }
                 angle+=45;
             }
