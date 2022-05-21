@@ -1,6 +1,9 @@
 package fr.lezard.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import fr.lezard.LezardCore;
+import fr.lezard.PluginsManager;
+import fr.lezard.screens.PluginsLocationScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -13,7 +16,7 @@ import static net.minecraft.client.gui.GuiComponent.drawString;
 
 public class CompassHudPlugin extends HudPlugin{
     public static boolean enabled;
-    public static boolean blit;
+    public static boolean filled;
     private static Minecraft minecraft;
     public static String name;
     public static int posX;
@@ -30,16 +33,27 @@ public class CompassHudPlugin extends HudPlugin{
     public void init() {
         minecraft = Minecraft.getInstance();
         this.enabled = isEnabled();
-        this.blit = isBlit();
+        this.filled = isFilled();
         width = PluginPos.getWidth(name);
-        System.out.println("Compass Enabled");
+        System.out.println(LezardCore.PREFIX + "Compass Enabled");
+    }
+
+    public void updatePos(){
+        posX = PluginPos.loadPosX(name);
+        posY = PluginPos.loadPosY(name);
     }
 
     public static void renderHud(PoseStack p_93031_){
-        posX = PluginPos.loadPosX(name);
-        posY = PluginPos.loadPosY(name);
+        if(minecraft.options.renderDebug){
+            return;
+        }
 
-        if(blit) {
+        if(PluginsLocationScreen.fakeDrag && name.equalsIgnoreCase(PluginsManager.pluginsName.get(PluginsManager.plugins.indexOf(PluginsLocationScreen.tempPlugin)))){
+            posX = PluginsLocationScreen.tempX;
+            posY = PluginsLocationScreen.tempY;
+        }
+
+        if(filled) {
             GuiComponent.fill(p_93031_, posX - 4, posY - 4, PluginPos.getWidth(name) + posX + 4, PluginPos.getHeight(name) + posY + 4, 0x2929292F);
         }
 

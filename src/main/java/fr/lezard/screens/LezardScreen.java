@@ -19,7 +19,6 @@ public class LezardScreen extends Screen {
 
     public void createSettingsMenu() {
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 12 -16, 98, 20, new TranslatableComponent("lezard.plugins"), (p_96335_) -> {
-            PluginsLocationScreen.dragMenu = true;
             Minecraft.getInstance().setScreen(new PluginsLocationScreen());
         }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 36 -16, 98, 20, new TranslatableComponent("lezard.lezardSettings"), (p_96335_) -> {

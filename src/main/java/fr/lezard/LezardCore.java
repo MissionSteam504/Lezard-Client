@@ -12,14 +12,13 @@ import java.util.Random;
 public class LezardCore {
 
     private final Minecraft mc = Minecraft.getInstance();
-    static final Logger LOGGER = LogUtils.getLogger();
     private static final LezardCore instance = new LezardCore();
     public static final boolean IDE_CLIENT = true;
     public static final String NAMESPACE = "lezard";
     public static final String PREFIX = "[LezardClient] ";
     public static final String CLIENT_USERNAME = "LezardUser";
     private final String CLIENT_NAME = "Lezard Client";
-    private final String CLIENT_VERSION = "0.3.0";
+    public final String CLIENT_VERSION = "0.3.1";
 
     Minecraft minecraft;
 
@@ -28,7 +27,7 @@ public class LezardCore {
     }
 
     public void launch(){
-        System.out.println("[LezardClient] Starting");
+        System.out.println(PREFIX + "Starting");
         PluginsManager.getInstance().launch();
         // this.discordRPC();
     }
