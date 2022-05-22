@@ -8,3 +8,6 @@ I fall in love with Java programming and i love the game Minecraft. I want to ma
 
 # Updates
 I dont want to update it for the 1.19 for now because the mcp is not out yet and i think there will be more players in 1.18 than in 1.19 so no plan for now
+
+# How to use it ?
+Im currently working on a launcher for it. For now idk
