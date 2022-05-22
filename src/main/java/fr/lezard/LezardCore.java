@@ -1,6 +1,6 @@
 package fr.lezard;
 
-// import club.minnced.discord.rpc.*;
+import club.minnced.discord.rpc.*;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -20,8 +20,6 @@ public class LezardCore {
     private final String CLIENT_NAME = "Lezard Client";
     public final String CLIENT_VERSION = "0.3.1";
 
-    Minecraft minecraft;
-
     public static LezardCore getInstance(){
         return instance;
     }
@@ -29,7 +27,7 @@ public class LezardCore {
     public void launch(){
         System.out.println(PREFIX + "Starting");
         PluginsManager.getInstance().launch();
-        // this.discordRPC();
+        this.discordRPC();
     }
 
     public String getWindowTitle(){
@@ -37,7 +35,7 @@ public class LezardCore {
         return CLIENT_NAME + " - " + CLIENT_VERSION + " | " + mc.getUser().getName();
     }
 
-    /* private void discordRPC(){
+    private void discordRPC(){
         DiscordRPC discord = DiscordRPC.INSTANCE;
         String applicationId = "971435977199464528";
         String steamId = "";
@@ -52,7 +50,7 @@ public class LezardCore {
         presence.details = CLIENT_NAME;
         presence.state = "Version : 1.18.2-" + CLIENT_VERSION;
         discord.Discord_UpdatePresence(presence);
-    } */
+    }
 
     public static int getRandomNumberInRange(int min, int max) {
         if (min >= max) {
