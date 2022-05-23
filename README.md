@@ -9,5 +9,9 @@ I fall in love with Java programming and i love the game Minecraft. I want to ma
 # Updates
 I dont want to update it for the 1.19 for now because the mcp is not out yet and i think there will be more players in 1.18 than in 1.19 so no plan for now
 
-# How to use it ?
-Im currently working on a launcher for it. For now idk
+# How to use/play it ?
+- First go download the [latest release](https://github.com/MissionSteam504/Lezard-Launcher/releases) of the launcher in [MissionSteam504/Lezard-Launcher](https://github.com/MissionSteam504/Lezard-Launcher)
+- Run the setup file or extract the archive
+- Run the launcher, log in with Microsoft ( if you are on a mojang account, please [migrate here](https://www.minecraft.net/en-us/mojang-account-move) ) and press "Play"
+
+Note : Everything should be downloaded automaticaly, if you have any problem, try to restart the launcher.
