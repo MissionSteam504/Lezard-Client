@@ -20,6 +20,8 @@ public class KeyStrokePlugin extends HudPlugin {
     public static boolean rainbow;
     public static String name;
 
+    public static EnumKeyStrokeModule keyMode = EnumKeyStrokeModule.WASD;
+
     public static int posX;
     public static int posY;
 
@@ -53,8 +55,7 @@ public class KeyStrokePlugin extends HudPlugin {
         if(filled) {
             GuiComponent.fill(poseStack, posX - PluginsLocationScreen.GAP, posY - PluginsLocationScreen.GAP, PluginPos.getWidth(name) + posX + PluginsLocationScreen.GAP, PluginPos.getHeight(name) + posY + PluginsLocationScreen.GAP, 0x2929292F);
         }
-
-        for(KeyStroke k : EnumKeyStrokeModule.ZQSD_MOUSE.getKeyStrokes()){
+        for(KeyStroke k : keyMode.getKeyStrokes()){
             GuiComponent.fill(poseStack,
                     posX + k.getX(),
                     posY + k.getY(),
@@ -68,7 +69,7 @@ public class KeyStrokePlugin extends HudPlugin {
                     Minecraft.getInstance().font,
                     k.getName(),
                     posX + k.getX() + k.getWidth() / 2 - textWidth / 2,
-                    posY + k.getY() + k.getHeight() / 2,
+                    posY + k.getY() + k.getHeight() / 4,
                     rainbow ? PluginsManager.rainbowText() : Color.ORANGE.getRGB()
             );
         }

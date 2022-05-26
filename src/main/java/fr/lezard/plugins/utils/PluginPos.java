@@ -35,7 +35,7 @@ public class PluginPos {
         else if (pluginName.equalsIgnoreCase(RealTimeHudPlugin.name))
             return font.width(RealTimeHudPlugin.string);
         else if (pluginName.equalsIgnoreCase(KeyStrokePlugin.name))
-            return EnumKeyStrokeModule.ZQSD_MOUSE.getWidth();
+            return KeyStrokePlugin.keyMode.getWidth();
 
         return 0;
     }
@@ -51,7 +51,7 @@ public class PluginPos {
         else if(pluginName.equalsIgnoreCase(RealTimeHudPlugin.name))
             return 8;
         else if(pluginName.equalsIgnoreCase(KeyStrokePlugin.name))
-            return EnumKeyStrokeModule.ZQSD_MOUSE.getHeight();
+            return KeyStrokePlugin.keyMode.getHeight();
 
         return 0;
     }

@@ -4,13 +4,19 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 
 public class KeyStroke {
-    public static final KeyStroke FORWARD = new KeyStroke("Z", Minecraft.getInstance().options.keyUp, 21, 1, 18, 18);
+    public static final KeyStroke FORWARD = new KeyStroke("W", Minecraft.getInstance().options.keyUp, 21, 1, 18, 18);
     public static final KeyStroke LEFT = new KeyStroke("Q", Minecraft.getInstance().options.keyLeft, 1, 21, 18, 18);
     public static final KeyStroke BACK = new KeyStroke("S", Minecraft.getInstance().options.keyDown, 21, 21, 18, 18);
     public static final KeyStroke RIGHT = new KeyStroke("D", Minecraft.getInstance().options.keyRight, 41, 21, 18, 18);
 
-    public static final KeyStroke LMB = new KeyStroke("LMB", Minecraft.getInstance().options.keyAttack, 1, 41, 28, 18);
-    public static final KeyStroke RMB = new KeyStroke("RMB", Minecraft.getInstance().options.keyUse, 31, 41, 28, 18);
+
+    public static final KeyStroke LMB_WITHOUT_BAR = new KeyStroke("LMB", Minecraft.getInstance().options.keyAttack, 1, 41, 28, 18);
+    public static final KeyStroke RMB_WITHOUT_BAR = new KeyStroke("RMB", Minecraft.getInstance().options.keyUse, 31, 41, 28, 18);
+
+    public static final KeyStroke LMB_WITH_BAR = new KeyStroke("LMB", Minecraft.getInstance().options.keyAttack, 1, 49, 28, 18);
+    public static final KeyStroke RMB_WITH_BAR = new KeyStroke("RMB", Minecraft.getInstance().options.keyUse, 31, 49, 28, 18);
+
+    public static final KeyStroke SPACE_BAR = new KeyStroke("-", Minecraft.getInstance().options.keyJump, 1, 41, 58, 6);
 
     private final String name;
     private final KeyMapping keyMapping;

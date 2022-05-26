@@ -1,10 +1,12 @@
 package fr.lezard.screens.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.realmsclient.util.LevelType;
 import fr.lezard.PluginFileManager;
 import fr.lezard.plugins.ArmorHudPlugin;
 import fr.lezard.plugins.InGameTimeHudPlugin;
 import fr.lezard.plugins.KeyStrokePlugin;
+import fr.lezard.plugins.keystroke.EnumKeyStrokeModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
@@ -29,6 +31,9 @@ public class KeyStrokeScreen extends Screen {
         }));
         this.addRenderableWidget(CycleButton.onOffBuilder(KeyStrokePlugin.rainbow).create(this.width / 2 - 49, this.height / 4 + 60 - 16, 98, 20, new TranslatableComponent("lezard.rainbow"), (p_170168_, p_170169_) -> {
             KeyStrokePlugin.rainbow = !KeyStrokePlugin.rainbow;
+        }));
+        this.addRenderableWidget(CycleButton.builder(EnumKeyStrokeModule::getName).withValues(EnumKeyStrokeModule.values()).withInitialValue(KeyStrokePlugin.keyMode).create(this.width / 2 - 49, this.height / 4 + 84 - 16, 98, 20, new TranslatableComponent("lezard.keyMode"), (p_167441_, p_167442_) -> {
+            KeyStrokePlugin.keyMode = p_167442_;
         }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
             PluginFileManager.writeJson(KeyStrokePlugin.name, "enabled", KeyStrokePlugin.enabled);
