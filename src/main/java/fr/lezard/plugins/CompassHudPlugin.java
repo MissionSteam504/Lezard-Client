@@ -25,15 +25,15 @@ public class CompassHudPlugin extends HudPlugin{
 
     public CompassHudPlugin(String name, int posX, int posY) {
         super(name, posX, posY);
-        this.name = name;
-        this.posX = posX;
-        this.posY = posY;
+        CompassHudPlugin.name = name;
+        CompassHudPlugin.posX = posX;
+        CompassHudPlugin.posY = posY;
     }
 
     public void init() {
         minecraft = Minecraft.getInstance();
-        this.enabled = isEnabled();
-        this.filled = isFilled();
+        enabled = isEnabled();
+        filled = isFilled();
         width = PluginPos.getWidth(name);
         System.out.println(LezardCore.PREFIX + "Compass Enabled");
     }

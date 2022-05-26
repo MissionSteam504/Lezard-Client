@@ -5,6 +5,9 @@ build/
 src/main/java/com
 src/main/java/mcp
 src/main/java/net
+src/main/resources/assets/minecraft
+src/main/resources/assets/realms
+src/main/resources/data
 
 #Run files
 runclient

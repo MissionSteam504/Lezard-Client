@@ -25,14 +25,14 @@ public class RealTimeHudPlugin extends HudPlugin{
 
     public RealTimeHudPlugin(String name, int posX, int posY) {
         super(name, posX, posY);
-        this.name = name;
-        this.posX = posX;
-        this.posY = posY;
+        RealTimeHudPlugin.name = name;
+        RealTimeHudPlugin.posX = posX;
+        RealTimeHudPlugin.posY = posY;
     }
 
     public void init() {
-        this.enabled = isEnabled();
-        this.filled = isFilled();
+        enabled = isEnabled();
+        filled = isFilled();
         System.out.println(LezardCore.PREFIX + "RealTimeHUD Enabled");
     }
 

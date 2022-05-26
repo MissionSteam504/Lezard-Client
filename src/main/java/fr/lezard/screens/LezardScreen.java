@@ -1,7 +1,7 @@
 package fr.lezard.screens;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sun.jna.platform.win32.ShTypes;
+import fr.lezard.PluginFileManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -35,10 +35,9 @@ public class LezardScreen extends Screen {
         super.tick();
     }
 
-    public void render(PoseStack p_96562_, int p_96563_, int p_96564_, float p_96565_) {
-        this.renderBackground(p_96562_);
-        // this.renderDirtBackground(0);
-        super.render(p_96562_, p_96563_, p_96564_, p_96565_);
-        drawCenteredString(p_96562_, this.font, this.title, this.width / 2, 15, 16777215);
+    public void render(PoseStack poseStack, int p_96563_, int p_96564_, float p_96565_) {
+        this.renderBackground(poseStack);
+        super.render(poseStack, p_96563_, p_96564_, p_96565_);
+        drawCenteredString(poseStack, this.font, this.title, this.width / 2, 15, 16777215);
     }
 }

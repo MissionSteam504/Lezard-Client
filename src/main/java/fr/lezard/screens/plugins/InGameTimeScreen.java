@@ -1,11 +1,15 @@
 package fr.lezard.screens.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.ArmorHudPlugin;
+import fr.lezard.plugins.FpsHudPlugin;
 import fr.lezard.plugins.InGameTimeHudPlugin;
 import fr.lezard.plugins.ItemPhysicsPlugin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
 
@@ -19,12 +23,12 @@ public class InGameTimeScreen extends Screen {
     }
 
     private void createPluginsMenu() {
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 12 -16, 98, 20, ItemPhysicsPlugin.enabled ? new TranslatableComponent("lezard.plugin.enabled") : new TranslatableComponent("lezard.plugin.disabled"), (p_96335_) -> {
+        this.addRenderableWidget(CycleButton.onOffBuilder(InGameTimeHudPlugin.enabled).create(this.width / 2 - 49, this.height / 4 + 12 - 16, 98, 20, new TranslatableComponent("lezard.enabled"), (p_170168_, p_170169_) -> {
             InGameTimeHudPlugin.enabled = !InGameTimeHudPlugin.enabled;
-            PluginsManager.writeEnabled(InGameTimeHudPlugin.name, InGameTimeHudPlugin.enabled);
         }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new MainPluginsScreen());
+            PluginFileManager.writeJson(InGameTimeHudPlugin.name, "enabled", InGameTimeHudPlugin.enabled);
         }));
     }
 

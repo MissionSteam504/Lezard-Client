@@ -23,14 +23,14 @@ public class FpsHudPlugin extends HudPlugin {
 
     public FpsHudPlugin(String name, int posX, int posY) {
         super(name, posX, posY);
-        this.name = name;
-        this.posX = posX;
-        this.posY = posY;
+        FpsHudPlugin.name = name;
+        FpsHudPlugin.posX = posX;
+        FpsHudPlugin.posY = posY;
     }
 
     public void init() {
-        this.enabled = isEnabled();
-        this.filled = isFilled();
+        enabled = isEnabled();
+        filled = isFilled();
         System.out.println(LezardCore.PREFIX + "InGameTime Enabled");
     }
 

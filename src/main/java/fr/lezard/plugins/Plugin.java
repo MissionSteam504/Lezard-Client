@@ -1,5 +1,6 @@
 package fr.lezard.plugins;
 
+import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
 
 public abstract class Plugin {
@@ -8,7 +9,7 @@ public abstract class Plugin {
 
     protected Plugin(String name){
         this.name = name;
-        this.enabled = PluginsManager.getInstance().getEnabled(name);
+        this.enabled = PluginFileManager.getBoolean(name, "enabled");
     }
     public static String getName(){
         return name;

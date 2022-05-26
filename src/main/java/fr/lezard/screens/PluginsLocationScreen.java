@@ -1,22 +1,21 @@
 package fr.lezard.screens;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
-import fr.lezard.plugins.*;
+import fr.lezard.plugins.HudPlugin;
+import fr.lezard.plugins.PluginPos;
 import fr.lezard.screens.plugins.MainPluginsScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PluginsLocationScreen extends Screen {
-    public static boolean dragMenu;
     public static boolean fakeDrag = false;
     private static final List<Integer> relativeX = new ArrayList<>();
     private static final List<Integer> relativeY = new ArrayList<>();
@@ -24,7 +23,7 @@ public class PluginsLocationScreen extends Screen {
     public static int tempY;
     public static HudPlugin tempPlugin = null;
 
-    private static int gap = 4;
+    private static final int GAP = 4;
 
     public PluginsLocationScreen() {
         super(new TranslatableComponent("lezard.gui.plugins.title"));
@@ -61,11 +60,11 @@ public class PluginsLocationScreen extends Screen {
                 if(pluginName.equalsIgnoreCase(PluginsManager.pluginsName.get(PluginsManager.plugins.indexOf(tempPlugin)))){
                     x = tempX;
                     y = tempY;
-                    GuiComponent.fill(poseStack, x - gap, y - gap,PluginPos.getWidth(pluginName) + x + gap, PluginPos.getHeight(pluginName) + y + gap, 0x2929292F);
+                    GuiComponent.fill(poseStack, x - GAP, y - GAP,PluginPos.getWidth(pluginName) + x + GAP, PluginPos.getHeight(pluginName) + y + GAP, 0x2929292F);
                     continue;
                 }
             }
-            GuiComponent.fill(poseStack, x - gap, y - gap,PluginPos.getWidth(pluginName) + x + gap, PluginPos.getHeight(pluginName) + y + gap, 0x2929292F);
+            GuiComponent.fill(poseStack, x - GAP, y - GAP,PluginPos.getWidth(pluginName) + x + GAP, PluginPos.getHeight(pluginName) + y + GAP, 0x2929292F);
         }
         super.render(poseStack, mouseX, mouseY, p_96565_);
     }
@@ -90,7 +89,7 @@ public class PluginsLocationScreen extends Screen {
                 int relX = relativeX.get(PluginsManager.hudPlugins.indexOf(currentPlugin));
                 int relY = relativeY.get(PluginsManager.hudPlugins.indexOf(currentPlugin));
 
-                if(relX <= PluginPos.getWidth(pluginName) + gap && relX >= -gap && relY <= PluginPos.getHeight(pluginName) +gap && relY >= -gap){
+                if(relX <= PluginPos.getWidth(pluginName) + GAP && relX >= -GAP && relY <= PluginPos.getHeight(pluginName) +GAP && relY >= -GAP){
                     // PluginPos.writePos((int) (mouseX - relX), (int) (mouseY - relY), PluginsManager.plugins.indexOf(currentPlugin));
                     tempX=(int) (mouseX - relX);
                     tempY=(int) (mouseY - relY);
@@ -106,7 +105,8 @@ public class PluginsLocationScreen extends Screen {
     @Override
     public boolean mouseReleased(double p_94722_, double p_94723_, int p_94724_) {
         if(tempPlugin!=null){
-            PluginPos.writePos(tempX, tempY, PluginsManager.plugins.indexOf(tempPlugin));
+            PluginFileManager.writeJson(PluginsManager.pluginsName.get(PluginsManager.plugins.indexOf(tempPlugin)), "posX", tempX);
+            PluginFileManager.writeJson(PluginsManager.pluginsName.get(PluginsManager.plugins.indexOf(tempPlugin)), "posY", tempY);
             fakeDrag = false;
         }
         for(HudPlugin plugin : PluginsManager.hudPlugins){

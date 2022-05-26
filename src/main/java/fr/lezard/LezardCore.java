@@ -1,7 +1,5 @@
 package fr.lezard;
 
-import club.minnced.discord.rpc.*;
-
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -18,7 +16,7 @@ public class LezardCore {
     public static final String PREFIX = "[LezardClient] ";
     public static final String CLIENT_USERNAME = "LezardUser";
     private final String CLIENT_NAME = "Lezard Client";
-    public final String CLIENT_VERSION = "0.3.2";
+    public final String CLIENT_VERSION = "0.3.3";
 
     public static LezardCore getInstance(){
         return instance;

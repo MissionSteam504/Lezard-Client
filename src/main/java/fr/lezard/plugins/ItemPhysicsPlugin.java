@@ -19,11 +19,11 @@ public class ItemPhysicsPlugin extends Plugin{
 
     public ItemPhysicsPlugin(String name) {
         super(name);
-        this.name = name;
+        ItemPhysicsPlugin.name = name;
     }
 
     public void init() {
-        this.enabled = isEnabled();
+        enabled = isEnabled();
         System.out.println("ItemPhysics Enabled");
     }
 

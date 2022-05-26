@@ -24,15 +24,15 @@ public class InGameTimeHudPlugin extends HudPlugin{
 
     public InGameTimeHudPlugin(String name, int posX, int posY) {
         super(name, posX, posY);
-        this.name = name;
-        this.posX = posX;
-        this.posY = posY;
+        InGameTimeHudPlugin.name = name;
+        InGameTimeHudPlugin.posX = posX;
+        InGameTimeHudPlugin.posY = posY;
     }
 
     public void init() {
         minecraft = Minecraft.getInstance();
-        this.enabled = isEnabled();
-        this.filled = isFilled();
+        enabled = isEnabled();
+        filled = isFilled();
         System.out.println(LezardCore.PREFIX + "InGameTime Enabled");
     }
 
@@ -62,12 +62,14 @@ public class InGameTimeHudPlugin extends HudPlugin{
     }
 
     private static String getInGameWorldMinutes(){
+        assert minecraft.player != null;
         int time = (int) minecraft.player.getCommandSenderWorld().getDayTime();
         int finalTime =(time % 1000) * 6 / 100;
         return finalTime < 10 ? "0" + finalTime : String.valueOf(finalTime);
     }
 
     private static String getInGameWorldHours(){
+        assert minecraft.player != null;
         int time = (int) ((minecraft.player.getCommandSenderWorld().getDayTime() + 6000) % 24000);
         int finalTime = (int) (time / 1000F);
         return finalTime < 10 ? "0" + finalTime : String.valueOf(finalTime);

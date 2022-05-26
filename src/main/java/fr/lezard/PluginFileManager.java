@@ -1,11 +1,12 @@
 package fr.lezard;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.io.*;
-import java.text.ParseException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class PluginFileManager {
     public static Object jsonFileParser(File file) {
@@ -21,11 +22,11 @@ public class PluginFileManager {
 
     public static void writeJson(String pluginName, String property, String value){
         JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
-        JsonObject plugin = jsonObject.getAsJsonObject(pluginName);
-        plugin.addProperty(property, value);
+        assert jsonObject != null;
+        jsonObject.addProperty(pluginName + "." + property, value);
 
         try (FileWriter file = new FileWriter(PluginsManager.pluginFile)) {
-            file.write(plugin.toString());
+            file.write(jsonObject.toString());
             file.flush();
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,11 +34,12 @@ public class PluginFileManager {
     }
     public static void writeJson(String pluginName, String property, boolean value){
         JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
-        JsonObject plugin = jsonObject.getAsJsonObject(pluginName);
-        plugin.addProperty(property, value);
+        // JsonObject plugin = jsonObject.getAsJsonObject(pluginName);
+        assert jsonObject != null;
+        jsonObject.addProperty(pluginName + "." + property, value);
 
         try (FileWriter file = new FileWriter(PluginsManager.pluginFile)) {
-            file.write(plugin.toString());
+            file.write(jsonObject.toString());
             file.flush();
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,11 +47,11 @@ public class PluginFileManager {
     }
     public static void writeJson(String pluginName, String property, int value){
         JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
-        JsonObject plugin = jsonObject.getAsJsonObject(pluginName);
-        plugin.addProperty(property, value);
+        assert jsonObject != null;
+        jsonObject.addProperty(pluginName + "." + property, value);
 
         try (FileWriter file = new FileWriter(PluginsManager.pluginFile)) {
-            file.write(plugin.toString());
+            file.write(jsonObject.toString());
             file.flush();
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,20 +60,28 @@ public class PluginFileManager {
 
     public static String getString(String pluginName, String property) {
         JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
-        JsonObject plugin = jsonObject.getAsJsonObject(pluginName);
-        String newValue = plugin.get(property).toString().replaceAll("\"", "");
-        return newValue;
+        assert jsonObject != null;
+        if (jsonObject.has(pluginName + "." + property)) {
+            return jsonObject.get(pluginName + "." + property).toString().replaceAll("\"", "");
+        }
+        return "";
     }
     public static boolean getBoolean(String pluginName, String property) {
         JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
-        JsonObject plugin = jsonObject.getAsJsonObject(pluginName);
-        String newValue = plugin.get(property).toString().replaceAll("\"", "");
-        return Boolean.parseBoolean(newValue);
+        assert jsonObject != null;
+        if (jsonObject.has(pluginName + "." + property)) {
+            String newValue = jsonObject.get(pluginName + "." + property).toString().replaceAll("\"", "");
+            return Boolean.parseBoolean(newValue);
+        }
+        return false;
     }
     public static int getInt(String pluginName, String property) {
         JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
-        JsonObject plugin = jsonObject.getAsJsonObject(pluginName);
-        String newValue = plugin.get(property).toString().replaceAll("\"", "");
-        return Integer.parseInt(newValue);
+        assert jsonObject != null;
+        if(jsonObject.has(pluginName + "." + property)){
+            String newValue = jsonObject.get(pluginName + "." + property).toString().replaceAll("\"", "");
+            return Integer.parseInt(newValue);
+        }
+        return 0;
     }
 }

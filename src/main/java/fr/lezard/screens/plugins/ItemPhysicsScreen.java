@@ -1,11 +1,15 @@
 package fr.lezard.screens.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.ArmorHudPlugin;
+import fr.lezard.plugins.InGameTimeHudPlugin;
 import fr.lezard.plugins.ItemPhysicsPlugin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen;
 import net.minecraft.network.chat.TextComponent;
@@ -22,12 +26,12 @@ public class ItemPhysicsScreen extends Screen {
     }
 
     private void createPluginsMenu() {
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 12 -16, 98, 20, ItemPhysicsPlugin.enabled ? new TranslatableComponent("lezard.plugin.enabled") : new TranslatableComponent("lezard.plugin.disabled"), (p_96335_) -> {
+        this.addRenderableWidget(CycleButton.onOffBuilder(ItemPhysicsPlugin.enabled).create(this.width / 2 - 49, this.height / 4 + 12 - 16, 98, 20, new TranslatableComponent("lezard.enabled"), (p_170168_, p_170169_) -> {
             ItemPhysicsPlugin.enabled = !ItemPhysicsPlugin.enabled;
-            PluginsManager.writeEnabled(ItemPhysicsPlugin.name, ItemPhysicsPlugin.enabled);
         }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new MainPluginsScreen());
+            PluginFileManager.writeJson(ItemPhysicsPlugin.name, "enabled", ItemPhysicsPlugin.enabled);
         }));
     }
 
