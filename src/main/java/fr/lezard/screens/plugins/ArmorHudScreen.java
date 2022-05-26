@@ -24,8 +24,16 @@ public class ArmorHudScreen extends Screen {
         this.addRenderableWidget(CycleButton.onOffBuilder(ArmorHudPlugin.enabled).create(this.width / 2 - 49, this.height / 4 + 12 - 16, 98, 20, new TranslatableComponent("lezard.enabled"), (p_170168_, p_170169_) -> {
             ArmorHudPlugin.enabled = !ArmorHudPlugin.enabled;
         }));
+        this.addRenderableWidget(CycleButton.onOffBuilder(ArmorHudPlugin.filled).create(this.width / 2 - 49, this.height / 4 + 36 - 16, 98, 20, new TranslatableComponent("lezard.filled"), (p_170168_, p_170169_) -> {
+            ArmorHudPlugin.filled = !ArmorHudPlugin.filled;
+        }));
+        this.addRenderableWidget(CycleButton.onOffBuilder(ArmorHudPlugin.rainbow).create(this.width / 2 - 49, this.height / 4 + 60 - 16, 98, 20, new TranslatableComponent("lezard.rainbow"), (p_170168_, p_170169_) -> {
+            ArmorHudPlugin.rainbow = !ArmorHudPlugin.rainbow;
+        }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
             PluginFileManager.writeJson(ArmorHudPlugin.name, "enabled", ArmorHudPlugin.enabled);
+            PluginFileManager.writeJson(ArmorHudPlugin.name, "filled", ArmorHudPlugin.filled);
+            PluginFileManager.writeJson(ArmorHudPlugin.name, "rainbow", ArmorHudPlugin.rainbow);
             Minecraft.getInstance().setScreen(new MainPluginsScreen());
         }));
     }

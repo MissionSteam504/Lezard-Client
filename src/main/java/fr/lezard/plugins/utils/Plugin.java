@@ -1,4 +1,4 @@
-package fr.lezard.plugins;
+package fr.lezard.plugins.utils;
 
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;

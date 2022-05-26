@@ -2,7 +2,10 @@ package fr.lezard.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.LezardCore;
+import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.utils.HudPlugin;
+import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.PluginsLocationScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -15,9 +18,10 @@ import java.awt.*;
 
 import static net.minecraft.client.gui.GuiComponent.drawString;
 
-public class ArmorHudPlugin extends HudPlugin{
+public class ArmorHudPlugin extends HudPlugin {
     public static boolean enabled;
     public static boolean filled;
+    public static boolean rainbow;
     public static String name;
 
     public static String string;
@@ -33,12 +37,19 @@ public class ArmorHudPlugin extends HudPlugin{
     public void init() {
         enabled = isEnabled();
         filled = isFilled();
+        rainbow = isRainbow();
         System.out.println(LezardCore.PREFIX + "ArmorHUD Enabled");
     }
 
     public void updatePos(){
-        posX = PluginPos.loadPosX(name);
-        posY = PluginPos.loadPosY(name);
+        posX = PluginFileManager.getInt(name, "posX");
+        posY = PluginFileManager.getInt(name, "posY");
+    }
+
+    public static void renderFill(PoseStack poseStack){
+        if(filled) {
+            GuiComponent.fill(poseStack, posX - PluginsLocationScreen.GAP, posY - PluginsLocationScreen.GAP, PluginPos.getWidth(name) + posX + PluginsLocationScreen.GAP, PluginPos.getHeight(name) + posY + PluginsLocationScreen.GAP, 0x2929292F);
+        }
     }
 
     public static void renderHud(int pos, ItemStack item, PoseStack poseStack){
@@ -49,10 +60,6 @@ public class ArmorHudPlugin extends HudPlugin{
         if(PluginsLocationScreen.fakeDrag && name.equalsIgnoreCase(PluginsManager.pluginsName.get(PluginsManager.plugins.indexOf(PluginsLocationScreen.tempPlugin)))){
             posX = PluginsLocationScreen.tempX;
             posY = PluginsLocationScreen.tempY;
-        }
-
-        if(filled) {
-            GuiComponent.fill(poseStack, posX - 4, posY - 4, PluginPos.getWidth(name) + posX + 4, PluginPos.getHeight(name) + posY + 4, 0x2929292F);
         }
 
         if(item == null || item == ItemStack.EMPTY || item.equals(new ItemStack(Item.byBlock(Blocks.AIR)))){
@@ -68,7 +75,7 @@ public class ArmorHudPlugin extends HudPlugin{
             float damagePercent = (100 * (item.getMaxDamage() - item.getDamageValue())) / item.getMaxDamage();
             String damageLeft = "(" + (item.getMaxDamage() - item.getDamageValue()) + "/" + item.getMaxDamage() + ")";
             string = String.format("%.2f%%", damagePercent) + " | " + damageLeft;
-            drawString(poseStack, font, string, posX + 19, posY + posYadd + 4, Color.WHITE.getRGB());
+            drawString(poseStack, font, string, posX + 19, posY + posYadd + 4, rainbow ? PluginsManager.rainbowText() : Color.WHITE.getRGB());
         }
 
     }

@@ -1,12 +1,13 @@
 package fr.lezard;
 
-import com.google.gson.JsonObject;
 import fr.lezard.plugins.*;
+import fr.lezard.plugins.utils.HudPlugin;
+import fr.lezard.plugins.utils.Plugin;
+import fr.lezard.plugins.utils.PluginPos;
 import net.minecraft.client.Minecraft;
 
+import java.awt.*;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
 
@@ -40,11 +41,12 @@ public class PluginsManager {
         PluginPos.init();
 
         instance.registerPlugin(new ItemPhysicsPlugin("Item Physics"));
-        instance.registerPlugin(new InGameTimeHudPlugin("In Game Time HUD", PluginPos.loadPosX("In Game Time HUD"), PluginPos.loadPosY("In Game Time HUD")));
-        instance.registerPlugin(new RealTimeHudPlugin("Real Time HUD", PluginPos.loadPosX("Real Time HUD"), PluginPos.loadPosY("Real Time HUD")));
-        instance.registerPlugin(new ArmorHudPlugin("Armor HUD", PluginPos.loadPosX("Armor HUD"), PluginPos.loadPosY("Armor HUD")));
-        instance.registerPlugin(new FpsHudPlugin("FPS HUD", PluginPos.loadPosX("FPS HUD"), PluginPos.loadPosY("FPS HUD")));
-        instance.registerPlugin(new CompassHudPlugin("Compass HUD", PluginPos.loadPosX("Compass HUD"), PluginPos.loadPosY("Compass HUD")));
+        instance.registerPlugin(new InGameTimeHudPlugin("In Game Time HUD", PluginFileManager.getInt("In Game Time HUD", "posX"), PluginFileManager.getInt("In Game Time HUD", "posY")));
+        instance.registerPlugin(new RealTimeHudPlugin("Real Time HUD", PluginFileManager.getInt("Real Time HUD", "posX"), PluginFileManager.getInt("Real Time HUD", "posY")));
+        instance.registerPlugin(new ArmorHudPlugin("Armor HUD", PluginFileManager.getInt("Armor HUD", "posX"), PluginFileManager.getInt("Armor HUD", "posY")));
+        instance.registerPlugin(new FpsHudPlugin("FPS HUD", PluginFileManager.getInt("FPS HUD", "posX"), PluginFileManager.getInt("FPS HUD", "posY")));
+        instance.registerPlugin(new CompassHudPlugin("Compass HUD", PluginFileManager.getInt("Compass HUD", "posX"), PluginFileManager.getInt("Compass HUD", "posY")));
+        instance.registerPlugin(new KeyStrokePlugin("KeyStroke HUD", PluginFileManager.getInt("KeyStroke HUD", "posX"), PluginFileManager.getInt("KeyStroke HUD", "posY")));
 
         for(HudPlugin plugin : PluginsManager.hudPlugins){
             plugin.updatePos();
@@ -62,5 +64,9 @@ public class PluginsManager {
 
     public static PluginsManager getInstance(){
         return instance;
+    }
+
+    public static int rainbowText(){
+        return Color.HSBtoRGB((float) (System.currentTimeMillis() % 5000L) / 5000F, 0.8f, 0.8f);
     }
 }

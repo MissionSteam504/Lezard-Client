@@ -25,9 +25,17 @@ public class CompassHudScreen extends Screen {
         this.addRenderableWidget(CycleButton.onOffBuilder(CompassHudPlugin.enabled).create(this.width / 2 - 49, this.height / 4 + 12 - 16, 98, 20, new TranslatableComponent("lezard.enabled"), (p_170168_, p_170169_) -> {
             CompassHudPlugin.enabled = !CompassHudPlugin.enabled;
         }));
+        this.addRenderableWidget(CycleButton.onOffBuilder(CompassHudPlugin.filled).create(this.width / 2 - 49, this.height / 4 + 36 - 16, 98, 20, new TranslatableComponent("lezard.filled"), (p_170168_, p_170169_) -> {
+            CompassHudPlugin.filled = !CompassHudPlugin.filled;
+        }));
+        this.addRenderableWidget(CycleButton.onOffBuilder(CompassHudPlugin.rainbow).create(this.width / 2 - 49, this.height / 4 + 60 - 16, 98, 20, new TranslatableComponent("lezard.rainbow"), (p_170168_, p_170169_) -> {
+            CompassHudPlugin.rainbow = !CompassHudPlugin.rainbow;
+        }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
-            Minecraft.getInstance().setScreen(new MainPluginsScreen());
             PluginFileManager.writeJson(CompassHudPlugin.name, "enabled", CompassHudPlugin.enabled);
+            PluginFileManager.writeJson(CompassHudPlugin.name, "filled", CompassHudPlugin.filled);
+            PluginFileManager.writeJson(CompassHudPlugin.name, "rainbow", CompassHudPlugin.rainbow);
+            Minecraft.getInstance().setScreen(new MainPluginsScreen());
         }));
     }
 

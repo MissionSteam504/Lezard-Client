@@ -2,6 +2,7 @@ package fr.lezard.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import fr.lezard.plugins.utils.Plugin;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 import net.minecraft.client.resources.model.BakedModel;
@@ -12,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-public class ItemPhysicsPlugin extends Plugin{
+public class ItemPhysicsPlugin extends Plugin {
     public static boolean enabled;
     public static String name;
     public static double speed = 1;

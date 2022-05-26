@@ -3,11 +3,10 @@ package fr.lezard.screens;
 import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
-import fr.lezard.plugins.HudPlugin;
-import fr.lezard.plugins.PluginPos;
+import fr.lezard.plugins.utils.HudPlugin;
+import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.plugins.MainPluginsScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -23,7 +22,7 @@ public class PluginsLocationScreen extends Screen {
     public static int tempY;
     public static HudPlugin tempPlugin = null;
 
-    private static final int GAP = 4;
+    public static final int GAP = 4;
 
     public PluginsLocationScreen() {
         super(new TranslatableComponent("lezard.gui.plugins.title"));
@@ -51,21 +50,8 @@ public class PluginsLocationScreen extends Screen {
     public void tick() {
         super.tick();
     }
+
     public void render(PoseStack poseStack, int mouseX, int mouseY, float p_96565_) {
-        for(HudPlugin plugin : PluginsManager.hudPlugins){
-            String pluginName = PluginsManager.pluginsName.get(PluginsManager.plugins.indexOf(plugin));
-            int x = PluginPos.loadPosX(pluginName);
-            int y = PluginPos.loadPosY(pluginName);
-            if(fakeDrag && tempPlugin != null){
-                if(pluginName.equalsIgnoreCase(PluginsManager.pluginsName.get(PluginsManager.plugins.indexOf(tempPlugin)))){
-                    x = tempX;
-                    y = tempY;
-                    GuiComponent.fill(poseStack, x - GAP, y - GAP,PluginPos.getWidth(pluginName) + x + GAP, PluginPos.getHeight(pluginName) + y + GAP, 0x2929292F);
-                    continue;
-                }
-            }
-            GuiComponent.fill(poseStack, x - GAP, y - GAP,PluginPos.getWidth(pluginName) + x + GAP, PluginPos.getHeight(pluginName) + y + GAP, 0x2929292F);
-        }
         super.render(poseStack, mouseX, mouseY, p_96565_);
     }
 
@@ -75,8 +61,8 @@ public class PluginsLocationScreen extends Screen {
         relativeY.clear();
         for(HudPlugin plugin : PluginsManager.hudPlugins){
             String pluginName = PluginsManager.pluginsName.get(PluginsManager.plugins.indexOf(plugin));
-            relativeX.add((int) (mouseX - PluginPos.loadPosX(pluginName)));
-            relativeY.add((int) (mouseY - PluginPos.loadPosY(pluginName)));
+            relativeX.add((int) (mouseX - PluginFileManager.getInt(pluginName, "posX")));
+            relativeY.add((int) (mouseY - PluginFileManager.getInt(pluginName, "posY")));
         }
         return super.mouseClicked(mouseX, mouseY, p_94697_);
     }

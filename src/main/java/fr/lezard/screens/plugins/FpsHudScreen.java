@@ -26,9 +26,17 @@ public class FpsHudScreen extends Screen {
         this.addRenderableWidget(CycleButton.onOffBuilder(FpsHudPlugin.enabled).create(this.width / 2 - 49, this.height / 4 + 12 - 16, 98, 20, new TranslatableComponent("lezard.enabled"), (p_170168_, p_170169_) -> {
             FpsHudPlugin.enabled = !FpsHudPlugin.enabled;
         }));
+        this.addRenderableWidget(CycleButton.onOffBuilder(FpsHudPlugin.filled).create(this.width / 2 - 49, this.height / 4 + 36 - 16, 98, 20, new TranslatableComponent("lezard.filled"), (p_170168_, p_170169_) -> {
+            FpsHudPlugin.filled = !FpsHudPlugin.filled;
+        }));
+        this.addRenderableWidget(CycleButton.onOffBuilder(FpsHudPlugin.rainbow).create(this.width / 2 - 49, this.height / 4 + 60 - 16, 98, 20, new TranslatableComponent("lezard.rainbow"), (p_170168_, p_170169_) -> {
+            FpsHudPlugin.rainbow = !FpsHudPlugin.rainbow;
+        }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
-            Minecraft.getInstance().setScreen(new MainPluginsScreen());
             PluginFileManager.writeJson(FpsHudPlugin.name, "enabled", FpsHudPlugin.enabled);
+            PluginFileManager.writeJson(FpsHudPlugin.name, "filled", FpsHudPlugin.filled);
+            PluginFileManager.writeJson(FpsHudPlugin.name, "rainbow", FpsHudPlugin.rainbow);
+            Minecraft.getInstance().setScreen(new MainPluginsScreen());
         }));
     }
 

@@ -2,7 +2,10 @@ package fr.lezard.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.LezardCore;
+import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.utils.HudPlugin;
+import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.PluginsLocationScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -15,6 +18,7 @@ import static net.minecraft.client.gui.GuiComponent.drawString;
 public class FpsHudPlugin extends HudPlugin {
     public static boolean enabled;
     public static boolean filled;
+    public static boolean rainbow;
     public static String name;
 
     public static String string;
@@ -31,12 +35,13 @@ public class FpsHudPlugin extends HudPlugin {
     public void init() {
         enabled = isEnabled();
         filled = isFilled();
+        rainbow = isRainbow();
         System.out.println(LezardCore.PREFIX + "InGameTime Enabled");
     }
 
     public void updatePos(){
-        posX = PluginPos.loadPosX(name);
-        posY = PluginPos.loadPosY(name);
+        posX = PluginFileManager.getInt(name, "posX");
+        posY = PluginFileManager.getInt(name, "posY");
     }
 
     public static void renderFps(PoseStack p_93031_){
@@ -50,7 +55,7 @@ public class FpsHudPlugin extends HudPlugin {
         }
 
         if(filled) {
-            GuiComponent.fill(p_93031_, posX - 4, posY - 4, PluginPos.getWidth(name) + posX + 4, PluginPos.getHeight(name) + posY + 4, 0x2929292F);
+            GuiComponent.fill(p_93031_, posX - PluginsLocationScreen.GAP, posY - PluginsLocationScreen.GAP, PluginPos.getWidth(name) + posX + PluginsLocationScreen.GAP, PluginPos.getHeight(name) + posY + PluginsLocationScreen.GAP, 0x2929292F);
         }
 
         Font font = Minecraft.getInstance().font;
@@ -58,6 +63,6 @@ public class FpsHudPlugin extends HudPlugin {
 
         string = "FPS: " + data[0];
 
-        drawString(p_93031_, font, string, posX, posY, Color.WHITE.getRGB());
+        drawString(p_93031_, font, string, posX, posY, rainbow ? PluginsManager.rainbowText() : Color.WHITE.getRGB());
     }
 }

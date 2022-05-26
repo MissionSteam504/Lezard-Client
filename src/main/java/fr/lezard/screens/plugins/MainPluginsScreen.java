@@ -17,23 +17,26 @@ public class MainPluginsScreen extends Screen {
     }
 
     private void createPluginsMenu() {
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 12 -16, 98, 20, new TranslatableComponent("lezard.plugin.itemPhysics"), (p_96335_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 -12 -16, 98, 20, new TranslatableComponent("lezard.plugin.itemPhysics"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new ItemPhysicsScreen());
         }));
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 36 -16, 98, 20, new TranslatableComponent("lezard.plugin.inGameTime"), (p_96335_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 12 -16, 98, 20, new TranslatableComponent("lezard.plugin.inGameTime"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new InGameTimeScreen());
         }));
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 60 -16, 98, 20, new TranslatableComponent("lezard.plugin.realTime"), (p_96335_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 36 -16, 98, 20, new TranslatableComponent("lezard.plugin.realTime"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new RealTimeScreen());
         }));
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 84 -16, 98, 20, new TranslatableComponent("lezard.plugin.armorHud"), (p_96335_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 60 -16, 98, 20, new TranslatableComponent("lezard.plugin.armorHud"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new ArmorHudScreen());
         }));
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 108 -16, 98, 20, new TranslatableComponent("lezard.plugin.fpsHud"), (p_96335_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 84 -16, 98, 20, new TranslatableComponent("lezard.plugin.fpsHud"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new FpsHudScreen());
         }));
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 132 -16, 98, 20, new TranslatableComponent("lezard.plugin.compassHud"), (p_96335_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 108 -16, 98, 20, new TranslatableComponent("lezard.plugin.compassHud"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new CompassHudScreen());
+        }));
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 132 -16, 98, 20, new TranslatableComponent("lezard.plugin.keystrokeHud"), (p_96335_) -> {
+            Minecraft.getInstance().setScreen(new KeyStrokeScreen());
         }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new PluginsLocationScreen());

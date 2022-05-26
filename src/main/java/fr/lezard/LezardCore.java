@@ -16,7 +16,7 @@ public class LezardCore {
     public static final String PREFIX = "[LezardClient] ";
     public static final String CLIENT_USERNAME = "LezardUser";
     private final String CLIENT_NAME = "Lezard Client";
-    public final String CLIENT_VERSION = "0.3.3";
+    public final String CLIENT_VERSION = "0.3.4";
 
     public static LezardCore getInstance(){
         return instance;

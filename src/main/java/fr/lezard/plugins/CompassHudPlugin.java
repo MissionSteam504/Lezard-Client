@@ -2,7 +2,10 @@ package fr.lezard.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.LezardCore;
+import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.utils.HudPlugin;
+import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.PluginsLocationScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -14,9 +17,10 @@ import java.awt.*;
 import static net.minecraft.client.gui.GuiComponent.drawCenteredString;
 import static net.minecraft.client.gui.GuiComponent.drawString;
 
-public class CompassHudPlugin extends HudPlugin{
+public class CompassHudPlugin extends HudPlugin {
     public static boolean enabled;
     public static boolean filled;
+    public static boolean rainbow;
     private static Minecraft minecraft;
     public static String name;
     public static int posX;
@@ -34,13 +38,14 @@ public class CompassHudPlugin extends HudPlugin{
         minecraft = Minecraft.getInstance();
         enabled = isEnabled();
         filled = isFilled();
+        rainbow = isRainbow();
         width = PluginPos.getWidth(name);
         System.out.println(LezardCore.PREFIX + "Compass Enabled");
     }
 
     public void updatePos(){
-        posX = PluginPos.loadPosX(name);
-        posY = PluginPos.loadPosY(name);
+        posX = PluginFileManager.getInt(name, "posX");
+        posY = PluginFileManager.getInt(name, "posY");
     }
 
     public static void renderHud(PoseStack p_93031_){
@@ -54,7 +59,7 @@ public class CompassHudPlugin extends HudPlugin{
         }
 
         if(filled) {
-            GuiComponent.fill(p_93031_, posX - 4, posY - 4, PluginPos.getWidth(name) + posX + 4, PluginPos.getHeight(name) + posY + 4, 0x2929292F);
+            GuiComponent.fill(p_93031_, posX - PluginsLocationScreen.GAP, posY - PluginsLocationScreen.GAP, PluginPos.getWidth(name) + posX + PluginsLocationScreen.GAP, PluginPos.getHeight(name) + posY + PluginsLocationScreen.GAP, 0x2929292F);
         }
 
         int middle = PluginPos.getWidth(name) / 2;
@@ -96,7 +101,7 @@ public class CompassHudPlugin extends HudPlugin{
                         // s = String.valueOf(new TranslatableComponent("lezard.southEast"));
                         s = "South-East";
                     }
-                    drawString(p_93031_, font, s, posX + middle + angle, posY + 8, Color.WHITE.getRGB());
+                    drawString(p_93031_, font, s, posX + middle + angle, posY + 8, rainbow ? PluginsManager.rainbowText() : Color.WHITE.getRGB());
                 }
                 angle+=45;
             }

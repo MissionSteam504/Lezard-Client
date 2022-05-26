@@ -1,7 +1,9 @@
-package fr.lezard.plugins;
+package fr.lezard.plugins.utils;
 
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.*;
+import fr.lezard.plugins.keystroke.EnumKeyStrokeModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 
@@ -21,13 +23,6 @@ public class PluginPos {
         font = Minecraft.getInstance().font;
     }
 
-    public static int loadPosX(String name){
-        return PluginFileManager.getInt(name, "posX");
-    }
-    public static int loadPosY(String name){
-        return PluginFileManager.getInt(name, "posY");
-    }
-
     public static int getWidth(String pluginName){
         if(pluginName.equalsIgnoreCase(ArmorHudPlugin.name))
             return 120;
@@ -39,6 +34,8 @@ public class PluginPos {
             return font.width(InGameTimeHudPlugin.string);
         else if (pluginName.equalsIgnoreCase(RealTimeHudPlugin.name))
             return font.width(RealTimeHudPlugin.string);
+        else if (pluginName.equalsIgnoreCase(KeyStrokePlugin.name))
+            return EnumKeyStrokeModule.ZQSD_MOUSE.getWidth();
 
         return 0;
     }
@@ -53,6 +50,8 @@ public class PluginPos {
             return 8;
         else if(pluginName.equalsIgnoreCase(RealTimeHudPlugin.name))
             return 8;
+        else if(pluginName.equalsIgnoreCase(KeyStrokePlugin.name))
+            return EnumKeyStrokeModule.ZQSD_MOUSE.getHeight();
 
         return 0;
     }

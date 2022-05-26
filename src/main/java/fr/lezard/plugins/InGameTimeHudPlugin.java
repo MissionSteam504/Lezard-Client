@@ -2,7 +2,10 @@ package fr.lezard.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.LezardCore;
+import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.utils.HudPlugin;
+import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.PluginsLocationScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -12,9 +15,10 @@ import java.awt.*;
 
 import static net.minecraft.client.gui.GuiComponent.drawString;
 
-public class InGameTimeHudPlugin extends HudPlugin{
+public class InGameTimeHudPlugin extends HudPlugin {
     public static boolean enabled;
     public static boolean filled;
+    public static boolean rainbow;
     private static Minecraft minecraft;
     public static String name;
 
@@ -33,12 +37,13 @@ public class InGameTimeHudPlugin extends HudPlugin{
         minecraft = Minecraft.getInstance();
         enabled = isEnabled();
         filled = isFilled();
+        rainbow = isRainbow();
         System.out.println(LezardCore.PREFIX + "InGameTime Enabled");
     }
 
     public void updatePos(){
-        posX = PluginPos.loadPosX(name);
-        posY = PluginPos.loadPosY(name);
+        posX = PluginFileManager.getInt(name, "posX");
+        posY = PluginFileManager.getInt(name, "posY");
     }
 
     public static void renderIgTime(PoseStack p_93031_){
@@ -52,13 +57,13 @@ public class InGameTimeHudPlugin extends HudPlugin{
         }
 
         if(filled) {
-            GuiComponent.fill(p_93031_, posX - 4, posY - 4, PluginPos.getWidth(name) + posX + 4, PluginPos.getHeight(name) + posY + 4, 0x2929292F);
+            GuiComponent.fill(p_93031_, posX - PluginsLocationScreen.GAP, posY - PluginsLocationScreen.GAP, PluginPos.getWidth(name) + posX + PluginsLocationScreen.GAP, PluginPos.getHeight(name) + posY + PluginsLocationScreen.GAP, 0x2929292F);
         }
 
         Font font = minecraft.font;
 
         string = "Time: " + getInGameWorldHours() + ":" + getInGameWorldMinutes();
-        drawString(p_93031_, font, string, posX, posY, Color.DARK_GRAY.getRGB());
+        drawString(p_93031_, font, string, posX, posY, rainbow ? PluginsManager.rainbowText() : Color.WHITE.getRGB());
     }
 
     private static String getInGameWorldMinutes(){

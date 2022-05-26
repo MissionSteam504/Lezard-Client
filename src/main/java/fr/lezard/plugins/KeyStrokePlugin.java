@@ -7,38 +7,34 @@ import fr.lezard.PluginsManager;
 import fr.lezard.plugins.utils.HudPlugin;
 import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.PluginsLocationScreen;
+import fr.lezard.plugins.keystroke.EnumKeyStrokeModule;
+import fr.lezard.plugins.keystroke.KeyStroke;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 
 import java.awt.*;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-import static net.minecraft.client.gui.GuiComponent.drawString;
-
-public class RealTimeHudPlugin extends HudPlugin {
+public class KeyStrokePlugin extends HudPlugin {
     public static boolean enabled;
     public static boolean filled;
     public static boolean rainbow;
     public static String name;
 
-    public static String string;
     public static int posX;
     public static int posY;
 
-    public RealTimeHudPlugin(String name, int posX, int posY) {
+    public KeyStrokePlugin(String name, int posX, int posY){
         super(name, posX, posY);
-        RealTimeHudPlugin.name = name;
-        RealTimeHudPlugin.posX = posX;
-        RealTimeHudPlugin.posY = posY;
+        KeyStrokePlugin.name = name;
+        KeyStrokePlugin.posX = posX;
+        KeyStrokePlugin.posY = posY;
     }
 
     public void init() {
         enabled = isEnabled();
         filled = isFilled();
         rainbow = isRainbow();
-        System.out.println(LezardCore.PREFIX + "RealTimeHUD Enabled");
+        System.out.println(LezardCore.PREFIX + "KeyStroke HUD Enabled");
     }
 
     public void updatePos(){
@@ -46,29 +42,36 @@ public class RealTimeHudPlugin extends HudPlugin {
         posY = PluginFileManager.getInt(name, "posY");
     }
 
-    public static void renderIrlTime(PoseStack poseStack){
+    public static void renderStroke(PoseStack poseStack){
         if(Minecraft.getInstance().options.renderDebug){
             return;
         }
-
         if(PluginsLocationScreen.fakeDrag && name.equalsIgnoreCase(PluginsManager.pluginsName.get(PluginsManager.plugins.indexOf(PluginsLocationScreen.tempPlugin)))){
             posX = PluginsLocationScreen.tempX;
             posY = PluginsLocationScreen.tempY;
         }
-
-
         if(filled) {
             GuiComponent.fill(poseStack, posX - PluginsLocationScreen.GAP, posY - PluginsLocationScreen.GAP, PluginPos.getWidth(name) + posX + PluginsLocationScreen.GAP, PluginPos.getHeight(name) + posY + PluginsLocationScreen.GAP, 0x2929292F);
         }
 
-        Calendar calendar = new GregorianCalendar();
+        for(KeyStroke k : EnumKeyStrokeModule.ZQSD_MOUSE.getKeyStrokes()){
+            GuiComponent.fill(poseStack,
+                    posX + k.getX(),
+                    posY + k.getY(),
+                    posX + k.getX() + k.getWidth(),
+                    posY + k.getY() + k.getHeight(),
+                    k.isPressed() ? new Color(255, 255, 255, 100).getRGB() : new Color(0, 0, 0, 102).getRGB()
+            );
 
-        int sec = calendar.get(Calendar.SECOND);
-        int minutes = calendar.get(Calendar.MINUTE);
-        int hours = calendar.get(Calendar.HOUR_OF_DAY);
+            int textWidth = Minecraft.getInstance().font.width(k.getName());
+            GuiComponent.drawString(poseStack,
+                    Minecraft.getInstance().font,
+                    k.getName(),
+                    posX + k.getX() + k.getWidth() / 2 - textWidth / 2,
+                    posY + k.getY() + k.getHeight() / 2,
+                    rainbow ? PluginsManager.rainbowText() : Color.ORANGE.getRGB()
+            );
+        }
 
-        string = "IRL Time: " + hours + ":" + minutes + ":" + sec;
-        Font font = Minecraft.getInstance().font;
-        drawString(poseStack, font, string, posX, posY, rainbow ? PluginsManager.rainbowText() : Color.WHITE.getRGB());
     }
 }
