@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.utils.Colors;
 import fr.lezard.plugins.utils.HudPlugin;
 import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.PluginsLocationScreen;
@@ -28,6 +29,8 @@ public class ArmorHudPlugin extends HudPlugin {
     public static int posX;
     public static int posY;
 
+    public static Colors colors;
+
     public ArmorHudPlugin(String name, int posX, int posY) {
         super(name, posX, posY);
         ArmorHudPlugin.name = name;
@@ -38,6 +41,7 @@ public class ArmorHudPlugin extends HudPlugin {
         enabled = isEnabled();
         filled = isFilled();
         rainbow = isRainbow();
+        colors = getColors();
         System.out.println(LezardCore.PREFIX + "ArmorHUD Enabled");
     }
 
@@ -75,7 +79,7 @@ public class ArmorHudPlugin extends HudPlugin {
             float damagePercent = (100 * (item.getMaxDamage() - item.getDamageValue())) / item.getMaxDamage();
             String damageLeft = "(" + (item.getMaxDamage() - item.getDamageValue()) + "/" + item.getMaxDamage() + ")";
             string = String.format("%.2f%%", damagePercent) + " | " + damageLeft;
-            drawString(poseStack, font, string, posX + 19, posY + posYadd + 4, rainbow ? PluginsManager.rainbowText() : Color.WHITE.getRGB());
+            drawString(poseStack, font, string, posX + 19, posY + posYadd + 4, rainbow ? PluginsManager.rainbowText() : colors.getRgb());
         }
 
     }

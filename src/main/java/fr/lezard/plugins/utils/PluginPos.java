@@ -1,20 +1,8 @@
 package fr.lezard.plugins.utils;
 
-import fr.lezard.PluginFileManager;
-import fr.lezard.PluginsManager;
 import fr.lezard.plugins.*;
-import fr.lezard.plugins.keystroke.EnumKeyStrokeModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class PluginPos {
     private static Font font;

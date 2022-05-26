@@ -36,4 +36,8 @@ public enum EnumKeyStrokeModule {
     public Component getName() {
         return new TranslatableComponent("lezard.keyMode." + name);
     }
+
+    public String getLitteralName(){
+        return name;
+    }
 }

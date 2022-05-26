@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.utils.Colors;
 import fr.lezard.plugins.utils.HudPlugin;
 import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.PluginsLocationScreen;
@@ -19,6 +20,7 @@ public class FpsHudPlugin extends HudPlugin {
     public static boolean enabled;
     public static boolean filled;
     public static boolean rainbow;
+    public static Colors colors;
     public static String name;
 
     public static String string;
@@ -36,6 +38,7 @@ public class FpsHudPlugin extends HudPlugin {
         enabled = isEnabled();
         filled = isFilled();
         rainbow = isRainbow();
+        colors = getColors();
         System.out.println(LezardCore.PREFIX + "InGameTime Enabled");
     }
 
@@ -63,6 +66,6 @@ public class FpsHudPlugin extends HudPlugin {
 
         string = "FPS: " + data[0];
 
-        drawString(p_93031_, font, string, posX, posY, rainbow ? PluginsManager.rainbowText() : Color.WHITE.getRGB());
+        drawString(p_93031_, font, string, posX, posY, rainbow ? PluginsManager.rainbowText() : colors.getRgb());
     }
 }

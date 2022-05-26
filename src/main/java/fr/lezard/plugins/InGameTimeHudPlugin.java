@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.utils.Colors;
 import fr.lezard.plugins.utils.HudPlugin;
 import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.PluginsLocationScreen;
@@ -19,6 +20,7 @@ public class InGameTimeHudPlugin extends HudPlugin {
     public static boolean enabled;
     public static boolean filled;
     public static boolean rainbow;
+    public static Colors colors;
     private static Minecraft minecraft;
     public static String name;
 
@@ -38,6 +40,7 @@ public class InGameTimeHudPlugin extends HudPlugin {
         enabled = isEnabled();
         filled = isFilled();
         rainbow = isRainbow();
+        colors = getColors();
         System.out.println(LezardCore.PREFIX + "InGameTime Enabled");
     }
 

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.utils.Colors;
 import fr.lezard.plugins.utils.HudPlugin;
 import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.PluginsLocationScreen;
@@ -18,6 +19,7 @@ public class KeyStrokePlugin extends HudPlugin {
     public static boolean enabled;
     public static boolean filled;
     public static boolean rainbow;
+    public static Colors colors;
     public static String name;
 
     public static EnumKeyStrokeModule keyMode = EnumKeyStrokeModule.WASD;
@@ -36,6 +38,7 @@ public class KeyStrokePlugin extends HudPlugin {
         enabled = isEnabled();
         filled = isFilled();
         rainbow = isRainbow();
+        colors = getColors();
         System.out.println(LezardCore.PREFIX + "KeyStroke HUD Enabled");
     }
 
@@ -70,7 +73,7 @@ public class KeyStrokePlugin extends HudPlugin {
                     k.getName(),
                     posX + k.getX() + k.getWidth() / 2 - textWidth / 2,
                     posY + k.getY() + k.getHeight() / 4,
-                    rainbow ? PluginsManager.rainbowText() : Color.ORANGE.getRGB()
+                    rainbow ? PluginsManager.rainbowText() : colors.getRgb()
             );
         }
 

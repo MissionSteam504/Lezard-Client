@@ -7,6 +7,7 @@ import fr.lezard.plugins.ArmorHudPlugin;
 import fr.lezard.plugins.CompassHudPlugin;
 import fr.lezard.plugins.FpsHudPlugin;
 import fr.lezard.plugins.ItemPhysicsPlugin;
+import fr.lezard.plugins.utils.Colors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
@@ -32,10 +33,14 @@ public class FpsHudScreen extends Screen {
         this.addRenderableWidget(CycleButton.onOffBuilder(FpsHudPlugin.rainbow).create(this.width / 2 - 49, this.height / 4 + 60 - 16, 98, 20, new TranslatableComponent("lezard.rainbow"), (p_170168_, p_170169_) -> {
             FpsHudPlugin.rainbow = !FpsHudPlugin.rainbow;
         }));
+        this.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Colors.values()).withInitialValue(FpsHudPlugin.colors).create(this.width / 2 - 49, this.height / 4 + 84 - 16, 98, 20, new TranslatableComponent("lezard.color"), (p_167441_, p_167442_) -> {
+            FpsHudPlugin.colors = p_167442_;
+        }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
             PluginFileManager.writeJson(FpsHudPlugin.name, "enabled", FpsHudPlugin.enabled);
             PluginFileManager.writeJson(FpsHudPlugin.name, "filled", FpsHudPlugin.filled);
             PluginFileManager.writeJson(FpsHudPlugin.name, "rainbow", FpsHudPlugin.rainbow);
+            PluginFileManager.writeJson(FpsHudPlugin.name, "color", FpsHudPlugin.colors.getLiteralName());
             Minecraft.getInstance().setScreen(new MainPluginsScreen());
         }));
     }

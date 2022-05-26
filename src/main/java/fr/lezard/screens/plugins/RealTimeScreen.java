@@ -4,7 +4,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.PluginFileManager;
 import fr.lezard.plugins.ArmorHudPlugin;
 import fr.lezard.plugins.InGameTimeHudPlugin;
+import fr.lezard.plugins.KeyStrokePlugin;
 import fr.lezard.plugins.RealTimeHudPlugin;
+import fr.lezard.plugins.utils.Colors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
@@ -30,10 +32,14 @@ public class RealTimeScreen extends Screen {
         this.addRenderableWidget(CycleButton.onOffBuilder(RealTimeHudPlugin.rainbow).create(this.width / 2 - 49, this.height / 4 + 60 - 16, 98, 20, new TranslatableComponent("lezard.rainbow"), (p_170168_, p_170169_) -> {
             RealTimeHudPlugin.rainbow = !RealTimeHudPlugin.rainbow;
         }));
+        this.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Colors.values()).withInitialValue(RealTimeHudPlugin.colors).create(this.width / 2 - 49, this.height / 4 + 84 - 16, 98, 20, new TranslatableComponent("lezard.color"), (p_167441_, p_167442_) -> {
+            RealTimeHudPlugin.colors = p_167442_;
+        }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
             PluginFileManager.writeJson(RealTimeHudPlugin.name, "enabled", RealTimeHudPlugin.enabled);
             PluginFileManager.writeJson(RealTimeHudPlugin.name, "filled", RealTimeHudPlugin.filled);
             PluginFileManager.writeJson(RealTimeHudPlugin.name, "rainbow", RealTimeHudPlugin.rainbow);
+            PluginFileManager.writeJson(RealTimeHudPlugin.name, "color", RealTimeHudPlugin.colors.getLiteralName());
             Minecraft.getInstance().setScreen(new MainPluginsScreen());
         }));
     }

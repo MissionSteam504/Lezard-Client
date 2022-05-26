@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.utils.Colors;
 import fr.lezard.plugins.utils.HudPlugin;
 import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.PluginsLocationScreen;
@@ -21,6 +22,7 @@ public class RealTimeHudPlugin extends HudPlugin {
     public static boolean enabled;
     public static boolean filled;
     public static boolean rainbow;
+    public static Colors colors;
     public static String name;
 
     public static String string;
@@ -38,6 +40,7 @@ public class RealTimeHudPlugin extends HudPlugin {
         enabled = isEnabled();
         filled = isFilled();
         rainbow = isRainbow();
+        colors = getColors();
         System.out.println(LezardCore.PREFIX + "RealTimeHUD Enabled");
     }
 
@@ -69,6 +72,6 @@ public class RealTimeHudPlugin extends HudPlugin {
 
         string = "IRL Time: " + hours + ":" + minutes + ":" + sec;
         Font font = Minecraft.getInstance().font;
-        drawString(poseStack, font, string, posX, posY, rainbow ? PluginsManager.rainbowText() : Color.WHITE.getRGB());
+        drawString(poseStack, font, string, posX, posY, rainbow ? PluginsManager.rainbowText() : colors.getRgb());
     }
 }

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
+import fr.lezard.plugins.utils.Colors;
 import fr.lezard.plugins.utils.HudPlugin;
 import fr.lezard.plugins.utils.PluginPos;
 import fr.lezard.screens.PluginsLocationScreen;
@@ -21,6 +22,8 @@ public class CompassHudPlugin extends HudPlugin {
     public static boolean enabled;
     public static boolean filled;
     public static boolean rainbow;
+    public static Colors colors;
+
     private static Minecraft minecraft;
     public static String name;
     public static int posX;
@@ -39,6 +42,7 @@ public class CompassHudPlugin extends HudPlugin {
         enabled = isEnabled();
         filled = isFilled();
         rainbow = isRainbow();
+        colors = getColors();
         width = PluginPos.getWidth(name);
         System.out.println(LezardCore.PREFIX + "Compass Enabled");
     }
@@ -101,7 +105,7 @@ public class CompassHudPlugin extends HudPlugin {
                         // s = String.valueOf(new TranslatableComponent("lezard.southEast"));
                         s = "South-East";
                     }
-                    drawString(p_93031_, font, s, posX + middle + angle, posY + 8, rainbow ? PluginsManager.rainbowText() : Color.WHITE.getRGB());
+                    drawString(p_93031_, font, s, posX + middle + angle, posY + 8, rainbow ? PluginsManager.rainbowText() : colors.getRgb());
                 }
                 angle+=45;
             }
