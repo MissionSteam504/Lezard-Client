@@ -5,21 +5,22 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 
 import java.awt.*;
+import java.util.Locale;
 
 public enum Colors {
-    WHITE(Color.WHITE.getRGB(), "white"),
-    LIGHT_GRAY(Color.LIGHT_GRAY.getRGB(), "light_gray"),
-    GRAY(Color.GRAY.getRGB(), "gray"),
-    DARK_GRAY(Color.DARK_GRAY.getRGB(), "light_gray"),
-    BLACK(Color.BLACK.getRGB(), "black"),
-    RED(Color.RED.getRGB(), "red"),
-    PINK(Color.PINK.getRGB(), "pink"),
-    ORANGE(Color.ORANGE.getRGB(), "orange"),
-    YELLOW(Color.YELLOW.getRGB(), "yellow"),
-    GREEN(Color.GREEN.getRGB(), "green"),
-    MAGENTA(Color.MAGENTA.getRGB(), "magenta"),
-    CYAN(Color.CYAN.getRGB(), "cyan"),
-    BLUE(Color.BLUE.getRGB(), "blue");
+    WHITE(Color.WHITE.getRGB(), "WHITE"),
+    LIGHT_GRAY(Color.LIGHT_GRAY.getRGB(), "LIGHT_GRAY"),
+    GRAY(Color.GRAY.getRGB(), "GRAY"),
+    DARK_GRAY(Color.DARK_GRAY.getRGB(), "DARK_GRAY"),
+    BLACK(Color.BLACK.getRGB(), "BLACK"),
+    RED(Color.RED.getRGB(), "RED"),
+    PINK(Color.PINK.getRGB(), "PINK"),
+    ORANGE(Color.ORANGE.getRGB(), "ORANGE"),
+    YELLOW(Color.YELLOW.getRGB(), "YELLOW"),
+    GREEN(Color.GREEN.getRGB(), "GREEN"),
+    MAGENTA(Color.MAGENTA.getRGB(), "MAGENTA"),
+    CYAN(Color.CYAN.getRGB(), "CYAN"),
+    BLUE(Color.BLUE.getRGB(), "BLUE");
 
     private int rgb;
     private String name;
@@ -32,7 +33,7 @@ public enum Colors {
         return name;
     }
     public Component getName() {
-        return new TranslatableComponent("color." + name);
+        return new TranslatableComponent("color." + name.toLowerCase(Locale.ROOT));
     }
     public int getRgb() {
         return rgb;

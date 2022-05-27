@@ -3,11 +3,13 @@ package fr.lezard.plugins.keystroke;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 
+import java.util.Locale;
+
 public enum EnumKeyStrokeModule {
-    WASD("wasd", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT),
-    WASD_MOUSE("wasd_mouse", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.LMB_WITHOUT_BAR, KeyStroke.RMB_WITHOUT_BAR),
-    WASD_BAR("wasd_bar", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.SPACE_BAR),
-    WASD_BAR_MOUSE("wasd_bar_mouse", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.SPACE_BAR, KeyStroke.LMB_WITH_BAR, KeyStroke.RMB_WITH_BAR),
+    WASD("WASD", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT),
+    WASD_MOUSE("WASD_MOUSE", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.LMB_WITHOUT_BAR, KeyStroke.RMB_WITHOUT_BAR),
+    WASD_BAR("WASD_BAR", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.SPACE_BAR),
+    WASD_BAR_MOUSE("WASD_BAR_MOUSE", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.SPACE_BAR, KeyStroke.LMB_WITH_BAR, KeyStroke.RMB_WITH_BAR),
     ;
 
     private final KeyStroke[] keyStrokes;
@@ -34,10 +36,10 @@ public enum EnumKeyStrokeModule {
         return width;
     }
     public Component getName() {
-        return new TranslatableComponent("lezard.keyMode." + name);
+        return new TranslatableComponent("lezard.keyMode." + name.toLowerCase(Locale.ROOT));
     }
 
-    public String getLitteralName(){
+    public String getLiteralName(){
         return name;
     }
 }

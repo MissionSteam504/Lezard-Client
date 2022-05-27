@@ -66,7 +66,7 @@ public class InGameTimeHudPlugin extends HudPlugin {
         Font font = minecraft.font;
 
         string = "Time: " + getInGameWorldHours() + ":" + getInGameWorldMinutes();
-        drawString(p_93031_, font, string, posX, posY, rainbow ? PluginsManager.rainbowText() : Color.WHITE.getRGB());
+        drawString(p_93031_, font, string, posX, posY, rainbow ? PluginsManager.rainbowText() : colors.getRgb());
     }
 
     private static String getInGameWorldMinutes(){

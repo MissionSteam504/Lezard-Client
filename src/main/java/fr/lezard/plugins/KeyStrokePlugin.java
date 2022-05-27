@@ -39,6 +39,11 @@ public class KeyStrokePlugin extends HudPlugin {
         filled = isFilled();
         rainbow = isRainbow();
         colors = getColors();
+
+        if(!PluginFileManager.getString(name, "mode").equalsIgnoreCase("")){
+            keyMode = EnumKeyStrokeModule.valueOf(PluginFileManager.getString(name, "mode"));
+        }
+
         System.out.println(LezardCore.PREFIX + "KeyStroke HUD Enabled");
     }
 

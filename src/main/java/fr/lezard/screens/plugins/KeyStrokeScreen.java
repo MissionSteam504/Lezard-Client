@@ -44,6 +44,7 @@ public class KeyStrokeScreen extends Screen {
             PluginFileManager.writeJson(KeyStrokePlugin.name, "filled", KeyStrokePlugin.filled);
             PluginFileManager.writeJson(KeyStrokePlugin.name, "rainbow", KeyStrokePlugin.rainbow);
             PluginFileManager.writeJson(KeyStrokePlugin.name, "color", KeyStrokePlugin.colors.getLiteralName());
+            PluginFileManager.writeJson(KeyStrokePlugin.name, "mode", KeyStrokePlugin.keyMode.getLiteralName());
             Minecraft.getInstance().setScreen(new MainPluginsScreen());
         }));
     }
