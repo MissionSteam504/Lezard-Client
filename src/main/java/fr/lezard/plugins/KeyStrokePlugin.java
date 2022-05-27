@@ -61,7 +61,7 @@ public class KeyStrokePlugin extends HudPlugin {
             posY = PluginsLocationScreen.tempY;
         }
         if(filled) {
-            GuiComponent.fill(poseStack, posX - PluginsLocationScreen.GAP, posY - PluginsLocationScreen.GAP, PluginPos.getWidth(name) + posX + PluginsLocationScreen.GAP, PluginPos.getHeight(name) + posY + PluginsLocationScreen.GAP, 0x2929292F);
+            GuiComponent.fill(poseStack, posX - PluginsLocationScreen.GAP, posY - PluginsLocationScreen.GAP, PluginPos.getWidth(name) + posX + PluginsLocationScreen.GAP, PluginPos.getHeight(name) + posY + PluginsLocationScreen.GAP, PluginsManager.color.getRGB());
         }
         for(KeyStroke k : keyMode.getKeyStrokes()){
             GuiComponent.fill(poseStack,
@@ -77,7 +77,7 @@ public class KeyStrokePlugin extends HudPlugin {
                     Minecraft.getInstance().font,
                     k.getName(),
                     posX + k.getX() + k.getWidth() / 2 - textWidth / 2,
-                    posY + k.getY() + k.getHeight() / 4,
+                    posY + k.getY() +k.getHeight() / 4 + (!k.isBar() ? 2 : -1),
                     rainbow ? PluginsManager.rainbowText() : colors.getRgb()
             );
         }

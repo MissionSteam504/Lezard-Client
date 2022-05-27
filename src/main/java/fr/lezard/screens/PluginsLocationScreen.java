@@ -35,15 +35,9 @@ public class PluginsLocationScreen extends Screen {
     private void createPluginsMenu() {
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 24 -16, 98, 20, new TranslatableComponent("lezard.plugins.edit"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new MainPluginsScreen());
-            for(HudPlugin plugin : PluginsManager.hudPlugins){
-                plugin.updatePos();
-            }
         }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 48 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new LezardScreen());
-            for(HudPlugin plugin : PluginsManager.hudPlugins){
-                plugin.updatePos();
-            }
         }));
     }
 

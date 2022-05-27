@@ -8,8 +8,12 @@ import java.util.Locale;
 public enum EnumKeyStrokeModule {
     WASD("WASD", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT),
     WASD_MOUSE("WASD_MOUSE", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.LMB_WITHOUT_BAR, KeyStroke.RMB_WITHOUT_BAR),
+
     WASD_BAR("WASD_BAR", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.SPACE_BAR),
-    WASD_BAR_MOUSE("WASD_BAR_MOUSE", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.SPACE_BAR, KeyStroke.LMB_WITH_BAR, KeyStroke.RMB_WITH_BAR),
+    WASD_DOUBLE_BAR("WASD_DOUBLE_BAR", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.SPACE_BAR_WITH_SHIFT, KeyStroke.SHIFT),
+
+    WASD_JUMP_MOUSE("WASD_JUMP_MOUSE", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.SPACE_BAR, KeyStroke.LMB_WITH_BAR, KeyStroke.RMB_WITH_BAR),
+    FULL("FULL", KeyStroke.FORWARD, KeyStroke.BACK, KeyStroke.LEFT, KeyStroke.RIGHT, KeyStroke.SPACE_BAR_WITH_SHIFT, KeyStroke.SHIFT, KeyStroke.LMB_WITH_BAR, KeyStroke.RMB_WITH_BAR),
     ;
 
     private final KeyStroke[] keyStrokes;

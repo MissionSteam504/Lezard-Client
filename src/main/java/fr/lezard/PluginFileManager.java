@@ -20,6 +20,8 @@ public class PluginFileManager {
         return null;
     }
 
+    // With PluginName :
+
     public static void writeJson(String pluginName, String property, String value){
         JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
         assert jsonObject != null;
@@ -80,6 +82,73 @@ public class PluginFileManager {
         assert jsonObject != null;
         if(jsonObject.has(pluginName + "." + property)){
             String newValue = jsonObject.get(pluginName + "." + property).toString().replaceAll("\"", "");
+            return Integer.parseInt(newValue);
+        }
+        return 0;
+    }
+
+    // Without :
+
+    public static void writeJsonWithout(String property, String value){
+        JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
+        assert jsonObject != null;
+        jsonObject.addProperty(property, value);
+
+        try (FileWriter file = new FileWriter(PluginsManager.pluginFile)) {
+            file.write(jsonObject.toString());
+            file.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void writeJsonWithout(String property, boolean value){
+        JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
+        // JsonObject plugin = jsonObject.getAsJsonObject(pluginName);
+        assert jsonObject != null;
+        jsonObject.addProperty(property, value);
+
+        try (FileWriter file = new FileWriter(PluginsManager.pluginFile)) {
+            file.write(jsonObject.toString());
+            file.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void writeJsonWithout(String property, int value){
+        JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
+        assert jsonObject != null;
+        jsonObject.addProperty(property, value);
+
+        try (FileWriter file = new FileWriter(PluginsManager.pluginFile)) {
+            file.write(jsonObject.toString());
+            file.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getStringWithout(String property) {
+        JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
+        assert jsonObject != null;
+        if (jsonObject.has(property)) {
+            return jsonObject.get(property).toString().replaceAll("\"", "");
+        }
+        return "";
+    }
+    public static boolean getBooleanWithout(String property) {
+        JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
+        assert jsonObject != null;
+        if (jsonObject.has(property)) {
+            String newValue = jsonObject.get(property).toString().replaceAll("\"", "");
+            return Boolean.parseBoolean(newValue);
+        }
+        return false;
+    }
+    public static int getIntWithout(String property) {
+        JsonObject jsonObject = (JsonObject) jsonFileParser(PluginsManager.pluginFile);
+        assert jsonObject != null;
+        if(jsonObject.has(property)){
+            String newValue = jsonObject.get(property).toString().replaceAll("\"", "");
             return Integer.parseInt(newValue);
         }
         return 0;

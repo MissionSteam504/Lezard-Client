@@ -21,6 +21,10 @@ public class PluginsManager {
     public static final List<HudPlugin> hudPlugins = new ArrayList<>();
     public static final List<String> pluginsName = new ArrayList<>();
 
+    public static int colorAlpha = 95;
+
+    public static Color color = new Color(0, 0, 0, colorAlpha);
+
     public void launch(){
         minecraft = Minecraft.getInstance();
 
@@ -47,10 +51,6 @@ public class PluginsManager {
         instance.registerPlugin(new FpsHudPlugin("FPS HUD", PluginFileManager.getInt("FPS HUD", "posX"), PluginFileManager.getInt("FPS HUD", "posY")));
         instance.registerPlugin(new CompassHudPlugin("Compass HUD", PluginFileManager.getInt("Compass HUD", "posX"), PluginFileManager.getInt("Compass HUD", "posY")));
         instance.registerPlugin(new KeyStrokePlugin("KeyStroke HUD", PluginFileManager.getInt("KeyStroke HUD", "posX"), PluginFileManager.getInt("KeyStroke HUD", "posY")));
-
-        for(HudPlugin plugin : PluginsManager.hudPlugins){
-            plugin.updatePos();
-        }
     }
 
     private void registerPlugin(Plugin plugin) {
