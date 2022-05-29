@@ -66,9 +66,12 @@ public class CompassHudPlugin extends HudPlugin {
             GuiComponent.fill(p_93031_, posX - PluginsLocationScreen.GAP, posY - PluginsLocationScreen.GAP, PluginPos.getWidth(name) + posX + PluginsLocationScreen.GAP, PluginPos.getHeight(name) + posY + PluginsLocationScreen.GAP, PluginsManager.color.getRGB());
         }
 
+
         int middle = PluginPos.getWidth(name) / 2;
 
-        int angle = (int) Mth.wrapDegrees(minecraft.player.getYRot());
+        assert minecraft.player != null;
+        int angle = (int) Mth.wrapDegrees(minecraft.player.getYRot()) * -1 - 360;
+
         Font font = minecraft.font;
 
         drawString(p_93031_, font, "V", posX + middle, posY, Color.WHITE.getRGB());
@@ -76,36 +79,29 @@ public class CompassHudPlugin extends HudPlugin {
         for(int i =0; i<=1; i++){
             for(double d=0.0D; d<=3.5D; d+=0.5D){
                 if(width + angle > width - 60 && width + angle < width + 60){
-                    // String s = "\u00A76" + new TranslatableComponent("lezard.south");
                     String s = "\u00A76South";
                     if(d==0.5D){
-                        // s = String.valueOf(new TranslatableComponent("lezard.southWest"));
-                        s = "South-East";
+                        s = "South-West";
                     }
                     if(d==1.0D){
-                        // s = "\u00A76" + new TranslatableComponent("lezard.west");
                         s = "\u00A76West";
                     }
                     if(d==1.5D){
-                        // s = String.valueOf(new TranslatableComponent("lezard.northWest"));
                         s = "North-West";
                     }
                     if(d==2.0D){
-                        //s = "\u00A76" + new TranslatableComponent("lezard.north");
                         s = "\u00A76North";
                     }
                     if(d==2.5D){
                         s = "North-East";
                     }
                     if(d==3.0D){
-                        // s = "\u00A76" + new TranslatableComponent("lezard.east");
                         s = "\u00A76East";
                     }
                     if(d==3.5D){
-                        // s = String.valueOf(new TranslatableComponent("lezard.southEast"));
                         s = "South-East";
                     }
-                    drawString(p_93031_, font, s, posX + middle + angle, posY + 8, rainbow ? PluginsManager.rainbowText() : colors.getRgb());
+                    drawString(p_93031_, font, s, posX + middle + angle - (font.width(s)/2) + (font.width("V") /2), posY + 8, rainbow ? PluginsManager.rainbowText() : colors.getRgb());
                 }
                 angle+=45;
             }

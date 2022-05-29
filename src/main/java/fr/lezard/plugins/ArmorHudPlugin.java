@@ -51,6 +51,9 @@ public class ArmorHudPlugin extends HudPlugin {
     }
 
     public static void renderFill(PoseStack poseStack){
+        if(Minecraft.getInstance().options.renderDebug){
+            return;
+        }
         if(filled) {
             GuiComponent.fill(poseStack, posX - PluginsLocationScreen.GAP, posY - PluginsLocationScreen.GAP, PluginPos.getWidth(name) + posX + PluginsLocationScreen.GAP, PluginPos.getHeight(name) + posY + PluginsLocationScreen.GAP, PluginsManager.color.getRGB());
         }
