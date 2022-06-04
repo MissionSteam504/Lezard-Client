@@ -1,4 +1,14 @@
-<img src="https://user-images.githubusercontent.com/91340350/168075608-0ec807e8-6087-477f-aa69-fb31e495d9be.png" width="100%"></img> 
+<img src="https://user-images.githubusercontent.com/91340350/168075608-0ec807e8-6087-477f-aa69-fb31e495d9be.png" width="100%"></img>
+<h1 align="center">Lezard Client</h1>
+
+[<p align="center">
+<img src="https://img.shields.io/badge/Build-Alpha-blueviolet.svg?logo=appveyor" alt="build">](https://github.com/MissionSteam504/Lezard-Launcher/releases) 
+[<img src="https://img.shields.io/badge/Version-0.3.5-orange.svg?logo=appveyor" alt="downloads">](https://github.com/MissionSteam504/Lezard-Launcher/releases) 
+[<img src="https://img.shields.io/github/issues-raw/MissionSteam504/Lezard-Client?label=Open%20issues&logo=appveyor" alt="stark">](https://github.com/MissionSteam504/Lezard-Launcher/releases)
+<img src="https://img.shields.io/github/repo-size/MissionSteam504/Lezard-Client?label=Size&logo=appveyor" alt="size">
+</p>
+
+---
 
 # Lezard-Client
 The Lezard Client **is** a new, open-source, minecraft client for the newer versions of the game. It is oriented not for PvP, but for the Vanilla and the Survival experience. **It is not a hack client for Minecraft and do not ask for it**. 1 I hate hacked client and 2 it is not fun for other people.
