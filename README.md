@@ -18,7 +18,7 @@ Also, I misspelled the word lizard in English and decided to leave it like that.
 I fall in love with Java programming and i love the game Minecraft. I want to make Minecraft as good as possible, with GUIs, optimizations, QOL features and other. I wanted a client for the latest versions of Minecraft but it is complicated, every client are on 1.8.9, the only good client i found in 1.18 is the feather client but first it is not stable and do you want to pay 15$ ? The second thing is that you are not sure that if the client steal your minecraft account and thats why i made my launcher and the client open-source ( even if a key logger should be in the launcher and i know that it will be invisble if i put it in the minecraft code but you can decompile the launcher and he client if you want to see ). You can use the code of the launcher for you own use, for learn how to make a client ( im not the best example ), for see how i made something  or other. Just dont share the unmodified code and say that you made it.
 
 # Updates
-I dont want to update it for the 1.19 for now because the mcp is not out yet and i think there will be more players in 1.18 than in 1.19 so no plan for now. Maybe a version in 1.17 for the computers that cant run 1.18. Im not saying that i will do it but if i have time for that, why not.
+It will be updated for 1.19 and for 1.18.2 (no 1.18.1 and 1.18.0). I will maybe downgrade to 1.17.1 for the computers that cant run 1.18. Im not saying that i will do it but if i have time for that, why not.
 
 # How to use/play it ?
 - First go download the [latest release](https://github.com/MissionSteam504/Lezard-Launcher/releases) of the launcher in [MissionSteam504/Lezard-Launcher](https://github.com/MissionSteam504/Lezard-Launcher)
