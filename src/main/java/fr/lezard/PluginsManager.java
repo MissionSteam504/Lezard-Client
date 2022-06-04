@@ -28,7 +28,7 @@ public class PluginsManager {
     public void launch(){
         minecraft = Minecraft.getInstance();
 
-        pluginFile = new File(minecraft.gameDirectory, "lezard-settings.json");
+        pluginFile = new File(minecraft.gameDirectory, LezardCore.NAMESPACE + "-settings.json");
 
         if(!pluginFile.exists()){
             try {
@@ -45,6 +45,9 @@ public class PluginsManager {
         PluginPos.init();
 
         instance.registerPlugin(new ItemPhysicsPlugin("Item Physics"));
+        instance.registerPlugin(new SimplifiedDebugPlugin("Simplified Debug"));
+
+
         instance.registerPlugin(new InGameTimeHudPlugin("In Game Time HUD", PluginFileManager.getInt("In Game Time HUD", "posX"), PluginFileManager.getInt("In Game Time HUD", "posY")));
         instance.registerPlugin(new RealTimeHudPlugin("Real Time HUD", PluginFileManager.getInt("Real Time HUD", "posX"), PluginFileManager.getInt("Real Time HUD", "posY")));
         instance.registerPlugin(new ArmorHudPlugin("Armor HUD", PluginFileManager.getInt("Armor HUD", "posX"), PluginFileManager.getInt("Armor HUD", "posY")));

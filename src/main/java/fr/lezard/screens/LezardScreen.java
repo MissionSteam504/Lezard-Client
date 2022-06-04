@@ -1,6 +1,7 @@
 package fr.lezard.screens;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
@@ -9,7 +10,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 
 public class LezardScreen extends Screen {
     public LezardScreen() {
-        super(new TranslatableComponent("lezard.gui.settings.title"));
+        super(new TranslatableComponent(LezardCore.NAMESPACE + ".gui.settings.title"));
     }
 
 
@@ -18,10 +19,10 @@ public class LezardScreen extends Screen {
     }
 
     public void createSettingsMenu() {
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 12 -16, 98, 20, new TranslatableComponent("lezard.plugins"), (p_96335_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 12 -16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".plugins"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new PluginsLocationScreen());
         }));
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 36 -16, 98, 20, new TranslatableComponent("lezard.lezardSettings"), (p_96335_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 36 -16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".lezardSettings"), (p_96335_) -> {
             // Minecraft.getInstance().setScreen(new PluginsLocationScreen());
         }));
 

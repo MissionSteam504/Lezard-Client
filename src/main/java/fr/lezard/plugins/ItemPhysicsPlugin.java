@@ -2,6 +2,7 @@ package fr.lezard.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import fr.lezard.LezardCore;
 import fr.lezard.plugins.utils.Plugin;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
@@ -25,7 +26,7 @@ public class ItemPhysicsPlugin extends Plugin {
 
     public void init() {
         enabled = isEnabled();
-        System.out.println("ItemPhysics Enabled");
+        System.out.println(LezardCore.PREFIX + name + " Enabled");
     }
 
     public static void itemPhysics(BakedModel bakedModel, ItemEntity p_115036_, float p_115038_, PoseStack p_115039_, ItemStack itemStack){

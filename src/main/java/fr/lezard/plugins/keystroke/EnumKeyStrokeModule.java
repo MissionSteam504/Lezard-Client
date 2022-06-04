@@ -1,5 +1,6 @@
 package fr.lezard.plugins.keystroke;
 
+import fr.lezard.LezardCore;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 
@@ -20,7 +21,7 @@ public enum EnumKeyStrokeModule {
     private int width, height;
     private final String name;
 
-    private EnumKeyStrokeModule(String name, KeyStroke... keyStrokes){
+    EnumKeyStrokeModule(String name, KeyStroke... keyStrokes){
         this.name = name;
         this.keyStrokes = keyStrokes;
 
@@ -40,7 +41,7 @@ public enum EnumKeyStrokeModule {
         return width;
     }
     public Component getName() {
-        return new TranslatableComponent("lezard.keyMode." + name.toLowerCase(Locale.ROOT));
+        return new TranslatableComponent(LezardCore.NAMESPACE + ".keyMode." + name.toLowerCase(Locale.ROOT));
     }
 
     public String getLiteralName(){

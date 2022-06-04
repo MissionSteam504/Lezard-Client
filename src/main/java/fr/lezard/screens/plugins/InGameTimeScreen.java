@@ -1,6 +1,7 @@
 package fr.lezard.screens.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
 import fr.lezard.plugins.ArmorHudPlugin;
@@ -16,7 +17,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 
 public class InGameTimeScreen extends Screen {
     public InGameTimeScreen() {
-        super(new TranslatableComponent("lezard.plugin.inGameTime"));
+        super(new TranslatableComponent(LezardCore.NAMESPACE + ".plugin.inGameTime"));
     }
 
     protected void init() {

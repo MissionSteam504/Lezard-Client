@@ -1,6 +1,7 @@
 package fr.lezard.screens.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
 import fr.lezard.plugins.ArmorHudPlugin;
@@ -16,7 +17,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 
 public class FpsHudScreen extends Screen {
     public FpsHudScreen() {
-        super(new TranslatableComponent("lezard.plugin.fpsHud"));
+        super(new TranslatableComponent(LezardCore.NAMESPACE + ".plugin.fpsHud"));
     }
 
     protected void init() {

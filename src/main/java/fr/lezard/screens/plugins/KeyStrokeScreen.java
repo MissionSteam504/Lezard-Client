@@ -2,6 +2,7 @@ package fr.lezard.screens.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.realmsclient.util.LevelType;
+import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.plugins.ArmorHudPlugin;
 import fr.lezard.plugins.InGameTimeHudPlugin;
@@ -16,7 +17,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 
 public class KeyStrokeScreen extends Screen {
     public KeyStrokeScreen() {
-        super(new TranslatableComponent("lezard.plugin.armorHud"));
+        super(new TranslatableComponent(LezardCore.NAMESPACE + ".plugin.armorHud"));
     }
 
     protected void init() {

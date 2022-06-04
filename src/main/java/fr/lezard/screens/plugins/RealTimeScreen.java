@@ -1,6 +1,7 @@
 package fr.lezard.screens.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.plugins.ArmorHudPlugin;
 import fr.lezard.plugins.InGameTimeHudPlugin;
@@ -15,7 +16,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 
 public class RealTimeScreen extends Screen {
     public RealTimeScreen() {
-        super(new TranslatableComponent("lezard.plugin.realTime"));
+        super(new TranslatableComponent(LezardCore.NAMESPACE + ".plugin.realTime"));
     }
 
     protected void init() {
@@ -23,7 +24,7 @@ public class RealTimeScreen extends Screen {
     }
 
     private void createPluginsMenu() {
-        this.addRenderableWidget(CycleButton.onOffBuilder(RealTimeHudPlugin.enabled).create(this.width / 2 - 49, this.height / 4 + 12 - 16, 98, 20, new TranslatableComponent("lezard.enabled"), (p_170168_, p_170169_) -> {
+        this.addRenderableWidget(CycleButton.onOffBuilder(RealTimeHudPlugin.enabled).create(this.width / 2 - 49, this.height / 4 + 12 - 16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".enabled"), (p_170168_, p_170169_) -> {
             RealTimeHudPlugin.enabled = !RealTimeHudPlugin.enabled;
         }));
         this.addRenderableWidget(CycleButton.onOffBuilder(RealTimeHudPlugin.filled).create(this.width / 2 - 49, this.height / 4 + 36 - 16, 98, 20, new TranslatableComponent("lezard.filled"), (p_170168_, p_170169_) -> {

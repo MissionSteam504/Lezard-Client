@@ -1,6 +1,7 @@
 package fr.lezard.screens;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.PluginsManager;
 import fr.lezard.plugins.utils.HudPlugin;
@@ -25,7 +26,7 @@ public class PluginsLocationScreen extends Screen {
     public static final int GAP = 4;
 
     public PluginsLocationScreen() {
-        super(new TranslatableComponent("lezard.gui.plugins.title"));
+        super(new TranslatableComponent(LezardCore.NAMESPACE + ".gui.plugins.title"));
     }
 
     protected void init() {
@@ -33,10 +34,10 @@ public class PluginsLocationScreen extends Screen {
     }
 
     private void createPluginsMenu() {
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 24 -16, 98, 20, new TranslatableComponent("lezard.plugins.edit"), (p_96335_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 24 -16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".plugins.edit"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new MainPluginsScreen());
         }));
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 48 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 48 -16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".goBack"), (p_96335_) -> {
             Minecraft.getInstance().setScreen(new LezardScreen());
         }));
     }

@@ -9,14 +9,14 @@ import java.util.Random;
 
 public class LezardCore {
 
-    private final Minecraft mc = Minecraft.getInstance();
+    private static final Minecraft mc = Minecraft.getInstance();
     private static final LezardCore instance = new LezardCore();
     public static final boolean IDE_CLIENT = true;
     public static final String NAMESPACE = "lezard";
     public static final String PREFIX = "[LezardClient] ";
     public static final String CLIENT_USERNAME = "LezardUser";
-    private final String CLIENT_NAME = "Lezard Client";
-    public final String CLIENT_VERSION = "0.3.5";
+    public static final String CLIENT_NAME = "Lezard Client";
+    public static final String CLIENT_VERSION = "0.3.6";
 
     public static LezardCore getInstance(){
         return instance;

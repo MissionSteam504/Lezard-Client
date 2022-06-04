@@ -1,6 +1,7 @@
 package fr.lezard.screens.plugins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
 import fr.lezard.plugins.ArmorHudPlugin;
 import fr.lezard.plugins.utils.Colors;
@@ -14,7 +15,7 @@ import java.awt.*;
 
 public class ArmorHudScreen extends Screen {
     public ArmorHudScreen() {
-        super(new TranslatableComponent("lezard.plugin.armorHud"));
+        super(new TranslatableComponent(LezardCore.NAMESPACE + ".plugin.armorHud"));
     }
 
     protected void init() {
@@ -22,19 +23,19 @@ public class ArmorHudScreen extends Screen {
     }
 
     private void createPluginsMenu() {
-        this.addRenderableWidget(CycleButton.onOffBuilder(ArmorHudPlugin.enabled).create(this.width / 2 - 49, this.height / 4 + 12 - 16, 98, 20, new TranslatableComponent("lezard.enabled"), (p_170168_, p_170169_) -> {
+        this.addRenderableWidget(CycleButton.onOffBuilder(ArmorHudPlugin.enabled).create(this.width / 2 - 49, this.height / 4 + 12 - 16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".enabled"), (p_170168_, p_170169_) -> {
             ArmorHudPlugin.enabled = !ArmorHudPlugin.enabled;
         }));
-        this.addRenderableWidget(CycleButton.onOffBuilder(ArmorHudPlugin.filled).create(this.width / 2 - 49, this.height / 4 + 36 - 16, 98, 20, new TranslatableComponent("lezard.filled"), (p_170168_, p_170169_) -> {
+        this.addRenderableWidget(CycleButton.onOffBuilder(ArmorHudPlugin.filled).create(this.width / 2 - 49, this.height / 4 + 36 - 16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".filled"), (p_170168_, p_170169_) -> {
             ArmorHudPlugin.filled = !ArmorHudPlugin.filled;
         }));
-        this.addRenderableWidget(CycleButton.onOffBuilder(ArmorHudPlugin.rainbow).create(this.width / 2 - 49, this.height / 4 + 60 - 16, 98, 20, new TranslatableComponent("lezard.rainbow"), (p_170168_, p_170169_) -> {
+        this.addRenderableWidget(CycleButton.onOffBuilder(ArmorHudPlugin.rainbow).create(this.width / 2 - 49, this.height / 4 + 60 - 16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".rainbow"), (p_170168_, p_170169_) -> {
             ArmorHudPlugin.rainbow = !ArmorHudPlugin.rainbow;
         }));
-        this.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Colors.values()).withInitialValue(ArmorHudPlugin.colors).create(this.width / 2 - 49, this.height / 4 + 84 - 16, 98, 20, new TranslatableComponent("lezard.color"), (p_167441_, p_167442_) -> {
+        this.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Colors.values()).withInitialValue(ArmorHudPlugin.colors).create(this.width / 2 - 49, this.height / 4 + 84 - 16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".color"), (p_167441_, p_167442_) -> {
             ArmorHudPlugin.colors = p_167442_;
         }));
-        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent("lezard.goBack"), (p_96335_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".goBack"), (p_96335_) -> {
             PluginFileManager.writeJson(ArmorHudPlugin.name, "enabled", ArmorHudPlugin.enabled);
             PluginFileManager.writeJson(ArmorHudPlugin.name, "filled", ArmorHudPlugin.filled);
             PluginFileManager.writeJson(ArmorHudPlugin.name, "rainbow", ArmorHudPlugin.rainbow);
