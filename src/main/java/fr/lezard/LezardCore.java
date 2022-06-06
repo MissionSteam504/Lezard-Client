@@ -1,9 +1,6 @@
 package fr.lezard;
 
-import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
-import org.slf4j.Logger;
 
 import java.util.Random;
 
@@ -16,7 +13,7 @@ public class LezardCore {
     public static final String PREFIX = "[LezardClient] ";
     public static final String CLIENT_USERNAME = "LezardUser";
     public static final String CLIENT_NAME = "Lezard Client";
-    public static final String CLIENT_VERSION = "0.3.6";
+    public static final String CLIENT_VERSION = "0.3.7";
 
     public static LezardCore getInstance(){
         return instance;

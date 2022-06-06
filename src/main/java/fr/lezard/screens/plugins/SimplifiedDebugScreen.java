@@ -3,7 +3,6 @@ package fr.lezard.screens.plugins;
 import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.LezardCore;
 import fr.lezard.PluginFileManager;
-import fr.lezard.plugins.ItemPhysicsPlugin;
 import fr.lezard.plugins.SimplifiedDebugPlugin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
@@ -21,7 +20,7 @@ public class SimplifiedDebugScreen extends Screen {
     }
 
     private void createPluginsMenu() {
-        this.addRenderableWidget(CycleButton.onOffBuilder(ItemPhysicsPlugin.enabled).create(this.width / 2 - 49, this.height / 4 + 12 - 16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".enabled"), (p_170168_, p_170169_) -> {
+        this.addRenderableWidget(CycleButton.onOffBuilder(SimplifiedDebugPlugin.enabled).create(this.width / 2 - 49, this.height / 4 + 12 - 16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".enabled"), (p_170168_, p_170169_) -> {
             SimplifiedDebugPlugin.enabled = !SimplifiedDebugPlugin.enabled;
         }));
         this.addRenderableWidget(new Button(this.width / 2 - 49, this.height / 4 + 156 -16, 98, 20, new TranslatableComponent(LezardCore.NAMESPACE + ".goBack"), (p_96335_) -> {
