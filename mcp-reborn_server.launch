@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+  <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="mcp-reborn"/>
+  <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="net.minecraft.server.MinecraftServer"/>
+  <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value=""/>
+  <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value=""/>
+  <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="C:\Users\mimig\Documents\GitHub\Eclipse\Lezard-Client\run"/>
+  <mapAttribute key="org.eclipse.debug.core.environmentVariables">
+    <mapEntry key="MOD_CLASSES" value="C:\Users\mimig\Documents\GitHub\Eclipse\Lezard-Client\bin\main;C:\Users\mimig\Documents\GitHub\Eclipse\Lezard-Client\bin\main"/>
+  </mapAttribute>
+</launchConfiguration>

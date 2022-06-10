@@ -3,11 +3,8 @@ build/
 
 # Source code
 src/main/java/com
-src/main/java/mcp
 src/main/java/net
-src/main/resources/assets/minecraft
-src/main/resources/assets/realms
-src/main/resources/data
+src/main/java/mcp
 
 #Run files
 runclient
@@ -24,3 +21,4 @@ gradle-app.setting
 run/
 
 out/
+/bin/
