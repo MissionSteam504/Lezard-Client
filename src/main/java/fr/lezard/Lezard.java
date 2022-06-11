@@ -74,7 +74,7 @@ public class Lezard {
             try {
                 pluginFile.createNewFile();
                 PrintWriter printWriter = new PrintWriter(pluginFile);
-                printWriter.write("{\"" + NAMESPACE + ".alpha\": 95, \"" + NAMESPACE + ".gap\": 4, \"discord.enabled\": true}");
+                printWriter.write("{\"" + NAMESPACE + ".alpha\": 95, \"" + NAMESPACE + ".gap\": 4,  \"" + NAMESPACE + ".mainmenu\":true, \"discord.enabled\": true}");
                 printWriter.close();
             }catch (IOException e){
                 System.out.println("An error occurred.");
@@ -105,6 +105,7 @@ public class Lezard {
 		
 		LezardOption.alpha = FileWriterJson.getInt(NAMESPACE, "alpha");
 		LezardOption.gap = FileWriterJson.getInt(NAMESPACE, "gap");
+		LezardOption.customMainMenu = FileWriterJson.getBoolean(NAMESPACE, "mainmenu");
 		
 		color = new Color(0, 0, 0, LezardOption.alpha);
 		 

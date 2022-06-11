@@ -9,6 +9,7 @@ import com.mojang.realmsclient.RealmsMainScreen;
 
 import fr.lezard.Lezard;
 import fr.lezard.plugins.utils.SimplifiedDebugPlugin;
+import fr.lezard.utils.LezardOption;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -35,7 +36,6 @@ public class MainMenu extends Screen {
 	}
 	
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float p_96565_) {
-		// System.out.println(SimplifiedDebugPlugin.minecraft.);
 		this.poseStack = poseStack;
 		RenderSystem.setShaderTexture(0, BACKGROUND);
 		blit(poseStack, 0, 0, 0, 0, width, height, width, height);

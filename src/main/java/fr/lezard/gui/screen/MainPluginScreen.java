@@ -30,8 +30,15 @@ public class MainPluginScreen extends Screen {
 	}
 	
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float p_96565_) {
-		drawCenteredString(poseStack, this.font, this.title, this.width / 2, 15, 16777215);
 		renderBackground(poseStack);
+		drawCenteredString(poseStack, this.font, this.title, this.width / 2, 15, 16777215);
+		poseStack.pushPose();
+		poseStack.translate(width/2f, height/2f, 0);
+		poseStack.scale(3, 3, 1);
+		poseStack.translate(-(width/2f), -(height/2), 0);
+		drawCenteredString(poseStack, font, "Nothing here for now!", width/2, height/2 - font.lineHeight/2, -1);
+		poseStack.popPose();
+		
         super.render(poseStack, mouseX, mouseY, p_96565_);
     }
 	

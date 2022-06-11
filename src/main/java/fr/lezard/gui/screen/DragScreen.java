@@ -17,7 +17,8 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 public class DragScreen extends Screen {
-	private static final ResourceLocation ACCESSIBILITY_TEXTURE = new ResourceLocation("textures/gui/accessibility.png");
+	private static final ResourceLocation SETTINGS_TEXTURE = new ResourceLocation("lezard/gui/settings.png");
+	private static final ResourceLocation PLUGINS_TEXTURE = new ResourceLocation("lezard/gui/plugins.png");
 	
     private static final List<Integer> relativeX = new ArrayList<>();
     private static final List<Integer> relativeY = new ArrayList<>();
@@ -31,11 +32,10 @@ public class DragScreen extends Screen {
 	}
 	
 	protected void init() {
-		int l = this.height / 4 +48;
-		this.addRenderableWidget(new ImageButton(this.width / 2 -22, this.height-45, 20, 20, 0, 0, 20, ACCESSIBILITY_TEXTURE, 32, 64, (p_96784_) -> {
+		this.addRenderableWidget(new ImageButton(this.width / 2 -22, this.height-45, 20, 20, 0, 0, 20, SETTINGS_TEXTURE, 32, 64, (p_96784_) -> {
 	         this.minecraft.setScreen(new MainLezardScreen(this));
 	      }));
-		this.addRenderableWidget(new ImageButton(this.width / 2 +2, this.height-45, 20, 20, 0, 0, 20, ACCESSIBILITY_TEXTURE, 32, 64, (p_96784_) -> {
+		this.addRenderableWidget(new ImageButton(this.width / 2 +2, this.height-45, 20, 20, 0, 0, 20, PLUGINS_TEXTURE, 32, 64, (p_96784_) -> {
 	         this.minecraft.setScreen(new MainPluginScreen(this));
 	      }));
 	}
