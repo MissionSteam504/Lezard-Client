@@ -11,6 +11,7 @@ import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.LezardOption;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -46,7 +47,7 @@ public class CompassPluginHUD extends PluginHUD{
 			setHeight(font.lineHeight*2);
 			
 			if(isFilled()) {
-	            GuiComponent.fill(poseStack, posX - Lezard.GAP, posY - Lezard.GAP, getWidth() + posX + Lezard.GAP, getHeight() + posY + Lezard.GAP, Lezard.color.getRGB());
+	            GuiComponent.fill(poseStack, posX - LezardOption.gap, posY - LezardOption.gap, getWidth() + posX + LezardOption.gap, getHeight() + posY + LezardOption.gap, Lezard.color.getRGB());
 	        }
 			
 			int middle = getWidth() / 2;

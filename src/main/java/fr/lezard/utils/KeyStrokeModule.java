@@ -1,4 +1,4 @@
-package fr.lezard.plugins.utils;
+package fr.lezard.utils;
 
 import fr.lezard.Lezard;
 import net.minecraft.network.chat.Component;

@@ -8,10 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.slf4j.Logger;
+
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.logging.LogUtils;
 
 import fr.lezard.events.Event;
 import fr.lezard.events.EventType;
+import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.events.listeners.EventKey;
 import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
@@ -22,14 +26,18 @@ import fr.lezard.plugins.hud.CompassPluginHUD;
 import fr.lezard.plugins.hud.FPSPluginHUD;
 import fr.lezard.plugins.hud.IRLTimePluginHUD;
 import fr.lezard.plugins.hud.InGameTimePluginHUD;
-import fr.lezard.plugins.hud.KeyStrokePluginHUD;
-import fr.lezard.plugins.hud.SimplifiedDebugPlugin;
 import fr.lezard.plugins.hud.TabHUD;
+import fr.lezard.plugins.movement.KeyStrokePluginHUD;
 import fr.lezard.plugins.player.ArmorPluginHUD;
+import fr.lezard.plugins.player.CPSPluginHUD;
+import fr.lezard.plugins.player.CoordsPluginHUD;
 import fr.lezard.plugins.render.ItemPhysicsPlugin;
 import fr.lezard.plugins.utils.DiscordPlugin;
+import fr.lezard.plugins.utils.SimplifiedDebugPlugin;
 import fr.lezard.plugins.render.FullBrightPlugin;
 import fr.lezard.utils.DiscordIntegration;
+import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.LezardOption;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
@@ -39,15 +47,16 @@ public class Lezard {
 	// Remember to set IDE_CLIENT to false
 	// And to add the discord rpc lib in the jar
 	
+	private static final Logger LOGGER = LogUtils.getLogger();
 	
 	public static final String NAME = "Lezard Client";
 	public static final String NAMESPACE = "lezard";
-	public static final String VERSION = "2.0.0-alpha1";
+	public static final String VERSION = "2.0.0-alpha2";
 	public static final String DISCORD_APP_ID = "971435977199464528";
 	public static final String USERNAME = "LezardUser";
+	public static final String PREFIX = "[LezardClient] ";
 	
-	public static final int GAP = 4;
-	public static Color color = new Color(0, 0, 0, 95);
+	public static Color color = new Color(0, 0, 0, LezardOption.alpha);
 	
 	public static File pluginFile = new File(Minecraft.getInstance().gameDirectory, NAMESPACE + "-settings.json");
 	
@@ -57,7 +66,7 @@ public class Lezard {
 	public static CopyOnWriteArrayList<PluginHUD> pluginsHUD = new CopyOnWriteArrayList<PluginHUD>();
 	
 	public static void launch() {
-		System.out.println("Starting up...");
+		LOGGER.info(PREFIX + "Starting client...");
 		
 		Minecraft.getInstance().getWindow().setTitle(NAME + " " + VERSION + " | " + Minecraft.getInstance().getUser().getName());
 		
@@ -65,7 +74,7 @@ public class Lezard {
             try {
                 pluginFile.createNewFile();
                 PrintWriter printWriter = new PrintWriter(pluginFile);
-                printWriter.write("{}");
+                printWriter.write("{\"" + NAMESPACE + ".alpha\": 95, \"" + NAMESPACE + ".gap\": 4, \"discord.enabled\": true}");
                 printWriter.close();
             }catch (IOException e){
                 System.out.println("An error occurred.");
@@ -84,6 +93,8 @@ public class Lezard {
 		plugins.add(new CompassPluginHUD());
 		plugins.add(new KeyStrokePluginHUD());
 		plugins.add(new ArmorPluginHUD());
+		plugins.add(new CoordsPluginHUD());
+		plugins.add(new CPSPluginHUD());
 		
 		
 		for(Plugin p : plugins) {
@@ -91,10 +102,15 @@ public class Lezard {
 				pluginsHUD.add(pHud);
 			}
 		}
+		
+		LezardOption.alpha = FileWriterJson.getInt(NAMESPACE, "alpha");
+		LezardOption.gap = FileWriterJson.getInt(NAMESPACE, "gap");
+		
+		color = new Color(0, 0, 0, LezardOption.alpha);
 		 
 		onEvent(new EventStart());
 		
-		System.out.println("Finished!");
+		LOGGER.info(PREFIX + "Client setup finished!");
 	}
 	
 	public static void onEvent(Event<?> e) {
@@ -103,6 +119,9 @@ public class Lezard {
 				continue;
 			
 			p.onEvent(e);
+		}
+		if(e instanceof EventInGame) {
+			color = new Color(0, 0, 0, LezardOption.alpha);
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package fr.lezard.plugins.utils;
+package fr.lezard.utils;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;

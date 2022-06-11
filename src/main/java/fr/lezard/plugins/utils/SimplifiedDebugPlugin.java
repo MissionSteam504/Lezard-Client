@@ -1,4 +1,4 @@
-package fr.lezard.plugins.hud;
+package fr.lezard.plugins.utils;
 
 import java.util.List;
 import java.util.Locale;
@@ -156,10 +156,12 @@ public class SimplifiedDebugPlugin extends Plugin {
 
         list.add("Dimension: " + minecraft.level.dimension().location());
         list.add("");
-        list.add(String.format(Locale.ROOT, "XYZ: %.3f / %.5f / %.3f", minecraft.getCameraEntity().getX(), minecraft.getCameraEntity().getY(), minecraft.getCameraEntity().getZ()));
+        list.add(String.format(Locale.ROOT, "XYZ: %.2f / %.2f / %.2f", minecraft.getCameraEntity().getX(), minecraft.getCameraEntity().getY(), minecraft.getCameraEntity().getZ()));
         list.add(String.format("Block: %d %d %d [%d %d %d]", blockpos.getX(), blockpos.getY(), blockpos.getZ(), blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15));
         list.add(String.format("Chunk: %d %d %d [%d %d in r.%d.%d.mca]", chunkpos.x, SectionPos.blockToSectionCoord(blockpos.getY()), chunkpos.z, chunkpos.getRegionLocalX(), chunkpos.getRegionLocalZ(), chunkpos.getRegionX(), chunkpos.getRegionZ()));
-        list.add(String.format(Locale.ROOT, "Facing: %s (%s) (%.1f / %.1f)", direction, s1, Mth.wrapDegrees(entity.getYRot()), Mth.wrapDegrees(entity.getXRot())));
+        list.add("");
+        list.add(String.format(Locale.ROOT, "Roll: %.1f, Pitch: %.1f", Mth.wrapDegrees(entity.getYRot()), Mth.wrapDegrees(entity.getXRot())));
+        list.add(String.format(Locale.ROOT, "Facing: %s (%s)", direction, s1));
         LevelChunk levelchunk = getClientChunk();
         if (levelchunk.isEmpty()) {
             list.add("Waiting for chunk...");

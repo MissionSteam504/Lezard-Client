@@ -8,10 +8,17 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.Lezard;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.LezardOption;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.screens.AccessibilityOptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 
 public class DragScreen extends Screen {
+	private static final ResourceLocation ACCESSIBILITY_TEXTURE = new ResourceLocation("textures/gui/accessibility.png");
+	
     private static final List<Integer> relativeX = new ArrayList<>();
     private static final List<Integer> relativeY = new ArrayList<>();
     public static int posX;
@@ -24,7 +31,13 @@ public class DragScreen extends Screen {
 	}
 	
 	protected void init() {
-		
+		int l = this.height / 4 +48;
+		this.addRenderableWidget(new ImageButton(this.width / 2 -22, this.height-45, 20, 20, 0, 0, 20, ACCESSIBILITY_TEXTURE, 32, 64, (p_96784_) -> {
+	         this.minecraft.setScreen(new MainLezardScreen(this));
+	      }));
+		this.addRenderableWidget(new ImageButton(this.width / 2 +2, this.height-45, 20, 20, 0, 0, 20, ACCESSIBILITY_TEXTURE, 32, 64, (p_96784_) -> {
+	         this.minecraft.setScreen(new MainPluginScreen(this));
+	      }));
 	}
 	
 	public void tick() {
@@ -52,7 +65,7 @@ public class DragScreen extends Screen {
 				int relX = relativeX.get(Lezard.pluginsHUD.indexOf(currentPlugin));
 				int relY = relativeY.get(Lezard.pluginsHUD.indexOf(currentPlugin));
 	
-				if(relX >= -Lezard.GAP && relX <= currentPlugin.getWidth() + Lezard.GAP && relY >= -Lezard.GAP && relY <= currentPlugin.getHeight() + Lezard.GAP && currentPlugin.isEnabled()){
+				if(relX >= -LezardOption.gap && relX <= currentPlugin.getWidth() + LezardOption.gap && relY >= -LezardOption.gap && relY <= currentPlugin.getHeight() + LezardOption.gap && currentPlugin.isEnabled()){
 					posX=(int) (mouseX - relX);
 		            posY=(int) (mouseY - relY);
 		            currentPlugin.setDragged(true);

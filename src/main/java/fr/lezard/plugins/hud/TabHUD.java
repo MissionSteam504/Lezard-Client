@@ -14,6 +14,7 @@ import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.LezardOption;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -48,6 +49,9 @@ public class TabHUD extends PluginHUD{
 				posY = getPosY();
 			}
 			
+			if(isFilled()) {
+	            GuiComponent.fill(poseStack, posX - LezardOption.gap, posY - LezardOption.gap, getWidth() + posX + LezardOption.gap, getHeight() + posY + LezardOption.gap, Lezard.color.getRGB());
+	        }
 			
 			for(Plugin.Category c : Plugin.Category.values()) {
 				String temp=c.getName();

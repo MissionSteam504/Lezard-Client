@@ -9,6 +9,7 @@ import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.LezardOption;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -37,9 +38,6 @@ public class ArmorPluginHUD extends PluginHUD{
 				posX = getPosX();
 				posY = getPosY();
 			}
-			if(mc.options.renderDebug){
-	            return;
-	        }
 			
 			setWidth(120);
 			setHeight(64);
@@ -53,12 +51,15 @@ public class ArmorPluginHUD extends PluginHUD{
             return;
         }
 		if(isFilled()) {
-            GuiComponent.fill(poseStack, posX - Lezard.GAP, posY - Lezard.GAP, width + posX + Lezard.GAP, height + posY + Lezard.GAP, Lezard.color.getRGB());
+            GuiComponent.fill(poseStack, posX - LezardOption.gap, posY - LezardOption.gap, width + posX + LezardOption.gap, height + posY + LezardOption.gap, Lezard.color.getRGB());
         }
 	}
 	
 	public static void renderAmor(int pos, ItemStack item, PoseStack poseStack) {
 		Font font = Minecraft.getInstance().font;
+		if(Minecraft.getInstance().options.renderDebug){
+            return;
+        }
         int posYadd = (-16 * pos) + 48;
         
         if(item == null || item == ItemStack.EMPTY || item.equals(new ItemStack(Item.byBlock(Blocks.AIR)))){

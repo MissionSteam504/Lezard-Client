@@ -1,4 +1,4 @@
-package fr.lezard.plugins.hud;
+package fr.lezard.plugins.movement;
 
 import java.awt.Color;
 
@@ -10,9 +10,10 @@ import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.plugins.utils.KeyStroke;
-import fr.lezard.plugins.utils.KeyStrokeModule;
 import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.KeyStroke;
+import fr.lezard.utils.KeyStrokeModule;
+import fr.lezard.utils.LezardOption;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -49,7 +50,7 @@ public class KeyStrokePluginHUD extends PluginHUD{
 			setHeight(keyMode.getHeight());
 			
 			if(isFilled()) {
-	            GuiComponent.fill(poseStack, posX - Lezard.GAP, posY - Lezard.GAP, getWidth() + posX + Lezard.GAP, getHeight() + posY + Lezard.GAP, Lezard.color.getRGB());
+	            GuiComponent.fill(poseStack, posX - LezardOption.gap, posY - LezardOption.gap, getWidth() + posX + LezardOption.gap, getHeight() + posY + LezardOption.gap, Lezard.color.getRGB());
 	        }
 			
 			for(KeyStroke k : keyMode.getKeyStrokes()){

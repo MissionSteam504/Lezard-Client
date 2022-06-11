@@ -8,7 +8,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.realmsclient.RealmsMainScreen;
 
 import fr.lezard.Lezard;
-import fr.lezard.plugins.hud.SimplifiedDebugPlugin;
+import fr.lezard.plugins.utils.SimplifiedDebugPlugin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.gui.screens.Screen;

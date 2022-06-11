@@ -1,13 +1,13 @@
-package fr.lezard.plugins.hud;
+package fr.lezard.plugins.player;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import fr.lezard.Lezard;
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
+import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
@@ -16,12 +16,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 
-public class IRLTimePluginHUD extends PluginHUD {
-
-	public IRLTimePluginHUD() {
-		super("IRL Time", FileWriterJson.getBoolean("irl", "enabled"), Category.HUD, "irl", Minecraft.getInstance().options.keyIrlTime);
+public class CoordsPluginHUD extends PluginHUD{
+	public CoordsPluginHUD() {
+		super("Coords HUD", FileWriterJson.getBoolean("coords", "enabled"), Category.PLAYER, "coords", Minecraft.getInstance().options.keyCoords);
 	}
-
+	
 	public void onEvent(Event<?> e) {
 		if(e instanceof EventInGame) {
 			int posX = 0;
@@ -35,29 +34,22 @@ public class IRLTimePluginHUD extends PluginHUD {
 			}
 			
 			PoseStack poseStack = new PoseStack();
-			Minecraft mc = Minecraft.getInstance();
-			Font font = mc.font;
+			Minecraft minecraft = Minecraft.getInstance();
+			Font font = minecraft.font;
 			
-			if(mc.options.renderDebug){
+			if(minecraft.options.renderDebug){
 	            return;
 	        }
 			
-			Calendar calendar = new GregorianCalendar();
-
-	        int sec = calendar.get(Calendar.SECOND);
-	        int minutes = calendar.get(Calendar.MINUTE);
-	        int hours = calendar.get(Calendar.HOUR_OF_DAY);
-
-	        String string = "IRL Time: " + (hours<10 ? "0" + hours : hours) + ":" + (minutes<10 ? "0" + minutes : minutes) + ":" + (sec<10 ? "0" + sec : sec);
-	        
-	        setWidth(font.width(string));
+			String string = String.format(Locale.ROOT, "XYZ: %.0f / %.0f / %.0f", minecraft.getCameraEntity().getX(), minecraft.getCameraEntity().getY(), minecraft.getCameraEntity().getZ());
+			setWidth(font.width(string));
 			setHeight(font.lineHeight);
 			
 			if(isFilled()) {
 	            GuiComponent.fill(poseStack, posX - LezardOption.gap, posY - LezardOption.gap, getWidth() + posX + LezardOption.gap, getHeight() + posY + LezardOption.gap, Lezard.color.getRGB());
 	        }
-	        
-	        GuiComponent.drawString(poseStack, font, string, posX, posY, isRainbow() ? Lezard.rainbowText() : getColors().getRgb());
+			
+			GuiComponent.drawString(poseStack, font, string, posX, posY, isRainbow() ? Lezard.rainbowText() : getColors().getRgb());
 		}
 	}
 }
