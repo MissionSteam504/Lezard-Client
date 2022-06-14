@@ -11,6 +11,7 @@ import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.events.listeners.EventKey;
 import fr.lezard.gui.screen.DragScreen;
+import fr.lezard.gui.screen.plugins.TabHUDScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
@@ -24,7 +25,7 @@ public class TabHUD extends PluginHUD{
 	public boolean expanded;
 
 	public TabHUD() {
-		super("Tab HUD", FileWriterJson.getBoolean("Tab HUD", "enabled"), Category.HUD, "tab", Minecraft.getInstance().options.keyTabHud);
+		super("Tab HUD", FileWriterJson.getBoolean("tab", "enabled"), Category.HUD, "tab", Minecraft.getInstance().options.keyTabHud, new TabHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {

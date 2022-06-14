@@ -6,6 +6,8 @@ import net.minecraft.network.chat.TranslatableComponent;
 import java.awt.*;
 import java.util.Locale;
 
+import fr.lezard.Lezard;
+
 public enum Colors {
     WHITE(Color.WHITE.getRGB(), "WHITE"),
     LIGHT_GRAY(Color.LIGHT_GRAY.getRGB(), "LIGHT_GRAY"),
@@ -32,7 +34,7 @@ public enum Colors {
         return name;
     }
     public Component getName() {
-        return new TranslatableComponent("color." + name.toLowerCase(Locale.ROOT));
+        return new TranslatableComponent(Lezard.NAMESPACE + ".color." + name.toLowerCase(Locale.ROOT));
     }
     public int getRgb() {
         return rgb;

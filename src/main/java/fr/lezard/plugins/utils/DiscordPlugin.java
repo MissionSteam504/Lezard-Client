@@ -1,32 +1,33 @@
 package fr.lezard.plugins.utils;
 
-import club.minnced.discord.rpc.DiscordRPC;
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventStart;
+import fr.lezard.gui.screen.plugins.DiscordPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.DiscordIntegration;
 import fr.lezard.utils.FileWriterJson;
-import net.minecraft.client.KeyMapping;
+import net.arikia.dev.drpc.DiscordRPC;
 import net.minecraft.client.Minecraft;
 
 public class DiscordPlugin extends Plugin {
+	public static DiscordIntegration discord = new DiscordIntegration();
 
 	public DiscordPlugin() {
-		super("Discord RPC", FileWriterJson.getBoolean("discord", "enabled"), Category.UTILS, "discord", Minecraft.getInstance().options.keyDiscord);
+		super("Discord RPC", FileWriterJson.getBoolean("discord", "enabled"), Category.UTILS, "discord", Minecraft.getInstance().options.keyDiscord, new DiscordPluginScreen());
 	}
 	
 	public void onEnable() {
-		DiscordIntegration.init();
-		DiscordRPC.INSTANCE.Discord_UpdatePresence(DiscordIntegration.presence);
+		discord.start();
+		DiscordRPC.discordUpdatePresence(discord.b.build());
 	}
 	
 	public void onDisable() {
-		DiscordRPC.INSTANCE.Discord_Shutdown();
+		discord.shutdown();
 	}
 	
 	public void onEvent(Event<?> e) {
 		if(e instanceof EventStart) {
-			DiscordIntegration.init();
+			discord.start();
 		}
 	}
 }

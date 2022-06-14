@@ -12,17 +12,17 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.TranslatableComponent;
 
-public class MainLezardScreen extends Screen {
+public class LezardSettingsScreen extends Screen {
 	private OptionsList list;
 	private Screen lastScreen;
 
-	public MainLezardScreen(Screen lastScreen) {
+	public LezardSettingsScreen(Screen lastScreen) {
 		super(new TranslatableComponent(Lezard.NAMESPACE + ".gui.main"));
 		this.lastScreen = lastScreen;
 	}
 	
 	protected void init() {
-		Option[] OPTIONS = new Option[]{LezardOption.ALPHA_SLIDER, LezardOption.GAP_SLIDER, LezardOption.CUSTOM_MAIN_MENU};
+		Option[] OPTIONS = new Option[]{LezardOption.ALPHA_SLIDER, LezardOption.GAP_SLIDER};
 		this.list = new OptionsList(this.minecraft, this.width, this.height, 32, this.height - 32, 25);
 		// this.list.addBig(LezardOption.ALPHA_SLIDER);
 		this.list.addSmall(OPTIONS);
@@ -31,7 +31,6 @@ public class MainLezardScreen extends Screen {
 		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 200, 20, CommonComponents.GUI_DONE, (p_96827_) -> {
 			FileWriterJson.writeJson(Lezard.NAMESPACE, "alpha", LezardOption.alpha); 
 			FileWriterJson.writeJson(Lezard.NAMESPACE, "gap", LezardOption.gap); 
-			FileWriterJson.writeJson(Lezard.NAMESPACE, "mainmenu", LezardOption.customMainMenu); 
 			this.minecraft.setScreen(this.lastScreen);
 	      }));
 	}

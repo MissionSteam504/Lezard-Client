@@ -9,9 +9,7 @@ import fr.lezard.Lezard;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOption;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.screens.AccessibilityOptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -33,10 +31,10 @@ public class DragScreen extends Screen {
 	
 	protected void init() {
 		this.addRenderableWidget(new ImageButton(this.width / 2 -22, this.height-45, 20, 20, 0, 0, 20, SETTINGS_TEXTURE, 32, 64, (p_96784_) -> {
-	         this.minecraft.setScreen(new MainLezardScreen(this));
+	         this.minecraft.setScreen(new LezardSettingsScreen(this));
 	      }));
 		this.addRenderableWidget(new ImageButton(this.width / 2 +2, this.height-45, 20, 20, 0, 0, 20, PLUGINS_TEXTURE, 32, 64, (p_96784_) -> {
-	         this.minecraft.setScreen(new MainPluginScreen(this));
+	         this.minecraft.setScreen(new MainPluginScreen());
 	      }));
 	}
 	

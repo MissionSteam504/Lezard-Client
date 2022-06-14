@@ -5,8 +5,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.Lezard;
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
-import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
+import fr.lezard.gui.screen.plugins.InGameTimePluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOption;
@@ -16,7 +16,7 @@ import net.minecraft.client.gui.GuiComponent;
 
 public class InGameTimePluginHUD extends PluginHUD{
 	public InGameTimePluginHUD() {
-		super("In Game Time HUD", FileWriterJson.getBoolean("igtime", "enabled"), Category.HUD, "igtime", Minecraft.getInstance().options.keyInGameTime);
+		super("In Game Time HUD", FileWriterJson.getBoolean("igtime", "enabled"), Category.HUD, "igtime", Minecraft.getInstance().options.keyInGameTime, new InGameTimePluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {
@@ -38,8 +38,6 @@ public class InGameTimePluginHUD extends PluginHUD{
 			if(mc.options.renderDebug){
 	            return;
 	        }
-			
-			String[] data = mc.fpsString.split(" ");
 			
 			String string = "Time: " + getInGameWorldHours() + ":" + getInGameWorldMinutes();
 			setWidth(font.width(string));

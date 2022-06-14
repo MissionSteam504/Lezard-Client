@@ -9,6 +9,7 @@ import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
+import fr.lezard.gui.screen.plugins.KeyStrokePluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.KeyStroke;
@@ -23,7 +24,7 @@ public class KeyStrokePluginHUD extends PluginHUD{
 	public static KeyStrokeModule keyMode = KeyStrokeModule.WASD;
 	
 	public KeyStrokePluginHUD() {
-		super("KeyStroke HUD", FileWriterJson.getBoolean("key", "enabled"), Category.MOVEMENT, "key", Minecraft.getInstance().options.keyStroke);
+		super("KeyStroke HUD", FileWriterJson.getBoolean("key", "enabled"), Category.MOVEMENT, "key", Minecraft.getInstance().options.keyStroke, new KeyStrokePluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {
@@ -70,6 +71,11 @@ public class KeyStrokePluginHUD extends PluginHUD{
 	                    posY + k.getY() +k.getHeight() / 4 + (!k.isBar() ? 2 : -1),
 	                    isRainbow() ? Lezard.rainbowText() : getColors().getRgb()
 	            );
+	        }
+		}
+		if(e instanceof EventStart) {
+			if(!FileWriterJson.getString(getNamespace(), "mode").equalsIgnoreCase("")){
+	            keyMode = KeyStrokeModule.valueOf(FileWriterJson.getString(getNamespace(), "mode"));
 	        }
 		}
 	}

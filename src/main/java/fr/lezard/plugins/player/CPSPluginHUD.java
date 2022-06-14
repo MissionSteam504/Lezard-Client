@@ -2,22 +2,24 @@ package fr.lezard.plugins.player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import fr.lezard.Lezard;
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
-import fr.lezard.events.listeners.EventKey;
+import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
+import fr.lezard.gui.screen.plugins.CPSPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOption;
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public class CPSPluginHUD extends PluginHUD{
 	private static List<Long> clicksLeft = new ArrayList<Long>();
@@ -31,7 +33,7 @@ public class CPSPluginHUD extends PluginHUD{
 	private Long lastPressedButtonRight;
 	
 	public CPSPluginHUD() {
-		super("CPS HUD", FileWriterJson.getBoolean("cps", "enabled"), Category.PLAYER, "cps", Minecraft.getInstance().options.keyCps);
+		super("CPS HUD", FileWriterJson.getBoolean("cps", "enabled"), Category.PLAYER, "cps", Minecraft.getInstance().options.keyCps, new CPSPluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {
@@ -55,8 +57,6 @@ public class CPSPluginHUD extends PluginHUD{
 	        }
 			
 			String string = "";
-			
-			currentMode = Mode.DOUBLE;
 			
 			if(currentMode == Mode.LEFT) {
 				string = "LMB: " + getLeftCPS();
@@ -98,6 +98,11 @@ public class CPSPluginHUD extends PluginHUD{
 			
 			GuiComponent.drawString(poseStack, font, string, posX, posY, isRainbow() ? Lezard.rainbowText() : getColors().getRgb());
 		}
+		if(e instanceof EventStart) {
+			if(!FileWriterJson.getString(getNamespace(), "mode").equalsIgnoreCase("")){
+	            currentMode = CPSPluginHUD.Mode.valueOf(FileWriterJson.getString(getNamespace(), "mode"));
+	        }
+		}
 	}
 	
 	public static int getLeftCPS() {
@@ -114,8 +119,22 @@ public class CPSPluginHUD extends PluginHUD{
 	
 	
 	public enum Mode{
-		LEFT(),
-		RIGHT(),
-		DOUBLE();
+		LEFT("LEFT"),
+		RIGHT("RIGHT"),
+		DOUBLE("DOUBLE");
+		
+		private final String name;
+		
+		Mode(String name){
+			this.name = name;
+		}
+		
+		public Component getName() {
+	        return new TranslatableComponent(Lezard.NAMESPACE + ".cpsMode." + name.toLowerCase(Locale.ROOT));
+	    }
+
+	    public String getLiteralName(){
+	        return name;
+	    }
 	}
 }

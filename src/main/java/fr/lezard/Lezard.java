@@ -10,11 +10,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.slf4j.Logger;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.logging.LogUtils;
 
 import fr.lezard.events.Event;
-import fr.lezard.events.EventType;
 import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.events.listeners.EventKey;
 import fr.lezard.events.listeners.EventStart;
@@ -35,7 +33,6 @@ import fr.lezard.plugins.render.ItemPhysicsPlugin;
 import fr.lezard.plugins.utils.DiscordPlugin;
 import fr.lezard.plugins.utils.SimplifiedDebugPlugin;
 import fr.lezard.plugins.render.FullBrightPlugin;
-import fr.lezard.utils.DiscordIntegration;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOption;
 import net.minecraft.client.KeyMapping;
@@ -51,7 +48,7 @@ public class Lezard {
 	
 	public static final String NAME = "Lezard Client";
 	public static final String NAMESPACE = "lezard";
-	public static final String VERSION = "2.0.0-alpha2";
+	public static final String VERSION = "2.0.0-beta1";
 	public static final String DISCORD_APP_ID = "971435977199464528";
 	public static final String USERNAME = "LezardUser";
 	public static final String PREFIX = "[LezardClient] ";
@@ -74,7 +71,7 @@ public class Lezard {
             try {
                 pluginFile.createNewFile();
                 PrintWriter printWriter = new PrintWriter(pluginFile);
-                printWriter.write("{\"" + NAMESPACE + ".alpha\": 95, \"" + NAMESPACE + ".gap\": 4,  \"" + NAMESPACE + ".mainmenu\":true, \"discord.enabled\": true}");
+                printWriter.write("{\"" + NAMESPACE + ".alpha\": 95, \"" + NAMESPACE + ".gap\": 4}");
                 printWriter.close();
             }catch (IOException e){
                 System.out.println("An error occurred.");
@@ -82,19 +79,19 @@ public class Lezard {
             }
         }
 		
-		plugins.add(new ItemPhysicsPlugin());
-		plugins.add(new FPSPluginHUD());
-		plugins.add(new FullBrightPlugin());
-		plugins.add(new TabHUD());
-		plugins.add(new DiscordPlugin());
-		plugins.add(new SimplifiedDebugPlugin());
-		plugins.add(new InGameTimePluginHUD());
-		plugins.add(new IRLTimePluginHUD());
-		plugins.add(new CompassPluginHUD());
-		plugins.add(new KeyStrokePluginHUD());
 		plugins.add(new ArmorPluginHUD());
+		plugins.add(new CompassPluginHUD());
 		plugins.add(new CoordsPluginHUD());
 		plugins.add(new CPSPluginHUD());
+		plugins.add(new DiscordPlugin());
+		plugins.add(new FPSPluginHUD());
+		plugins.add(new FullBrightPlugin());
+		plugins.add(new InGameTimePluginHUD());
+		plugins.add(new IRLTimePluginHUD());
+		plugins.add(new ItemPhysicsPlugin());
+		plugins.add(new KeyStrokePluginHUD());
+		plugins.add(new SimplifiedDebugPlugin());
+		plugins.add(new TabHUD());
 		
 		
 		for(Plugin p : plugins) {
@@ -105,7 +102,6 @@ public class Lezard {
 		
 		LezardOption.alpha = FileWriterJson.getInt(NAMESPACE, "alpha");
 		LezardOption.gap = FileWriterJson.getInt(NAMESPACE, "gap");
-		LezardOption.customMainMenu = FileWriterJson.getBoolean(NAMESPACE, "mainmenu");
 		
 		color = new Color(0, 0, 0, LezardOption.alpha);
 		 

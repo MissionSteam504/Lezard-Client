@@ -3,26 +3,41 @@ package fr.lezard.gui.screen;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import fr.lezard.Lezard;
-import fr.lezard.utils.LezardOption;
-import net.minecraft.client.Option;
+import fr.lezard.plugins.Plugin;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.TranslatableComponent;
 
 public class MainPluginScreen extends Screen {
-	private Screen lastScreen;
+	public static int scrolling;
 
-	public MainPluginScreen(Screen lastScreen) {
+	public MainPluginScreen() {
 		super(new TranslatableComponent(Lezard.NAMESPACE + ".gui.plugin"));
-		this.lastScreen = lastScreen;
 	}
 	
 	protected void init() {
 		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 6 + 168, 200, 20, CommonComponents.GUI_DONE, (p_96257_) -> {
-	         this.minecraft.setScreen(this.lastScreen);
+	         this.minecraft.setScreen(new DragScreen());
 	      }));
+		int count = 0;
+		for(Plugin p : Lezard.plugins) {
+			if(scrolling > 0 ) {
+				scrolling =0;
+			}else if(scrolling < -44) {
+				scrolling = -44;
+			}
+			int x = this.width / 2 - 48;
+			int y = this.height / 6 + count*24 + scrolling*24;
+			count++;
+			if(y<40 || y + 20>200) {
+				continue;
+			}
+			this.addRenderableWidget(new Button(x, y, 96, 20, new TranslatableComponent(Lezard.NAMESPACE + ".plugin." + p.getNamespace()), (p_96257_) -> {
+		         this.minecraft.setScreen(p.getScreen());
+		      }));
+		}
 	}
 	
 	public void tick() {
@@ -32,13 +47,13 @@ public class MainPluginScreen extends Screen {
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float p_96565_) {
 		renderBackground(poseStack);
 		drawCenteredString(poseStack, this.font, this.title, this.width / 2, 15, 16777215);
-		poseStack.pushPose();
-		poseStack.translate(width/2f, height/2f, 0);
-		poseStack.scale(3, 3, 1);
-		poseStack.translate(-(width/2f), -(height/2), 0);
-		drawCenteredString(poseStack, font, "Nothing here for now!", width/2, height/2 - font.lineHeight/2, -1);
-		poseStack.popPose();
+		float temp=3.11f;
+		int divider=44;
+		//System.out.println(divider);
+		fill(poseStack, this.width/2+50, this.height / 6, this.width/2+50+3, 180, 0x70000000);
+		fill(poseStack, this.width/2 + 50, this.height / 6 - scrolling*temp,this.width/2 + 50+3, this.height/6 + 140/divider - scrolling*temp, 0x75ffffff);
 		
+		Minecraft.getInstance().setScreen(this);
         super.render(poseStack, mouseX, mouseY, p_96565_);
     }
 	
@@ -52,6 +67,14 @@ public class MainPluginScreen extends Screen {
 	
 	public boolean mouseReleased(double mouseX, double mouseY, int button) {
 		return super.mouseReleased(mouseX, mouseY, button);
+	}
+	
+	public static void scroll(double x, double y, double direction) {
+		if(direction<0)
+			scrolling--;
+		if(direction>0){
+			scrolling++;
+		}
 	}
 
 }

@@ -12,6 +12,7 @@ import fr.lezard.Lezard;
 
 public class FileWriterJson {
 	
+	@SuppressWarnings("deprecation")
 	public static Object jsonFileParser(File file) {
         try {
             FileReader reader = new FileReader(file);

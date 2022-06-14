@@ -3,6 +3,7 @@ package fr.lezard.plugins;
 import fr.lezard.events.Event;
 import fr.lezard.utils.FileWriterJson;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.gui.screens.Screen;
 
 public class Plugin {
 	private String name;
@@ -10,15 +11,21 @@ public class Plugin {
 	private Category category;
 	private String namespace;
 	private KeyMapping key;
+	private Screen screen;
 	
-	public Plugin(String name, boolean enabled, Category category, String namespace, KeyMapping key) {
+	public Plugin(String name, boolean enabled, Category category, String namespace, KeyMapping key, Screen screen) {
 		this.name = name;
 		this.enabled = enabled;
 		this.category = category;
 		this.namespace = namespace;
 		this.key = key;
+		this.screen = screen;
 	}
 	
+	public Screen getScreen() {
+		return screen;
+	}
+
 	public void onEvent(Event<?> e) {
 		
 	}

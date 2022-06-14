@@ -5,8 +5,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.Lezard;
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
-import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
+import fr.lezard.gui.screen.plugins.ArmorPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOption;
@@ -23,14 +23,11 @@ public class ArmorPluginHUD extends PluginHUD{
 	public static int width=0, height=0;
 	
 	public ArmorPluginHUD() {
-		super("Armor HUD", FileWriterJson.getBoolean("armor", "enabled"), Category.PLAYER, "armor", Minecraft.getInstance().options.keyArmor);
+		super("Armor HUD", FileWriterJson.getBoolean("armor", "enabled"), Category.PLAYER, "armor", Minecraft.getInstance().options.keyArmor, new ArmorPluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {
-		if(e instanceof EventInGame) {
-			PoseStack poseStack = new PoseStack();
-			Minecraft mc = Minecraft.getInstance();
-			
+		if(e instanceof EventInGame) {		
 			if(isDragged() && DragScreen.plugin == this) {
 				posX = DragScreen.posX;
 				posY = DragScreen.posY;
@@ -50,11 +47,13 @@ public class ArmorPluginHUD extends PluginHUD{
 		if(Minecraft.getInstance().options.renderDebug){
             return;
         }
-		if(isFilled()) {
+		PluginHUD p =(PluginHUD) Lezard.plugins.get(0);
+		if(p.isFilled()) {
             GuiComponent.fill(poseStack, posX - LezardOption.gap, posY - LezardOption.gap, width + posX + LezardOption.gap, height + posY + LezardOption.gap, Lezard.color.getRGB());
         }
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void renderAmor(int pos, ItemStack item, PoseStack poseStack) {
 		Font font = Minecraft.getInstance().font;
 		if(Minecraft.getInstance().options.renderDebug){
@@ -65,13 +64,14 @@ public class ArmorPluginHUD extends PluginHUD{
         if(item == null || item == ItemStack.EMPTY || item.equals(new ItemStack(Item.byBlock(Blocks.AIR)))){
             return;
         }
+        PluginHUD p =(PluginHUD) Lezard.plugins.get(0);
 
         Minecraft.getInstance().getItemRenderer().renderGuiItem(item, posX, posY + posYadd);
         if(item.isDamageableItem()){
             float damagePercent = (100 * (item.getMaxDamage() - item.getDamageValue())) / item.getMaxDamage();
             String damageLeft = "(" + (item.getMaxDamage() - item.getDamageValue()) + "/" + item.getMaxDamage() + ")";
             String string = String.format("%.2f%%", damagePercent) + " | " + damageLeft;
-            GuiComponent.drawString(poseStack, font, string, posX + 19, posY + posYadd + 4, isRainbow() ? Lezard.rainbowText() : getColors().getRgb());
+            GuiComponent.drawString(poseStack, font, string, posX + 19, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
         }
 	}
 }

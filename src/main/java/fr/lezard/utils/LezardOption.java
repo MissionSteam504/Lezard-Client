@@ -1,26 +1,16 @@
 package fr.lezard.utils;
 
 import fr.lezard.Lezard;
-import net.minecraft.client.CycleOption;
 import net.minecraft.client.ProgressOption;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class LezardOption {
-	public static boolean backgroundForChatOnly = true;
-	public static boolean customMainMenu = true;
 	public static int alpha = 95;
 	public static int gap = 4;
-	
-	public static final CycleOption<Boolean> CUSTOM_MAIN_MENU = CycleOption.createOnOff(Lezard.NAMESPACE + ".gui.custom", (p_168352_) -> {
-	      return customMainMenu;
-	   }, (p_168354_, p_168355_, p_168356_) -> {
-		   customMainMenu = p_168356_;
-	   });
 	
 	public static final ProgressOption ALPHA_SLIDER = new ProgressOption(Lezard.NAMESPACE + ".option.alpha", 0.0D, 255.0D, 1.0F, (p_168133_) -> {
 	      return (double)alpha;

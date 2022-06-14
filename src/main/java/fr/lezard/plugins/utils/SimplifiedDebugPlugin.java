@@ -17,6 +17,8 @@ import com.mojang.datafixers.DataFixUtils;
 
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventStart;
+import fr.lezard.events.listeners.EventUpdate;
+import fr.lezard.gui.screen.plugins.SimplifiedDebugPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.FileWriterJson;
 import net.minecraft.ChatFormatting;
@@ -32,7 +34,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.SectionPos;
-import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -63,7 +64,7 @@ public class SimplifiedDebugPlugin extends Plugin {
     private static CompletableFuture<LevelChunk> serverChunk;
 
 	public SimplifiedDebugPlugin() {
-		super("Simplified Debug", FileWriterJson.getBoolean("debug", "enabled"), Category.UTILS, "debug", Minecraft.getInstance().options.unknown);
+		super("Simplified Debug", FileWriterJson.getBoolean("debug", "enabled"), Category.UTILS, "debug", Minecraft.getInstance().options.keySimplfiedDebug, new SimplifiedDebugPluginScreen());
 	}
 	
 	
@@ -71,6 +72,11 @@ public class SimplifiedDebugPlugin extends Plugin {
 		if(e instanceof EventStart) {
 			minecraft = Minecraft.getInstance();
 			font = minecraft.font;
+		}
+		if(e instanceof EventUpdate) {
+			if(minecraft==null) {
+				minecraft= Minecraft.getInstance();
+			}
 		}
 	}
 	
@@ -119,9 +125,6 @@ public class SimplifiedDebugPlugin extends Plugin {
 
     static List<String> getGameInformation() {
         IntegratedServer integratedserver = minecraft.getSingleplayerServer();
-        Connection connection = minecraft.getConnection().getConnection();
-        float f = connection.getAverageSentPackets();
-        float f1 = connection.getAverageReceivedPackets();
         String s;
 
         String[] data = minecraft.fpsString.split(" ");
@@ -129,9 +132,9 @@ public class SimplifiedDebugPlugin extends Plugin {
         String tempFpsString = "FPS: " + data[0];
 
         if (integratedserver != null) {
-            s = String.format("Integrated server @ %.0f ms ticks, %.0f tx, %.0f rx", integratedserver.getAverageTickTime(), f, f1);
+            s = String.format("Integrated server @ %.0f ms ticks", integratedserver.getAverageTickTime());
         } else {
-            s = String.format("\"%s\" server, %.0f tx, %.0f rx", minecraft.player.getServerBrand(), f, f1);
+            s = String.format("\"%s\" server", minecraft.player.getServerBrand());
         }
 
         BlockPos blockpos = minecraft.getCameraEntity().blockPosition();

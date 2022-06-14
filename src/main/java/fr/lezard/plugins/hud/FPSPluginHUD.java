@@ -5,8 +5,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.Lezard;
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
-import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
+import fr.lezard.gui.screen.plugins.FPSPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOption;
@@ -16,7 +16,7 @@ import net.minecraft.client.gui.GuiComponent;
 
 public class FPSPluginHUD extends PluginHUD{
 	public FPSPluginHUD() {
-		super("FPS HUD", FileWriterJson.getBoolean("fps", "enabled"), Category.HUD, "fps", Minecraft.getInstance().options.keyFpsHud);
+		super("FPS HUD", FileWriterJson.getBoolean("fps", "enabled"), Category.HUD, "fps", Minecraft.getInstance().options.keyFpsHud, new FPSPluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {

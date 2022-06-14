@@ -7,8 +7,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.Lezard;
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
-import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
+import fr.lezard.gui.screen.plugins.CompassPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOption;
@@ -19,7 +19,7 @@ import net.minecraft.util.Mth;
 
 public class CompassPluginHUD extends PluginHUD{
 	public CompassPluginHUD() {
-		super("Compass HUD", FileWriterJson.getBoolean("compass", "enabled"), Category.HUD, "compass", Minecraft.getInstance().options.keyCompass);
+		super("Compass HUD", FileWriterJson.getBoolean("compass", "enabled"), Category.HUD, "compass", Minecraft.getInstance().options.keyCompass, new CompassPluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {

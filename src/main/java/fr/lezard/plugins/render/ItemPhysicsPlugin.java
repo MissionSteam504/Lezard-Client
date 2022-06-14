@@ -1,11 +1,9 @@
 package fr.lezard.plugins.render;
 
-import org.lwjgl.glfw.GLFW;
-
-import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 
+import fr.lezard.gui.screen.plugins.ItemPhysicsPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.FileWriterJson;
 import net.minecraft.client.Minecraft;
@@ -21,7 +19,7 @@ public class ItemPhysicsPlugin extends Plugin{
 	public static double speed = 1;
 	
 	public ItemPhysicsPlugin() {
-		super("Item Physics", FileWriterJson.getBoolean("itemphysics", "enabled"), Category.RENDER, "itemphysics", Minecraft.getInstance().options.keyItemPhysics);
+		super("Item Physics", FileWriterJson.getBoolean("itemphysics", "enabled"), Category.RENDER, "itemphysics", Minecraft.getInstance().options.keyItemPhysics, new ItemPhysicsPluginScreen());
 	}
 	
 	public static void setPhysics(PoseStack poseStack, BakedModel bakedModel, ItemEntity itemEntity, float p1538, ItemStack itemStack) {
