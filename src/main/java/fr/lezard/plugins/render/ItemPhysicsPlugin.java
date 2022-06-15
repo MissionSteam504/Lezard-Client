@@ -22,8 +22,8 @@ public class ItemPhysicsPlugin extends Plugin{
 		super("Item Physics", FileWriterJson.getBoolean("itemphysics", "enabled"), Category.RENDER, "itemphysics", Minecraft.getInstance().options.keyItemPhysics, new ItemPhysicsPluginScreen());
 	}
 	
-	public static void setPhysics(PoseStack poseStack, BakedModel bakedModel, ItemEntity itemEntity, float p1538, ItemStack itemStack) {
-		ItemEntityRenderer.shadowRadius = 0.0F;
+	public static void setPhysics(PoseStack poseStack, BakedModel bakedModel, ItemEntity itemEntity, float p1538, ItemStack itemStack,ItemEntityRenderer i) {
+		i.shadowRadius = 0.0F;
         Item item = itemStack.getItem();
         Block block = Block.byItem(item);
 

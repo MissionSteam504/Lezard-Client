@@ -1,5 +1,7 @@
 package fr.lezard.gui.screen.plugins;
 
+import java.util.Arrays;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import fr.lezard.Lezard;
@@ -29,7 +31,7 @@ public class TabHUDScreen extends Screen {
 		this.addRenderableWidget(CycleButton.onOffBuilder(plugin.isEnabled()).create(this.width / 2 - 48, this.height / 6, 96, 20, CommonLezardComponents.ENABLED, (p_170168_, p_170169_) -> {
 			plugin.toggle();
 		}));
-		this.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Colors.values()).withInitialValue(p.getColors()).create(this.width / 2 - 48, this.height / 6+ 22, 96, 20, CommonLezardComponents.COLOR, (p_167441_, p_167442_) -> {
+		this.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Arrays.asList(Colors.values())).withInitialValue(p.getColors()).create(this.width / 2 - 48, this.height / 6+ 22, 96, 20, CommonLezardComponents.COLOR, (p_167441_, p_167442_) -> {
             p.setColors(p_167442_);
         }));
 		this.addRenderableWidget(CycleButton.onOffBuilder(p.isRainbow()).create(this.width / 2 - 48, this.height / 6 + 44, 96, 20, CommonLezardComponents.RAINBOW, (p_170168_, p_170169_) -> {

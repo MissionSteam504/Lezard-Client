@@ -65,7 +65,7 @@ public class TabHUD extends PluginHUD{
 			
 			
 			GuiComponent.fill(poseStack, posX, posY, posX + categorysize, posY + Plugin.Category.values().length * 16 +1, 0x5f000000);
-			GuiComponent.fill(poseStack, posX + 2, posY+3 + currentTab * 16, posX+2 + categorysize - 4, posY+3 + currentTab * 16 + 12, expanded ? Color.TRANSLUCENT : (isRainbow() ? Lezard.rainbowText() : 0xff0060ff));
+			GuiComponent.fill(poseStack, posX + 2, posY+3 + currentTab * 16, posX+2 + categorysize - 4, posY+3 + currentTab * 16 + 12, expanded ? Color.TRANSLUCENT : (isRainbow() ? Lezard.rainbowText() : getColors().getRgb()));
 			
 			int count = 0;
 			for(Category c : Plugin.Category.values()) {

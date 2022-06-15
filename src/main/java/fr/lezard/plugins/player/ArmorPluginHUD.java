@@ -41,6 +41,14 @@ public class ArmorPluginHUD extends PluginHUD{
 			width=getWidth();
 			height=getHeight();
 		}
+		if(e.isPost()) {
+			PoseStack poseStack = new PoseStack();
+			ArmorPluginHUD.renderFill(poseStack);
+			for(int i =0; i<Minecraft.getInstance().player.getInventory().armor.size(); i++) {
+				ItemStack is = Minecraft.getInstance().player.getInventory().armor.get(i);
+				ArmorPluginHUD.renderAmor(i, is, poseStack);
+			}
+		}
 	}
 	
 	public static void renderFill(PoseStack poseStack) {

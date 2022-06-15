@@ -48,10 +48,11 @@ public class Lezard {
 	
 	public static final String NAME = "Lezard Client";
 	public static final String NAMESPACE = "lezard";
-	public static final String VERSION = "2.0.0-beta1";
+	public static final String VERSION = "2.0.0-beta2";
 	public static final String DISCORD_APP_ID = "971435977199464528";
 	public static final String USERNAME = "LezardUser";
 	public static final String PREFIX = "[LezardClient] ";
+	public static final String WINDOW_TITLE = NAME + " " + VERSION + " | " + Minecraft.getInstance().getUser().getName();
 	
 	public static Color color = new Color(0, 0, 0, LezardOption.alpha);
 	
@@ -64,8 +65,6 @@ public class Lezard {
 	
 	public static void launch() {
 		LOGGER.info(PREFIX + "Starting client...");
-		
-		Minecraft.getInstance().getWindow().setTitle(NAME + " " + VERSION + " | " + Minecraft.getInstance().getUser().getName());
 		
 		if(!pluginFile.exists()){
             try {

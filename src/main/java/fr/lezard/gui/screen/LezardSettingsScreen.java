@@ -25,7 +25,7 @@ public class LezardSettingsScreen extends Screen {
 		Option[] OPTIONS = new Option[]{LezardOption.ALPHA_SLIDER, LezardOption.GAP_SLIDER};
 		this.list = new OptionsList(this.minecraft, this.width, this.height, 32, this.height - 32, 25);
 		// this.list.addBig(LezardOption.ALPHA_SLIDER);
-		this.list.addSmall(OPTIONS);
+		this.list.a(OPTIONS);
 		this.addWidget(this.list);
 		
 		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 200, 20, CommonComponents.GUI_DONE, (p_96827_) -> {

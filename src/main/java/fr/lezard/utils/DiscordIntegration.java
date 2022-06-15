@@ -10,7 +10,6 @@ import net.arikia.dev.drpc.DiscordEventHandlers;
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.TitleScreen;
 
 public class DiscordIntegration {
 	private static final Logger LOGGER = LogUtils.getLogger();
@@ -34,7 +33,7 @@ public class DiscordIntegration {
 				try {
 					if(running) {
 						DiscordRPC.discordRunCallbacks();
-						if(Minecraft.getInstance().screen instanceof TitleScreen || Minecraft.getInstance().screen instanceof MainMenu) {
+						if(Minecraft.getInstance().screen instanceof MainMenu) {
 							update("Idle", "In the Title Screen");
 						}
 						if(Minecraft.getInstance().hasSingleplayerServer()) {

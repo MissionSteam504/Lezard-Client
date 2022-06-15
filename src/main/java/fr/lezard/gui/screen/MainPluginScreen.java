@@ -49,9 +49,8 @@ public class MainPluginScreen extends Screen {
 		drawCenteredString(poseStack, this.font, this.title, this.width / 2, 15, 16777215);
 		float temp=3.11f;
 		int divider=44;
-		//System.out.println(divider);
 		fill(poseStack, this.width/2+50, this.height / 6, this.width/2+50+3, this.height/6 + 140, 0x70000000);
-		fill(poseStack, this.width/2 + 50, this.height / 6 - scrolling*temp,this.width/2 + 50+3, this.height/6 + 140/divider - scrolling*temp, 0x75ffffff);
+		fill(poseStack, this.width/2+50, this.height / 6 - scrolling*temp, this.width/2+50+3, this.height/6+140/divider - scrolling*temp, 0x75ffffff);
 		
 		Minecraft.getInstance().setScreen(this);
         super.render(poseStack, mouseX, mouseY, p_96565_);

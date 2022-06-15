@@ -1,4 +1,4 @@
-package fr.lezard.utils;
+package fr.lezard.utils.keystroke;
 
 import fr.lezard.Lezard;
 import net.minecraft.network.chat.Component;
