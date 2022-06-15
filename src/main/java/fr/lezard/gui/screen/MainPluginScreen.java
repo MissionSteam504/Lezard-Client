@@ -50,7 +50,7 @@ public class MainPluginScreen extends Screen {
 		float temp=3.11f;
 		int divider=44;
 		//System.out.println(divider);
-		fill(poseStack, this.width/2+50, this.height / 6, this.width/2+50+3, 180, 0x70000000);
+		fill(poseStack, this.width/2+50, this.height / 6, this.width/2+50+3, this.height/6 + 140, 0x70000000);
 		fill(poseStack, this.width/2 + 50, this.height / 6 - scrolling*temp,this.width/2 + 50+3, this.height/6 + 140/divider - scrolling*temp, 0x75ffffff);
 		
 		Minecraft.getInstance().setScreen(this);

@@ -9,19 +9,25 @@ import java.util.Locale;
 import fr.lezard.Lezard;
 
 public enum Colors {
-    WHITE(Color.WHITE.getRGB(), "WHITE"),
-    LIGHT_GRAY(Color.LIGHT_GRAY.getRGB(), "LIGHT_GRAY"),
-    GRAY(Color.GRAY.getRGB(), "GRAY"),
-    DARK_GRAY(Color.DARK_GRAY.getRGB(), "DARK_GRAY"),
-    BLACK(Color.BLACK.getRGB(), "BLACK"),
-    RED(Color.RED.getRGB(), "RED"),
-    PINK(Color.PINK.getRGB(), "PINK"),
-    ORANGE(Color.ORANGE.getRGB(), "ORANGE"),
-    YELLOW(Color.YELLOW.getRGB(), "YELLOW"),
-    GREEN(Color.GREEN.getRGB(), "GREEN"),
-    MAGENTA(Color.MAGENTA.getRGB(), "MAGENTA"),
-    CYAN(Color.CYAN.getRGB(), "CYAN"),
-    BLUE(Color.BLUE.getRGB(), "BLUE");
+	// Thanks to HtmlColorCodes.com for the colors
+	// https://htmlcolorcodes.com/minecraft-color-codes/
+    BLACK(new Color(0, 0, 0).getRGB(), "BLACK"),
+	DARK_BLUE(new Color(0, 0, 170).getRGB(), "DARK_BLUE"),
+	DARK_GREEN(new Color(0, 170, 0).getRGB(), "DARK_GREEN"),
+	DARK_AQUA(new Color(0, 170, 170).getRGB(), "DARK_AQUA"),
+	DARK_RED(new Color(170, 0, 0).getRGB(), "DARK_RED"),
+	DARK_PURPLE(new Color(170, 0, 170).getRGB(), "DARK_PURPLE"),
+	GOLD(new Color(255, 170, 0).getRGB(), "GOLD"),
+    GRAY(new Color(170, 170, 170).getRGB(), "GRAY"),
+    DARK_GRAY(new Color(85, 85, 85).getRGB(), "DARK_GRAY"),
+    BLUE(new Color(85, 85, 255).getRGB(), "BLUE"),
+    GREEN(new Color(85, 170, 85).getRGB(), "GREEN"),
+    AQUA(new Color(85, 255, 255).getRGB(), "AQUA"),
+    RED(new Color(255, 85, 85).getRGB(), "RED"),
+    LIGHT_PURPLE(new Color(255, 85, 255).getRGB(), "LIGHT_PURPLE"),
+    YELLOW(new Color(255, 255, 85).getRGB(), "YELLOW"),
+    WHITE(new Color(255, 255, 255).getRGB(), "WHITE"),
+	;
 
     private int rgb;
     private String name;
