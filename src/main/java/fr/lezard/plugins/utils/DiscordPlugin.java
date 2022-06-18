@@ -6,7 +6,6 @@ import fr.lezard.gui.screen.plugins.DiscordPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.DiscordIntegration;
 import fr.lezard.utils.FileWriterJson;
-import net.arikia.dev.drpc.DiscordRPC;
 import net.minecraft.client.Minecraft;
 
 public class DiscordPlugin extends Plugin {
@@ -17,17 +16,19 @@ public class DiscordPlugin extends Plugin {
 	}
 	
 	public void onEnable() {
-		discord.start();
-		DiscordRPC.discordUpdatePresence(discord.b.build());
+		/* discord.start();
+		DiscordRPC.discordUpdatePresence(discord.b.build()); */
 	}
 	
 	public void onDisable() {
-		discord.shutdown();
+		// discord.shutdown();
 	}
 	
 	public void onEvent(Event<?> e) {
-		if(e instanceof EventStart) {
-			discord.start();
-		}
+		/*if(e instanceof EventStart) {
+			if(this.isEnabled()) {
+				discord.start();
+			}
+		}*/
 	}
 }

@@ -59,9 +59,9 @@ public class CompassPluginHUD extends PluginHUD{
 
 	        assert minecraft.player != null;
 	        int angle = (int) Mth.wrapDegrees(minecraft.player.getYRot()) * -1 - 360;
-
+	        
 	        GuiComponent.drawString(poseStack, font, "V", posX + middle, posY, Color.WHITE.getRGB());
-
+	        
 	        for(int i =0; i<=1; i++){
 	            for(double d=0.0D; d<=3.5D; d+=0.5D){
 	                if(getWidth() + angle > getWidth() - 60 && getWidth() + angle < getWidth() + 60){

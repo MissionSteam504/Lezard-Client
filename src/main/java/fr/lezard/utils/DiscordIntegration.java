@@ -6,9 +6,9 @@ import com.mojang.logging.LogUtils;
 
 import fr.lezard.Lezard;
 import fr.lezard.gui.screen.MainMenu;
-import net.arikia.dev.drpc.DiscordEventHandlers;
+/* import net.arikia.dev.drpc.DiscordEventHandlers;
 import net.arikia.dev.drpc.DiscordRPC;
-import net.arikia.dev.drpc.DiscordRichPresence;
+import net.arikia.dev.drpc.DiscordRichPresence; */
 import net.minecraft.client.Minecraft;
 
 public class DiscordIntegration {
@@ -17,10 +17,10 @@ public class DiscordIntegration {
 	private boolean running = true;
 	private long created = 0;
 	
-	public DiscordRichPresence.Builder b = new DiscordRichPresence.Builder("Loading");
+	// public DiscordRichPresence.Builder b = new DiscordRichPresence.Builder("Loading");
 	
 	public void start() {
-		this.created = System.currentTimeMillis();
+		/* this.created = System.currentTimeMillis();
 		DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {
 		    LOGGER.info("Welcome " + user.username + "#" + user.discriminator + "!");
 			update("Booting up...", "");
@@ -48,20 +48,20 @@ public class DiscordIntegration {
 					System.out.println(e);
 				}
 			}
-		}, "Discord Integration Thread").start();
+		}, "Discord Integration Thread").start(); */
 	
 	}
 
 	public void shutdown() {
-		running=false;
-		DiscordRPC.discordShutdown();
+		/* running=false;
+		DiscordRPC.discordShutdown();*/
 	}
 	
 	public void update(String firstLine, String secondLine) {
-		b = new DiscordRichPresence.Builder(secondLine);
+		/* b = new DiscordRichPresence.Builder(secondLine);
 		b.setBigImage("image", "Playing with Lezard Client");
 		b.setDetails(firstLine);
 		b.setStartTimestamps(created);
-		DiscordRPC.discordUpdatePresence(b.build());
+		DiscordRPC.discordUpdatePresence(b.build()); */
 	}
 }

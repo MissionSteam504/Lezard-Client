@@ -31,7 +31,7 @@ public class Plugin {
 	}
 	
 	public boolean isEnabled() {
-		return FileWriterJson.getBoolean(namespace, "enabled");
+		return enabled;
 	}
 	
 	public void toggle() {

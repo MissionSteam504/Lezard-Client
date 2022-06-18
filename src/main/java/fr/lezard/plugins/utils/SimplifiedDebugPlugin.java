@@ -17,7 +17,6 @@ import com.mojang.datafixers.DataFixUtils;
 
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventStart;
-import fr.lezard.events.listeners.EventUpdate;
 import fr.lezard.gui.screen.plugins.SimplifiedDebugPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.FileWriterJson;
@@ -72,11 +71,6 @@ public class SimplifiedDebugPlugin extends Plugin {
 		if(e instanceof EventStart) {
 			minecraft = Minecraft.getInstance();
 			font = minecraft.font;
-		}
-		if(e instanceof EventUpdate) {
-			if(minecraft==null) {
-				minecraft= Minecraft.getInstance();
-			}
 		}
 	}
 	

@@ -2,7 +2,6 @@ buildscript {
     repositories {
         mavenLocal()
         maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://jitpack.io' }
         mavenCentral()
         gradlePluginPortal()
     }
@@ -19,9 +18,9 @@ apply plugin: 'eclipse'
 apply plugin: 'net.minecraftforge.gradle.patcher'
 apply plugin: "org.jetbrains.gradle.plugin.idea-ext"
 
-println(' Java: ' + System.getProperty('java.version') +
-        ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ')' +
-        ' Arch: ' + System.getProperty('os.arch'))
+println(' Java: ' + System.getProperty('java.version'))
+println(' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ')')
+println(' Arch: ' + System.getProperty('os.arch'))
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -47,7 +46,6 @@ repositories {
 
 dependencies {
     implementation 'net.minecraftforge:forgespi:' + spi_version
-    shade  'com.github.Vatuu:discord-rpc:1.6.2'
 //    Use the shade to add the lib to the jar
 //    or use compile if you want to load the lib from the version.json
 //    from a maven repo

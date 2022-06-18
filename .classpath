@@ -29,6 +29,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry kind="lib" path="C:/Users/mimig/Documents/GitHub/Eclipse/libs/discord-rpc.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>

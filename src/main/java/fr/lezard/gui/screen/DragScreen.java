@@ -44,6 +44,29 @@ public class DragScreen extends Screen {
 	
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float p_96565_) {
 		drawCenteredString(poseStack, this.font, this.title, this.width / 2, 15, 16777215);
+		if(LezardOption.showAnchor) {
+			fill(poseStack, this.width/2-0.5f, 0, this.width/2+0.5f, this.height, 0x60ff0000);
+			fill(poseStack, this.width/4-0.5f, 0, this.width/4+0.5f, this.height, 0x60ff0000);
+			fill(poseStack, (this.width/4)*3-0.5f, 0, (this.width/4)*3+0.5f, this.height, 0x60ff0000);
+			fill(poseStack, 0, this.height/2-0.5f, this.width, this.height/2+0.5f, 0x60ff0000);
+			fill(poseStack, 0, this.height/4-0.5f, this.width, this.height/4+0.5f, 0x60ff0000);
+			fill(poseStack, 0, (this.height/4)*3-0.5f, this.width, (this.height/4)*3+0.5f, 0x60ff0000);
+			for(PluginHUD p : Lezard.pluginsHUD) {
+				if(p.isEnabled()) {
+					if(plugin != null) {
+						if(plugin != p) {
+							fill(poseStack, p.getPosX() - LezardOption.gap+0.5f, 0, p.getPosX() - LezardOption.gap-0.5f, this.height, 0x600000ff);
+							fill(poseStack, p.getPosX() + p.getWidth() + LezardOption.gap+0.5f, 0, p.getPosX() + p.getWidth() + LezardOption.gap-0.5f, this.height, 0x600000ff);
+							fill(poseStack, 0, p.getPosY() - LezardOption.gap-0.5f, this.width, p.getPosY() - LezardOption.gap+0.5f, 0x600000ff);
+							fill(poseStack, 0, p.getPosY() + p.getHeight() + LezardOption.gap-0.5f, this.width, p.getPosY() + p.getHeight() + LezardOption.gap+0.5f, 0x600000ff);
+							
+							fill(poseStack, p.getPosX() + p.getWidth()/2 + 0.5f, 0, p.getPosX() + p.getWidth()/2 - 0.5f, this.height, 0x6000ff00);
+							fill(poseStack, 0, p.getPosY() + p.getHeight()/2 + 0.5f, this.width, p.getPosY() + p.getHeight()/2 - 0.5f, 0x6000ff00);
+						}
+					}
+				}
+			}
+		}
         super.render(poseStack, mouseX, mouseY, p_96565_);
     }
 	
@@ -57,28 +80,95 @@ public class DragScreen extends Screen {
 		return super.mouseClicked(mouseX, mouseY, button);
 	}
 	
-	public boolean mouseDragged(double mouseX, double mouseY, int p_94701_, double p_94702_, double p_94703_) {
+	public boolean mouseDragged(double mouseX, double mouseY, int button, double moveX, double moveY) {
 		for(PluginHUD currentPlugin : Lezard.pluginsHUD){
-			if(relativeX.size() != 0 || relativeY.size() != 0){
-				int relX = relativeX.get(Lezard.pluginsHUD.indexOf(currentPlugin));
-				int relY = relativeY.get(Lezard.pluginsHUD.indexOf(currentPlugin));
-	
-				if(relX >= -LezardOption.gap && relX <= currentPlugin.getWidth() + LezardOption.gap && relY >= -LezardOption.gap && relY <= currentPlugin.getHeight() + LezardOption.gap && currentPlugin.isEnabled()){
-					posX=(int) (mouseX - relX);
-		            posY=(int) (mouseY - relY);
-		            currentPlugin.setDragged(true);
-		            plugin=currentPlugin;
-		        }
-		     }
+			if(currentPlugin.isEnabled()) {
+				if(relativeX.size() != 0 || relativeY.size() != 0){
+					int relX = relativeX.get(Lezard.pluginsHUD.indexOf(currentPlugin));
+					int relY = relativeY.get(Lezard.pluginsHUD.indexOf(currentPlugin));
+					int anchor = 3;
+		
+					if(relX >= -LezardOption.gap && relX <= currentPlugin.getWidth() + LezardOption.gap && relY >= -LezardOption.gap && relY <= currentPlugin.getHeight() + LezardOption.gap && currentPlugin.isEnabled()){
+						posX=(int) (mouseX - relX);
+			            posY=(int) (mouseY - relY);
+			            currentPlugin.setDragged(true);
+			         
+			            if(posX+currentPlugin.getWidth()/2 >= this.width/2 -anchor && posX+currentPlugin.getWidth()/2 <= this.width/2 +anchor) {
+				            posX=this.width/2-currentPlugin.getWidth()/2;
+				        }
+				        if(posY+currentPlugin.getHeight()/2 >= this.height/2 -anchor && posY+currentPlugin.getHeight()/2 <= this.height/2 + anchor) {
+				            posY=this.height/2-currentPlugin.getHeight()/2;
+				        }
+				            
+				        if(posX+currentPlugin.getWidth()/2 >= this.width/4 -anchor && posX+currentPlugin.getWidth()/2 <= this.width/4 +anchor) {
+				        	posX=this.width/4-currentPlugin.getWidth()/2;
+				        }
+				        if(posX+currentPlugin.getWidth()/2 >= (this.width/4)*3 -anchor && posX+currentPlugin.getWidth()/2 <= (this.width/4)*3 +anchor) {
+				          	posX=(this.width/4)*3-currentPlugin.getWidth()/2;
+				        }
+				            
+				        if(posY+currentPlugin.getHeight()/2 >= this.height/4 -anchor && posY+currentPlugin.getHeight()/2 <= this.height/4 +anchor) {
+				          	posY=this.height/4-currentPlugin.getHeight()/2;
+				        }
+				        if(posY+currentPlugin.getHeight()/2 >= (this.height/4)*3 -anchor && posY+currentPlugin.getHeight()/2 <= (this.height/4)*3 +anchor) {
+				           	posY=(this.height/4)*3-currentPlugin.getHeight()/2;
+				        }
+				        
+				        for(PluginHUD p : Lezard.pluginsHUD) {
+				        	if(p.isEnabled()) {
+				        		if(p != currentPlugin) {
+				        			// Check if posX are the same
+				        			if(posX >= p.getPosX()-anchor && posX <= p.getPosX()+anchor) {
+							        	posX=p.getPosX();
+							        }
+					        		if(posX >= p.getPosX()+p.getWidth()+LezardOption.gap-anchor && posX <= p.getPosX()+p.getWidth()+LezardOption.gap+anchor) {
+							        	posX=p.getPosX()+p.getWidth()+LezardOption.gap*2;
+							        }
+					        		if(posX+currentPlugin.getWidth()+LezardOption.gap >= p.getPosX()+p.getWidth()+LezardOption.gap-anchor && posX+currentPlugin.getWidth()+LezardOption.gap <= p.getPosX()+p.getWidth()+LezardOption.gap+anchor) {
+					        			posX=p.getPosX()+p.getWidth()-currentPlugin.getWidth();
+					        		}
+					        		if(posX+currentPlugin.getWidth()+LezardOption.gap >= p.getPosX()-LezardOption.gap-anchor && posX+currentPlugin.getWidth()+LezardOption.gap <= p.getPosX()-LezardOption.gap+anchor) {
+					        			posX=p.getPosX()-(LezardOption.gap*2)-currentPlugin.getWidth();
+					        		}
+					        		
+					        		// Check if posY are the same
+					        		if(posY >= p.getPosY() -anchor && posY <= p.getPosY()+anchor) {
+					        			posY=p.getPosY();
+					        		}
+					        		if(posY+currentPlugin.getHeight()+LezardOption.gap >= p.getPosY()-LezardOption.gap-anchor && posY+currentPlugin.getHeight()+LezardOption.gap <= p.getPosY()-LezardOption.gap+anchor) {
+					        			posY=p.getPosY()-currentPlugin.getHeight()-LezardOption.gap*2;
+					        		}
+					        		if(posY >= p.getPosY()+p.getHeight()+LezardOption.gap-anchor && posY-LezardOption.gap <= p.getPosY()+p.getHeight()+LezardOption.gap+anchor) {
+					        			posY=p.getPosY()+p.getHeight()+LezardOption.gap*2;
+					        		}
+					        		if(posY+currentPlugin.getHeight()+LezardOption.gap >=p.getPosY()+p.getHeight()+LezardOption.gap-anchor && posY+currentPlugin.getHeight()+LezardOption.gap <=p.getPosY()+p.getHeight()+LezardOption.gap+anchor) {
+					        			posY=p.getPosY()+p.getHeight()-currentPlugin.getHeight();
+					        		}
+					        		
+					        		// Check center lines ( X and Y)
+					        		// X
+					        		if(posX+currentPlugin.getWidth()/2 >= p.getPosX()+p.getWidth()/2-anchor && posX+currentPlugin.getWidth()/2 <= p.getPosX()+p.getWidth()/2+anchor) {
+					        			posX=p.getPosX()+p.getWidth()/2-currentPlugin.getWidth()/2;
+					        		}
+					        		//Y
+					        		if(posY+currentPlugin.getHeight()/2 >= p.getPosY()+p.getHeight()/2-anchor && posY+currentPlugin.getHeight()/2 <= p.getPosY()+p.getHeight()/2+anchor) {
+					        			posY=p.getPosY()+p.getHeight()/2-currentPlugin.getHeight()/2;
+					        		}
+				        		}
+				        	}
+				        }
+				        
+				        plugin=currentPlugin;
+			        }
+			     }
+			}
 		 }
-		 return super.mouseDragged(mouseX, mouseY, p_94701_, p_94702_, p_94703_);
+		 return super.mouseDragged(mouseX, mouseY, button, moveX, moveY);
 	}
 	 
 	public boolean mouseReleased(double p_94722_, double p_94723_, int p_94724_) {
 		if(plugin!=null){
 			if(plugin.isEnabled()) {
-				FileWriterJson.writeJson(plugin.getNamespace(), "posX", posX);
-				FileWriterJson.writeJson(plugin.getNamespace(), "posY", posY);
 				plugin.setPosX(posX);
 				plugin.setPosY(posY);
 			}
@@ -86,6 +176,12 @@ public class DragScreen extends Screen {
 		for(PluginHUD plugin : Lezard.pluginsHUD){
 			plugin.setDragged(false);
 	    }
+		for(PluginHUD p : Lezard.pluginsHUD) {
+			if(!p.isEnabled()) {
+				plugin=p;
+				break;
+			}
+		}
 		return super.mouseReleased(p_94722_, p_94723_, p_94724_);
 	}
 }

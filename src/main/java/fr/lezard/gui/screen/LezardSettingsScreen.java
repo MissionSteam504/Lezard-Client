@@ -22,7 +22,7 @@ public class LezardSettingsScreen extends Screen {
 	}
 	
 	protected void init() {
-		Option[] OPTIONS = new Option[]{LezardOption.ALPHA_SLIDER, LezardOption.GAP_SLIDER};
+		Option[] OPTIONS = new Option[]{LezardOption.ALPHA_SLIDER, LezardOption.GAP_SLIDER, LezardOption.SHOW_ANCHOR, LezardOption.RAINBOW_SPEED};
 		this.list = new OptionsList(this.minecraft, this.width, this.height, 32, this.height - 32, 25);
 		// this.list.addBig(LezardOption.ALPHA_SLIDER);
 		this.list.a(OPTIONS);
@@ -31,6 +31,8 @@ public class LezardSettingsScreen extends Screen {
 		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 200, 20, CommonComponents.GUI_DONE, (p_96827_) -> {
 			FileWriterJson.writeJson(Lezard.NAMESPACE, "alpha", LezardOption.alpha); 
 			FileWriterJson.writeJson(Lezard.NAMESPACE, "gap", LezardOption.gap); 
+			FileWriterJson.writeJson(Lezard.NAMESPACE, "showAnchor", LezardOption.showAnchor); 
+			FileWriterJson.writeJson(Lezard.NAMESPACE, "rainbowSpeed", LezardOption.rainbowSpeed); 
 			this.minecraft.setScreen(this.lastScreen);
 	      }));
 	}

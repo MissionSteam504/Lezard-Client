@@ -5,9 +5,11 @@ import java.awt.Color;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import com.mojang.realmsclient.RealmsMainScreen;
 
 import fr.lezard.Lezard;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -15,8 +17,11 @@ import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
 public class MainMenu extends Screen {
+	
+	private String splash;
 	
 	private ResourceLocation BACKGROUND = new ResourceLocation(Lezard.NAMESPACE + "/background/background0.jpg");
 	PoseStack poseStack;
@@ -26,7 +31,9 @@ public class MainMenu extends Screen {
 	}
 	
 	protected void init() {
-		
+		if(splash==null) {
+			splash = this.minecraft.getSplashManager().getSplash();
+		}
 	}
 	
 	public void tick() {
@@ -35,6 +42,7 @@ public class MainMenu extends Screen {
 	
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float p_96565_) {
 		this.poseStack = poseStack;
+		
 		RenderSystem.setShaderTexture(0, BACKGROUND);
 		blit(poseStack, 0, 0, 0, 0, width, height, width, height);
 		
@@ -60,6 +68,15 @@ public class MainMenu extends Screen {
 		poseStack.translate(-(width/2f), -(height/2), 0);
 		drawCenteredString(poseStack, font, Lezard.NAME, width/2, height/2 - font.lineHeight/2, -1);
 		poseStack.popPose();
+		
+		poseStack.pushPose();
+		poseStack.translate((double)(this.width / 2 + 90), this.height/2, 0.0D);
+		poseStack.mulPose(Vector3f.ZP.rotationDegrees(-20.0F));
+		float f2 = 1.2F - Mth.abs(Mth.sin((float)(Util.getMillis() % 1000L) / 1000.0F * ((float)Math.PI * 2F)) * 0.1F);
+        f2 = f2 * 100.0F / (float)(this.font.width(this.splash) + 32);
+        poseStack.scale(f2, f2, f2);
+        drawCenteredString(poseStack, this.font, this.splash, 12, 16, 16776960);
+        poseStack.popPose();
 		
         super.render(poseStack, mouseX, mouseY, p_96565_);
     }
