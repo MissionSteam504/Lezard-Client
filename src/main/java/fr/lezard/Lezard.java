@@ -52,7 +52,7 @@ public class Lezard {
 	
 	public static File pluginFile = new File(Minecraft.getInstance().gameDirectory, NAMESPACE + "-settings.json");
 	
-	public static final boolean IDE_CLIENT = false;
+	public static final boolean IDE_CLIENT = true;
 	
 	public static CopyOnWriteArrayList<Plugin> plugins = new CopyOnWriteArrayList<Plugin>();
 	public static CopyOnWriteArrayList<PluginHUD> pluginsHUD = new CopyOnWriteArrayList<PluginHUD>();
