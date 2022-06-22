@@ -8,8 +8,10 @@ import fr.lezard.Lezard;
 import fr.lezard.gui.screen.MainPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.PluginHUD;
+import fr.lezard.plugins.player.ArmorPluginHUD;
 import fr.lezard.utils.Colors;
 import fr.lezard.utils.CommonLezardComponents;
+import fr.lezard.utils.FileWriterJson;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
@@ -40,6 +42,10 @@ public class ArmorPluginHUDScreen extends Screen {
 		this.addRenderableWidget(CycleButton.onOffBuilder(p.isFilled()).create(this.width / 2 - 48, this.height / 6 + 66, 96, 20, CommonLezardComponents.FILLED, (p_170168_, p_170169_) -> {
 			p.setFilled(!p.isFilled());
 		}));
+		this.addRenderableWidget(CycleButton.builder(ArmorPluginHUD.Modes::getName).withValues(Arrays.asList(ArmorPluginHUD.Modes.values())).withInitialValue(ArmorPluginHUD.currentMode).create(this.width / 2 - 48, this.height / 6 + 88, 96, 20, CommonLezardComponents.MODE, (p_167441_, p_167442_) -> {
+			ArmorPluginHUD.currentMode = p_167442_;
+            FileWriterJson.writeJson(plugin.getNamespace(), "mode", ArmorPluginHUD.currentMode.getLiteralName());
+        }));
 	}
 	
 	public void tick() {

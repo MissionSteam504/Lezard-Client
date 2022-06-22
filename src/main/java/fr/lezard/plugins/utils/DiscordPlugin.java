@@ -1,7 +1,6 @@
 package fr.lezard.plugins.utils;
 
 import fr.lezard.events.Event;
-import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.plugins.DiscordPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.DiscordIntegration;

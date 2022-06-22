@@ -17,6 +17,8 @@ import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.events.listeners.EventKey;
 import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
+import fr.lezard.http.HTTPFunctions;
+import fr.lezard.http.gsonobjs.ObjGlobalSettings;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.Plugin.Category;
 import fr.lezard.plugins.PluginHUD;
@@ -33,13 +35,18 @@ import net.minecraft.client.Options;
 
 public class Lezard {
 	// Main class of the client
-	// Remember to set IDE_CLIENT to false
+	// Remember to set IDE_CLIENT to false when exporting
+	
+	// Some functions for later (so i can find it easier):
+	/*private void noUse() {
+		ClientPacketListener.handleChat(null, null);
+	}*/
 	
 	private static final Logger LOGGER = LogUtils.getLogger();
 	
 	public static final String NAME = "Lezard Client";
 	public static final String NAMESPACE = "lezard";
-	public static final String VERSION = "2.0.0-beta3";
+	public static final String VERSION = "2.0.0-beta4";
 	public static final String DISCORD_APP_ID = "971435977199464528";
 	public static final String USERNAME = "LezardUser";
 	public static final String PREFIX = "[" + NAME.replace(" ", "") + "] ";
@@ -47,6 +54,11 @@ public class Lezard {
 	
 	public static int oldWidth;
 	public static int oldHeight;
+	
+	public static boolean ban = false;
+	public static boolean isWhitelisted = false;
+	public static String banReason = "Unknown";
+	public static ObjGlobalSettings globalSettings;
 	
 	public static Color color = new Color(0, 0, 0, LezardOption.alpha);
 	
@@ -76,6 +88,18 @@ public class Lezard {
         }else {
         	LOGGER.info(PREFIX + NAMESPACE + "-settings.json exist");
         }
+		
+		LOGGER.info(PREFIX + "Communicating with the server...");
+		// TODO: Cosmetics-1: https://www.youtube.com/watch?v=8Ul90H9XQwE
+		// TODO: Cosmetics-2: https://www.youtube.com/watch?v=hV_GjVsT6No
+		// TODO: Cosmetics-3: https://www.youtube.com/watch?v=CGJOYEiK7ps&t=2375s
+		if(HTTPFunctions.isAPIUp()) {
+			HTTPFunctions.sendHWIDMap();
+			ban = HTTPFunctions.isBanned();
+			isWhitelisted = HTTPFunctions.isWhitelisted();
+			globalSettings = HTTPFunctions.downloadGlobalSettings();
+			banReason = HTTPFunctions.getBanReason();
+		}
 		
 		LOGGER.info(PREFIX + "Initializing plugins...");
 		plugins.add(new ArmorPluginHUD()); // 0
@@ -111,6 +135,23 @@ public class Lezard {
 		 
 		LOGGER.info(PREFIX + "Calling EventStart...");
 		onEvent(new EventStart());
+		
+		LOGGER.info(PREFIX + "Starting communication thread...");
+		new Thread(() -> {
+			while(!Thread.currentThread().isInterrupted()) {
+				try {
+					if(HTTPFunctions.isAPIUp()) {
+							ban = HTTPFunctions.isBanned();
+							banReason = HTTPFunctions.getBanReason();
+							isWhitelisted = HTTPFunctions.isWhitelisted();
+							globalSettings = HTTPFunctions.downloadGlobalSettings();
+					}
+					Thread.sleep(10000L);
+				}catch(InterruptedException e) {
+					System.out.println(e);
+				}
+			}
+		}, "Communication Thread").start();
 		
 		LOGGER.info(PREFIX + "Client setup finished!");
 	}

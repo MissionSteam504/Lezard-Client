@@ -1,21 +1,10 @@
 package fr.lezard.utils;
 
-import org.slf4j.Logger;
-
-import com.mojang.logging.LogUtils;
-
-import fr.lezard.Lezard;
-import fr.lezard.gui.screen.MainMenu;
-/* import net.arikia.dev.drpc.DiscordEventHandlers;
-import net.arikia.dev.drpc.DiscordRPC;
-import net.arikia.dev.drpc.DiscordRichPresence; */
-import net.minecraft.client.Minecraft;
-
 public class DiscordIntegration {
-	private static final Logger LOGGER = LogUtils.getLogger();
+	/*private static final Logger LOGGER = LogUtils.getLogger();
 	
 	private boolean running = true;
-	private long created = 0;
+	private long created = 0; */
 	
 	// public DiscordRichPresence.Builder b = new DiscordRichPresence.Builder("Loading");
 	

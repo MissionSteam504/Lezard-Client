@@ -1,10 +1,13 @@
 package fr.lezard.plugins.player;
 
+import java.util.Locale;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import fr.lezard.Lezard;
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
+import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.ArmorPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
@@ -66,6 +69,11 @@ public class ArmorPluginHUD extends PluginHUD{
 					ArmorPluginHUD.renderAmor(i, is, poseStack);
 				}
 			}
+		}
+		if(e instanceof EventStart) {
+			if(!FileWriterJson.getString(getNamespace(), "mode").equalsIgnoreCase("")){
+	            currentMode = Modes.valueOf(FileWriterJson.getString(getNamespace(), "mode"));
+	        }
 		}
 	}
 	
@@ -145,7 +153,7 @@ public class ArmorPluginHUD extends PluginHUD{
 		}
 		
 		public Component getName() {
-			return new TranslatableComponent(Lezard.NAMESPACE + ".armor." + name);
+			return new TranslatableComponent(Lezard.NAMESPACE + ".armor." + name.toLowerCase(Locale.ROOT));
 		}
 		
 		public boolean isBasic() {
