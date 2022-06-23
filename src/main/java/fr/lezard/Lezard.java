@@ -52,6 +52,8 @@ public class Lezard {
 	public static final String PREFIX = "[" + NAME.replace(" ", "") + "] ";
 	public static final String WINDOW_TITLE = NAME + " " + VERSION + " | " + Minecraft.getInstance().getUser().getName();
 	
+	public static final boolean IDE_CLIENT = true;
+	
 	public static int oldWidth;
 	public static int oldHeight;
 	
@@ -63,8 +65,6 @@ public class Lezard {
 	public static Color color = new Color(0, 0, 0, LezardOption.alpha);
 	
 	public static File pluginFile = new File(Minecraft.getInstance().gameDirectory, NAMESPACE + "-settings.json");
-	
-	public static final boolean IDE_CLIENT = true;
 	
 	public static CopyOnWriteArrayList<Plugin> plugins = new CopyOnWriteArrayList<Plugin>();
 	public static CopyOnWriteArrayList<PluginHUD> pluginsHUD = new CopyOnWriteArrayList<PluginHUD>();

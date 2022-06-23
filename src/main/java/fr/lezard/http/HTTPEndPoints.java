@@ -2,7 +2,7 @@ package fr.lezard.http;
 
 public class HTTPEndPoints {
 
-	public static final String BASE_URL = "http://www.lezard-client.com/app/api/";
+	public static final String BASE_URL = "http://www.lezard-client.com:443/app/api/";
 	public static final String MAP_UUID = BASE_URL + "mapUUID/";
 	public static final String IS_BANNED = BASE_URL + "isBanned/";
 	public static final String IS_WHITELISTED = BASE_URL + "isWhitelisted/";
