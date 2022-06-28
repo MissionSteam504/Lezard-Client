@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import fr.lezard.http.gsonobjs.ObjGlobalSettings;
 import fr.lezard.http.gsonobjs.ObjIsBanned;
 import fr.lezard.http.gsonobjs.ObjIsWhitelisted;
-import fr.lezard.http.gsonobjs.ObjUserCosmetics;
 import net.minecraft.client.Minecraft;
 
 public class HTTPFunctions {
@@ -22,7 +21,7 @@ public class HTTPFunctions {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("uuid", Minecraft.getInstance().getUser().getUuid()));
 		params.add(new BasicNameValuePair("username", Minecraft.getInstance().getUser().getName()));
-		params.add(new BasicNameValuePair("hwid", HWID.get()));
+		params.add(new BasicNameValuePair("hwid", HWID.get(Minecraft.getInstance().getUser().getName())));
 		HTTPUtils.sendPostAsync(HTTPEndPoints.MAP_UUID, params);
 	}
 	
@@ -33,7 +32,7 @@ public class HTTPFunctions {
 	
 	public static boolean isBanned() {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("hwid", HWID.get()));
+		params.add(new BasicNameValuePair("hwid", HWID.get(Minecraft.getInstance().getUser().getName())));
 		HTTPReply reply = HTTPUtils.sendGet(HTTPEndPoints.IS_BANNED, params);
 		
 		if(reply.getStatusCode() == 200) {
@@ -45,7 +44,7 @@ public class HTTPFunctions {
 	
 	public static String getBanReason() {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("hwid", HWID.get()));
+		params.add(new BasicNameValuePair("hwid", HWID.get(Minecraft.getInstance().getUser().getName())));
 		HTTPReply reply = HTTPUtils.sendGet(HTTPEndPoints.IS_BANNED, params);
 		
 		if(reply.getStatusCode() == 200) {
@@ -57,7 +56,7 @@ public class HTTPFunctions {
 	
 	public static boolean isWhitelisted() {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("hwid", HWID.get()));
+		params.add(new BasicNameValuePair("hwid", HWID.get(Minecraft.getInstance().getUser().getName())));
 		HTTPReply reply = HTTPUtils.sendGet(HTTPEndPoints.IS_WHITELISTED, params);
 		
 		if(reply.getStatusCode() == 200) {
@@ -65,10 +64,6 @@ public class HTTPFunctions {
 			return obj.isWhitelisted();
 		}
 		return false;
-	}
-	
-	public static ObjUserCosmetics[] downloadUserCosmetics(){
-		return gson.fromJson(HTTPUtils.sendGet(HTTPEndPoints.COSMETICS).getBody(), ObjUserCosmetics[].class);
 	}
 	
 	public static ObjGlobalSettings downloadGlobalSettings() {

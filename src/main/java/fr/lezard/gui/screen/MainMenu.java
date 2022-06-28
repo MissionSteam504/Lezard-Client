@@ -69,8 +69,10 @@ public class MainMenu extends Screen {
 		drawCenteredString(poseStack, font, Lezard.NAME, width/2, height/2 - font.lineHeight/2, -1);
 		poseStack.popPose();
 		
-		if(!Lezard.globalSettings.getLatestVersion().equalsIgnoreCase(Lezard.VERSION)) {
-			drawCenteredString(poseStack, font, "Outdated Client!", width/2, 20-font.lineHeight/2, 0xffff3030);
+		if(Lezard.globalSettings != null){
+			if(!Lezard.globalSettings.getLatestVersion().equalsIgnoreCase(Lezard.VERSION)) {
+				drawCenteredString(poseStack, font, "Outdated Client!", width/2, 20-font.lineHeight/2, 0xffff3030);
+			}
 		}
 		
 		poseStack.pushPose();
@@ -81,15 +83,17 @@ public class MainMenu extends Screen {
         poseStack.scale(f2, f2, f2);
         drawCenteredString(poseStack, this.font, this.splash, 12, 16, 16776960);
         poseStack.popPose();
-        
-        if(Lezard.ban) {
-    		Minecraft.getInstance().setScreen(new BannedScreen());
-    		return;
-    	}
-		if(!Lezard.isWhitelisted && Lezard.globalSettings.isWhitelisted()) {
-			Minecraft.getInstance().setScreen(new NotWhitelistedScreen());
-			return;
-		}
+      
+        if(Lezard.globalSettings != null) {
+        	if(Lezard.ban) {
+        		Minecraft.getInstance().setScreen(new BannedScreen());
+        		return;
+        	}
+        	if(!Lezard.isWhitelisted && Lezard.globalSettings.isWhitelisted()) {
+    			Minecraft.getInstance().setScreen(new NotWhitelistedScreen());
+    			return;
+    		}
+        }
 		
         super.render(poseStack, mouseX, mouseY, p_96565_);
     }

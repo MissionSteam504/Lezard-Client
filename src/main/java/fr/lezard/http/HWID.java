@@ -4,11 +4,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import fr.lezard.Lezard;
-import net.minecraft.client.Minecraft;
 
 public class HWID {
-	public static String get() {
-		String username = Minecraft.getInstance().getUser().getName();
+	public static String get(String username) {
 		if(username.equalsIgnoreCase(Lezard.USERNAME)) {
 			return "dev-hwid";
 		}

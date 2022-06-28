@@ -13,9 +13,7 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import fr.lezard.events.Event;
-import fr.lezard.events.listeners.EventInGame;
-import fr.lezard.events.listeners.EventKey;
-import fr.lezard.events.listeners.EventStart;
+import fr.lezard.events.listeners.*;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.http.HTTPFunctions;
 import fr.lezard.http.gsonobjs.ObjGlobalSettings;
@@ -27,11 +25,8 @@ import fr.lezard.plugins.movement.*;
 import fr.lezard.plugins.player.*;
 import fr.lezard.plugins.render.*;
 import fr.lezard.plugins.utils.*;
-import fr.lezard.utils.FileWriterJson;
-import fr.lezard.utils.LezardOption;
-import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.Options;
+import fr.lezard.utils.*;
+import net.minecraft.client.*;
 
 public class Lezard {
 	// Main class of the client
@@ -46,7 +41,7 @@ public class Lezard {
 	
 	public static final String NAME = "Lezard Client";
 	public static final String NAMESPACE = "lezard";
-	public static final String VERSION = "2.0.0-beta4";
+	public static final String VERSION = "2.0.0-beta5";
 	public static final String DISCORD_APP_ID = "971435977199464528";
 	public static final String USERNAME = "LezardUser";
 	public static final String PREFIX = "[" + NAME.replace(" ", "") + "] ";
@@ -90,10 +85,8 @@ public class Lezard {
         }
 		
 		LOGGER.info(PREFIX + "Communicating with the server...");
-		// TODO: Cosmetics-1: https://www.youtube.com/watch?v=8Ul90H9XQwE
-		// TODO: Cosmetics-2: https://www.youtube.com/watch?v=hV_GjVsT6No
-		// TODO: Cosmetics-3: https://www.youtube.com/watch?v=CGJOYEiK7ps&t=2375s
 		if(HTTPFunctions.isAPIUp()) {
+			LOGGER.info(PREFIX + "Api up");
 			HTTPFunctions.sendHWIDMap();
 			ban = HTTPFunctions.isBanned();
 			isWhitelisted = HTTPFunctions.isWhitelisted();
