@@ -40,10 +40,6 @@ public class MainPluginScreen extends Screen {
 		}
 	}
 	
-	public void tick() {
-		super.tick();
-	}
-	
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float p_96565_) {
 		renderBackground(poseStack);
 		drawCenteredString(poseStack, this.font, this.title, this.width / 2, 15, 16777215);

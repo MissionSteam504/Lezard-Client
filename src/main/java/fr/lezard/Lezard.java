@@ -17,9 +17,8 @@ import fr.lezard.events.listeners.*;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.http.HTTPFunctions;
 import fr.lezard.http.gsonobjs.ObjGlobalSettings;
-import fr.lezard.plugins.Plugin;
+import fr.lezard.plugins.*;
 import fr.lezard.plugins.Plugin.Category;
-import fr.lezard.plugins.PluginHUD;
 import fr.lezard.plugins.hud.*;
 import fr.lezard.plugins.movement.*;
 import fr.lezard.plugins.player.*;
@@ -41,7 +40,7 @@ public class Lezard {
 	
 	public static final String NAME = "Lezard Client";
 	public static final String NAMESPACE = "lezard";
-	public static final String VERSION = "2.0.0-beta5";
+	public static final String VERSION = "2.0.0-beta6";
 	public static final String DISCORD_APP_ID = "971435977199464528";
 	public static final String USERNAME = "LezardUser";
 	public static final String PREFIX = "[" + NAME.replace(" ", "") + "] ";
@@ -161,27 +160,6 @@ public class Lezard {
 			p.onEvent(e);
 		}
 		if(e instanceof EventInGame) {
-			for(PluginHUD p : Lezard.pluginsHUD) {
-				if(p.isEnabled()) {
-					/*int width = Minecraft.getInstance().getWindow().getGuiScaledWidth();
-					int height = Minecraft.getInstance().getWindow().getGuiScaledHeight();
-					
-					if(oldWidth != width) {
-						System.out.println("Width changed");
-						System.out.println("oldWidth: " + oldWidth);
-						System.out.println("new width: " + width);
-						
-						float ratio = (float) width/oldWidth;
-						oldWidth=width;
-						float newPosX = p.getPosX()*ratio;
-						System.out.println("ratio: " + ratio);
-						System.out.println("old PosX: " + p.getPosX());
-						System.out.println("New PosX (not rounded): " + newPosX);
-						System.out.println("New PosX (rounded): " + (int) newPosX);
-						p.setPosX((int) newPosX);
-					} */
-				}
-			}
 			color = new Color(0, 0, 0, LezardOption.alpha);
 		}
 		if(e instanceof EventStart) {

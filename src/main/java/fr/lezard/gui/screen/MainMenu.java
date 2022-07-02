@@ -40,6 +40,11 @@ public class MainMenu extends Screen {
 		super.tick();
 	}
 	
+	public boolean shouldCloseOnEsc()
+    {
+        return false;
+    }
+	
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float p_96565_) {
 		this.poseStack = poseStack;
 		
@@ -61,6 +66,8 @@ public class MainMenu extends Screen {
 			
 			count++;
 		}
+		
+		// System.out.println(Lezard.globalSettings);
 		
 		poseStack.pushPose();
 		poseStack.translate(width/2f, height/2f, 0);
