@@ -3,7 +3,7 @@
 
 [<p align="center">
 <img src="https://img.shields.io/badge/Build-Beta-blueviolet.svg?logo=appveyor" alt="build">](https://github.com/MissionSteam504/Lezard-Launcher/releases) 
-[<img src="https://img.shields.io/badge/Version-2.0.0_beta5-orange.svg?logo=appveyor" alt="downloads">](https://github.com/MissionSteam504/Lezard-Launcher/releases) 
+[<img src="https://img.shields.io/badge/Version-2.0.0_beta6-orange.svg?logo=appveyor" alt="downloads">](https://github.com/MissionSteam504/Lezard-Launcher/releases) 
 [<img src="https://img.shields.io/github/issues-raw/MissionSteam504/Lezard-Client?label=Open%20issues&logo=appveyor" alt="stark">](https://github.com/MissionSteam504/Lezard-Launcher/releases)
 <img src="https://img.shields.io/github/repo-size/MissionSteam504/Lezard-Client?label=Size&logo=appveyor" alt="size">
 </p>
