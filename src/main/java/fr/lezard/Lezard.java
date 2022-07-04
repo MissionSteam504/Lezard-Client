@@ -14,18 +14,24 @@ import com.mojang.logging.LogUtils;
 
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.*;
+import fr.lezard.gui.screen.BannedScreen;
 import fr.lezard.gui.screen.DragScreen;
+import fr.lezard.gui.screen.MainMenu;
+import fr.lezard.gui.screen.NotWhitelistedScreen;
 import fr.lezard.http.HTTPFunctions;
-import fr.lezard.http.gsonobjs.ObjGlobalSettings;
-import fr.lezard.plugins.*;
+import fr.lezard.http.gsonobjs.*;
+import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.Plugin.Category;
+import fr.lezard.plugins.PluginHUD;
 import fr.lezard.plugins.hud.*;
 import fr.lezard.plugins.movement.*;
 import fr.lezard.plugins.player.*;
 import fr.lezard.plugins.render.*;
 import fr.lezard.plugins.utils.*;
 import fr.lezard.utils.*;
-import net.minecraft.client.*;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
 
 public class Lezard {
 	// Main class of the client
@@ -40,7 +46,7 @@ public class Lezard {
 	
 	public static final String NAME = "Lezard Client";
 	public static final String NAMESPACE = "lezard";
-	public static final String VERSION = "2.0.0-beta6";
+	public static final String VERSION = "2.0.0-beta7";
 	public static final String DISCORD_APP_ID = "971435977199464528";
 	public static final String USERNAME = "LezardUser";
 	public static final String PREFIX = "[" + NAME.replace(" ", "") + "] ";
@@ -55,6 +61,7 @@ public class Lezard {
 	public static boolean isWhitelisted = false;
 	public static String banReason = "Unknown";
 	public static ObjGlobalSettings globalSettings;
+	public static ObjUserCosmetics cosmetics;
 	
 	public static Color color = new Color(0, 0, 0, LezardOption.alpha);
 	
@@ -91,6 +98,7 @@ public class Lezard {
 			isWhitelisted = HTTPFunctions.isWhitelisted();
 			globalSettings = HTTPFunctions.downloadGlobalSettings();
 			banReason = HTTPFunctions.getBanReason();
+			cosmetics = HTTPFunctions.downloadCosmetics();
 		}
 		
 		LOGGER.info(PREFIX + "Initializing plugins...");
@@ -133,10 +141,14 @@ public class Lezard {
 			while(!Thread.currentThread().isInterrupted()) {
 				try {
 					if(HTTPFunctions.isAPIUp()) {
+						if(Minecraft.getInstance().screen instanceof MainMenu || Minecraft.getInstance().screen instanceof BannedScreen || Minecraft.getInstance().screen instanceof NotWhitelistedScreen) {
 							ban = HTTPFunctions.isBanned();
 							banReason = HTTPFunctions.getBanReason();
 							isWhitelisted = HTTPFunctions.isWhitelisted();
-							globalSettings = HTTPFunctions.downloadGlobalSettings();
+						}
+						
+						globalSettings = HTTPFunctions.downloadGlobalSettings();
+						cosmetics = HTTPFunctions.downloadCosmetics();
 					}
 					Thread.sleep(10000L);
 				}catch(InterruptedException e) {

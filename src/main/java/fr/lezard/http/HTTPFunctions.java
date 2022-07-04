@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import fr.lezard.http.gsonobjs.ObjGlobalSettings;
 import fr.lezard.http.gsonobjs.ObjIsBanned;
 import fr.lezard.http.gsonobjs.ObjIsWhitelisted;
+import fr.lezard.http.gsonobjs.ObjUserCosmetics;
 import net.minecraft.client.Minecraft;
 
 public class HTTPFunctions {
@@ -68,5 +69,17 @@ public class HTTPFunctions {
 	
 	public static ObjGlobalSettings downloadGlobalSettings() {
 		return gson.fromJson(HTTPUtils.sendGet(HTTPEndPoints.GLOBAL_SETIINGS).getBody(), ObjGlobalSettings.class);
+	}
+	
+	public static ObjUserCosmetics downloadCosmetics() {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("hwid", HWID.get(Minecraft.getInstance().getUser().getName())));
+		HTTPReply reply = HTTPUtils.sendGet(HTTPEndPoints.COSMETICS, params);
+		
+		if(reply.getStatusCode() == 200) {
+			ObjUserCosmetics obj = gson.fromJson(reply.getBody(), ObjUserCosmetics.class);
+			return obj;
+		}
+		return null;
 	}
 }

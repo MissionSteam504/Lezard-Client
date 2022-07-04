@@ -5,6 +5,7 @@ import java.util.UUID;
 public class ObjUserCosmetics {
 	private String uuid;
 	private String capeStyle;
+	private int customCape;
 
 	public UUID getUuid() {
 		return UUID.fromString(uuid);
@@ -16,5 +17,9 @@ public class ObjUserCosmetics {
 	
 	public boolean hasCape() {
 		return capeStyle != null;
+	}
+	
+	public boolean hasCustomCape() {
+		return customCape == 1;
 	}
 }
