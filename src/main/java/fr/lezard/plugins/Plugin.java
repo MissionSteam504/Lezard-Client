@@ -86,5 +86,9 @@ public class Plugin {
 		public String getName() {
 			return name;
 		}
+		
+		public String getNamespace() {
+			return name.toLowerCase();
+		}
 	}
 }

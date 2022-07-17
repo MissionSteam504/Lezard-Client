@@ -21,6 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
 public class ArmorPluginHUD extends PluginHUD{
@@ -81,8 +82,36 @@ public class ArmorPluginHUD extends PluginHUD{
 		if(Minecraft.getInstance().options.renderDebug){
             return;
         }
+		boolean haveArmor = false;
+		boolean haveItem = false;
+		for(ItemStack i : Minecraft.getInstance().player.getInventory().armor) {
+			if(i.getItem() != null && i.getItem() != Items.AIR) {
+				if(!haveArmor) haveArmor = true;
+			}
+		}
+		if(!haveItem) {
+			if(Minecraft.getInstance().player.getMainHandItem().getItem() != null && Minecraft.getInstance().player.getMainHandItem().getItem() != Items.AIR) {
+				haveItem = true;
+			}
+		}
+		
 		PluginHUD p =(PluginHUD) Lezard.plugins.get(0);
-		if(p.isFilled()) {
+		if(p.isFilled() && (haveArmor || haveItem)) {
+			if(!haveArmor && Minecraft.getInstance().player.getMainHandItem().getItem() != Items.AIR){
+				String txt = "";
+				if(Minecraft.getInstance().player.getMainHandItem().isDamageableItem()) {
+					ItemStack item = Minecraft.getInstance().player.getMainHandItem();
+					float damagePercent = (100 * (item.getMaxDamage() - item.getDamageValue())) / item.getMaxDamage();
+	                String damageLeft = "(" + (item.getMaxDamage() - item.getDamageValue()) + "/" + item.getMaxDamage() + ")";
+	                txt = String.format("%.0f%%", damagePercent) + " | " + damageLeft;
+				}else {
+					txt = Minecraft.getInstance().player.getMainHandItem().getHoverName().getString();
+				}
+				width=16+Minecraft.getInstance().font.width(txt) + LezardOption.gap+2;
+			}
+			else if(!haveArmor)
+				width=16;
+			
             GuiComponent.fill(poseStack, posX - LezardOption.gap, posY - LezardOption.gap, width + posX + LezardOption.gap, height + posY + LezardOption.gap, Lezard.color.getRGB());
         }
 	}
@@ -117,19 +146,45 @@ public class ArmorPluginHUD extends PluginHUD{
             return;
         }
         PluginHUD p =(PluginHUD) Lezard.plugins.get(0);
-
-        Minecraft.getInstance().getItemRenderer().renderGuiItem(item, posX, posY+posYadd);
-        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(font, (item == Minecraft.getInstance().player.getMainHandItem() ? temp : item), posX, posY + posYadd);
+        
+        boolean rightSide = false;
+        
+        if(posX+width/2 > Minecraft.getInstance().getWindow().getGuiScaledWidth()/2) {
+        	rightSide=true;
+        }else {
+        	rightSide=false;
+        }
+        
+        int damageWidth = 0;
         
         if(!currentMode.isBasic()) {
+        	String name = "";
         	if(item.isDamageableItem()){
                 float damagePercent = (100 * (item.getMaxDamage() - item.getDamageValue())) / item.getMaxDamage();
                 String damageLeft = "(" + (item.getMaxDamage() - item.getDamageValue()) + "/" + item.getMaxDamage() + ")";
-                String string = String.format("%.2f%%", damagePercent) + " | " + damageLeft;
-                GuiComponent.drawString(poseStack, font, string, posX + 19, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
-                p.setWidth(font.width(string) + 20);
+                name = String.format("%.0f%%", damagePercent) + " | " + damageLeft;
+                damageWidth = font.width(name);
+                GuiComponent.drawString(poseStack, font, name, rightSide ? posX : posX + 20, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
+        	}else {
+        		if(item.getItem() != Items.AIR) {
+        			name = item.getHoverName().getString();
+        			int textSize = font.width(name);
+        			GuiComponent.drawString(poseStack, font, name, rightSide ? posX + width- textSize-20: posX + 20, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
+        		}
         	}
+        	p.setWidth(font.width(name) + 20);
         }
+        
+        boolean damageable = item.isDamageableItem();
+        
+        int itemX = posX;
+        
+        if(!damageable && rightSide && !currentMode.isBasic()) {
+        	itemX = posX+width-20;
+        }
+        
+        Minecraft.getInstance().getItemRenderer().renderGuiItem(item, rightSide && !currentMode.isBasic() ? itemX + damageWidth + 2 : itemX, posY+posYadd);
+        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(font, (item == Minecraft.getInstance().player.getMainHandItem() ? temp : item), rightSide && !currentMode.isBasic() ? posX + damageWidth + 2 : posX, posY + posYadd);
 	}
 	
 	public enum Modes{

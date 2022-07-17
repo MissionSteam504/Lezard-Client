@@ -19,6 +19,7 @@ import fr.lezard.utils.LezardOption;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public class TabHUD extends PluginHUD{
 	public int currentTab;
@@ -55,7 +56,7 @@ public class TabHUD extends PluginHUD{
 	        }
 			
 			for(Plugin.Category c : Plugin.Category.values()) {
-				String temp=c.getName();
+				String temp=new TranslatableComponent(Lezard.NAMESPACE + ".category." + c.getNamespace()).getString();
 				if(font.width(temp)>font.width(cname)) {
 					cname=temp;
 				}
@@ -69,7 +70,7 @@ public class TabHUD extends PluginHUD{
 			
 			int count = 0;
 			for(Category c : Plugin.Category.values()) {
-				GuiComponent.drawString(poseStack, font, c.getName(), posX+6, posY+5 + count*16, -1);
+				GuiComponent.drawString(poseStack, font, new TranslatableComponent(Lezard.NAMESPACE + ".category." + c.getNamespace()).getString(), posX+6, posY+5 + count*16, -1);
 				count++;
 			}
 			
@@ -91,7 +92,7 @@ public class TabHUD extends PluginHUD{
 				count = 0;
 				
 				for(Plugin p : plugins) {
-					String temp=p.getName();
+					String temp=new TranslatableComponent(Lezard.NAMESPACE + ".plugin." + p.getNamespace()).getString();
 					if(font.width(temp)>font.width(name)) {
 						name=temp;
 					}
@@ -104,7 +105,7 @@ public class TabHUD extends PluginHUD{
 				
 				count = 0;
 				for(Plugin p : plugins) {
-					GuiComponent.drawString(poseStack, font, p.getName(), posX+categorysize+6, posY+5 + count*16, -1);
+					GuiComponent.drawString(poseStack, font, new TranslatableComponent(Lezard.NAMESPACE + ".plugin." + p.getNamespace()).getString(), posX+categorysize+6, posY+5 + count*16, -1);
 					count++;
 				}
 				
