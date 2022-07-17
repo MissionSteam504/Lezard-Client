@@ -29,6 +29,11 @@ public class DragScreen extends Screen {
 		super(new TranslatableComponent(Lezard.NAMESPACE + ".gui.drag"));
 	}
 	
+	public boolean isPauseScreen()
+    {
+        return false;
+    }
+	
 	protected void init() {
 		this.addRenderableWidget(new ImageButton(this.width / 2 -22, this.height-45, 20, 20, 0, 0, 20, SETTINGS_TEXTURE, 32, 64, (p_96784_) -> {
 	         this.minecraft.setScreen(new LezardSettingsScreen(this));

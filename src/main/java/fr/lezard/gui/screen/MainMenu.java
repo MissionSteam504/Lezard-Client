@@ -23,7 +23,7 @@ public class MainMenu extends Screen {
 	
 	private String splash;
 	
-	private ResourceLocation BACKGROUND = new ResourceLocation(Lezard.NAMESPACE + "/background/background1.png");
+	private ResourceLocation BACKGROUND = new ResourceLocation(Lezard.NAMESPACE + "/gui/background.png");
 	PoseStack poseStack;
 
 	public MainMenu() {
@@ -41,6 +41,11 @@ public class MainMenu extends Screen {
 	}
 	 	
 	public boolean shouldCloseOnEsc()
+    {
+        return false;
+    }
+	
+	public boolean isPauseScreen()
     {
         return false;
     }

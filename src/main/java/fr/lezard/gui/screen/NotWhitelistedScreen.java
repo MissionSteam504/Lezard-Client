@@ -16,6 +16,11 @@ public class NotWhitelistedScreen extends Screen {
 		super(new TranslatableComponent(Lezard.NAMESPACE + ".gui.screen.notWhitelited"));
 	}
 	
+	public boolean isPauseScreen()
+    {
+        return false;
+    }
+	
 	protected void init() {
 		int y = this.height/2 + this.height/8 - 10;
 		this.addRenderableWidget(new Button(this.width/4, y, 96, 20, new TranslatableComponent("menu.quit"), (p_96257_) -> {

@@ -56,7 +56,7 @@ public class Lezard {
 	
 	public static final String NAME = "Lezard Client";
 	public static final String NAMESPACE = "lezard";
-	public static final String VERSION = "2.0.0-beta8";
+	public static final String VERSION = "2.0.0-beta9";
 	public static final String DISCORD_APP_ID = "971435977199464528";
 	public static final String USERNAME = "LezardUser";
 	public static final String PREFIX = "[" + NAME.replace(" ", "") + "] ";
@@ -74,7 +74,7 @@ public class Lezard {
 	public static String banReason = "Unknown";
 	public static ObjGlobalSettings globalSettings;
 	public static ObjUserCosmetics cosmetics;
-	public static ObjServer[] servers = null;
+	public static ObjServer[] servers = {};
 	
 	public static Color color = new Color(0, 0, 0, LezardOption.alpha);
 	

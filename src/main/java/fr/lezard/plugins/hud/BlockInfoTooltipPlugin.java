@@ -42,7 +42,7 @@ public class BlockInfoTooltipPlugin extends Plugin {
 			int posX = 0;
 			int posY = 3+LezardOption.gap;
 			
-			posX = Minecraft.getInstance().getWindow().getGuiScaledWidth()/2-width/2+18;
+			posX = Minecraft.getInstance().getWindow().getGuiScaledWidth()/2-width/2+8;
 			
 			PoseStack poseStack = new PoseStack();
 			Minecraft mc = Minecraft.getInstance();

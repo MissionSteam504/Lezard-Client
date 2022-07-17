@@ -23,6 +23,11 @@ public class BlockInfoTooltipPluginScreen extends Screen {
 		super(new TranslatableComponent(Lezard.NAMESPACE + ".plugin.blocktooltip"));
 	}
 	
+	public boolean isPauseScreen()
+    {
+        return false;
+    }
+	
 	protected void init() {
 		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 6 + 168, 200, 20, CommonComponents.GUI_DONE, (p_96257_) -> {
 	         this.minecraft.setScreen(new MainPluginScreen());

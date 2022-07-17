@@ -165,14 +165,15 @@ public class ArmorPluginHUD extends PluginHUD{
                 name = String.format("%.0f%%", damagePercent) + " | " + damageLeft;
                 damageWidth = font.width(name);
                 GuiComponent.drawString(poseStack, font, name, rightSide ? posX : posX + 20, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
+                p.setWidth(font.width(name) + 20);
         	}else {
         		if(item.getItem() != Items.AIR) {
         			name = item.getHoverName().getString();
         			int textSize = font.width(name);
         			GuiComponent.drawString(poseStack, font, name, rightSide ? posX + width- textSize-20: posX + 20, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
+        			if(p.getWidth() < font.width(name) + 20) p.setWidth(font.width(name) + 20);
         		}
         	}
-        	p.setWidth(font.width(name) + 20);
         }
         
         boolean damageable = item.isDamageableItem();

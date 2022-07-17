@@ -18,6 +18,11 @@ public class BannedScreen extends Screen{
 		minecraft.getSoundManager().stop();
 	}
 	
+	public boolean isPauseScreen()
+    {
+        return false;
+    }
+	
 	public boolean shouldCloseOnEsc() {
         return false;
     }

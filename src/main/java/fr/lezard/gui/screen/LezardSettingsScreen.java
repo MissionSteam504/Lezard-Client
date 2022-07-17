@@ -21,6 +21,11 @@ public class LezardSettingsScreen extends Screen {
 		this.lastScreen = lastScreen;
 	}
 	
+	public boolean isPauseScreen()
+    {
+        return false;
+    }
+	
 	protected void init() {
 		Option[] OPTIONS = new Option[]{LezardOption.ALPHA_SLIDER, LezardOption.GAP_SLIDER, LezardOption.SHOW_ANCHOR, LezardOption.RAINBOW_SPEED};
 		this.list = new OptionsList(this.minecraft, this.width, this.height, 32, this.height - 32, 25);
