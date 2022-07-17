@@ -11,6 +11,8 @@ public class HTTPEndPoints {
 	public static final String COSMETICS = BASE_URL + "getCosmetics/";
 	public static final String CAPE = BASE_URL + "getCape";
 	
+	public static final String SERVERS = "http://lezard-client.com/storage/launcher-files/launcher/serverList.json";
+	
 	public static final String STATIC = BASE_URL + "static/client/";
 	
 }

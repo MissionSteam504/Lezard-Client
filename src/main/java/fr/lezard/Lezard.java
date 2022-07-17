@@ -10,6 +10,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.slf4j.Logger;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 
 import fr.lezard.events.Event;
@@ -32,6 +34,9 @@ import fr.lezard.utils.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.resources.ResourceLocation;
 
 public class Lezard {
 	// Main class of the client
@@ -40,6 +45,11 @@ public class Lezard {
 	// Some functions for later (so i can find it easier):
 	/*private void noUse() {
 		ClientPacketListener.handleChat(null, null);
+		CapeUtils
+		ServerList
+		ServerSelectionList
+		JoinMultiplayerScreen
+		TextureUtils (line 271)
 	}*/
 	
 	private static final Logger LOGGER = LogUtils.getLogger();
@@ -64,6 +74,7 @@ public class Lezard {
 	public static String banReason = "Unknown";
 	public static ObjGlobalSettings globalSettings;
 	public static ObjUserCosmetics cosmetics;
+	public static ObjServer[] servers = null;
 	
 	public static Color color = new Color(0, 0, 0, LezardOption.alpha);
 	
@@ -98,11 +109,13 @@ public class Lezard {
 		if(HTTPFunctions.isAPIUp()) {
 			LOGGER.info(PREFIX + "Api up");
 			HTTPFunctions.sendHWIDMap();
+			
 			ban = HTTPFunctions.isBanned();
 			isWhitelisted = HTTPFunctions.isWhitelisted();
 			globalSettings = HTTPFunctions.downloadGlobalSettings();
 			banReason = HTTPFunctions.getBanReason();
 			cosmetics = HTTPFunctions.downloadCosmetics();
+			servers = HTTPFunctions.downloadServers();
 		}
 		
 		LOGGER.info(PREFIX + "Initializing plugins...");
@@ -227,4 +240,12 @@ public class Lezard {
 	public static int rainbowText(){
         return Color.HSBtoRGB((float) (System.currentTimeMillis() % (LezardOption.rainbowSpeed * 1000L)) / (LezardOption.rainbowSpeed * 1000F), 0.8f, 0.8f);
     }
+	
+	public static void drawImg(int x, int y, boolean lower, ResourceLocation img){
+		PoseStack ps = new PoseStack();
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.setShaderTexture(0, img);
+		GuiComponent.blit(ps, x-16, lower ? y +16 : y, 0.0f, 0.0f, 16, 16, 16, 16);
+	}
 }

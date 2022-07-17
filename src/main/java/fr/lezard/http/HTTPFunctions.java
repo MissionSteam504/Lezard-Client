@@ -8,10 +8,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.google.gson.Gson;
 
-import fr.lezard.http.gsonobjs.ObjGlobalSettings;
-import fr.lezard.http.gsonobjs.ObjIsBanned;
-import fr.lezard.http.gsonobjs.ObjIsWhitelisted;
-import fr.lezard.http.gsonobjs.ObjUserCosmetics;
+import fr.lezard.http.gsonobjs.*;
 import net.minecraft.client.Minecraft;
 
 public class HTTPFunctions {
@@ -81,5 +78,9 @@ public class HTTPFunctions {
 			return obj;
 		}
 		return null;
+	}
+	
+	public static ObjServer[] downloadServers() {
+		return gson.fromJson(HTTPUtils.sendGet(HTTPEndPoints.SERVERS).getBody(), ObjServer[].class);
 	}
 }
