@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.Lezard;
 import fr.lezard.gui.screen.MainPluginScreen;
 import fr.lezard.plugins.Plugin;
-import fr.lezard.utils.CommonLezardComponents;
+import fr.lezard.utils.CommonLezardVariables;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
@@ -23,7 +23,7 @@ public class DiscordPluginScreen extends Screen {
 	         this.minecraft.setScreen(new MainPluginScreen());
 	      }));
 		Plugin plugin = Lezard.plugins.get(4);
-		this.addRenderableWidget(CycleButton.onOffBuilder(plugin.isEnabled()).create(this.width / 2 - 48, this.height / 6, 96, 20, CommonLezardComponents.ENABLED, (p_170168_, p_170169_) -> {
+		this.addRenderableWidget(CycleButton.onOffBuilder(plugin.isEnabled()).create(this.width / 2 - 48, this.height / 6, 96, 20, CommonLezardVariables.ENABLED, (p_170168_, p_170169_) -> {
 			plugin.toggle();
 		}));
 	}

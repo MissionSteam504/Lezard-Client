@@ -23,7 +23,7 @@ public class MainMenu extends Screen {
 	
 	private String splash;
 	
-	private ResourceLocation BACKGROUND = new ResourceLocation(Lezard.NAMESPACE + "/background/background0.jpg");
+	private ResourceLocation BACKGROUND = new ResourceLocation(Lezard.NAMESPACE + "/background/background1.png");
 	PoseStack poseStack;
 
 	public MainMenu() {
@@ -31,7 +31,7 @@ public class MainMenu extends Screen {
 	}
 	
 	protected void init() {
-		if(splash==null) {
+		if(splash==null) {	
 			splash = this.minecraft.getSplashManager().getSplash();
 		}
 	}
@@ -39,7 +39,7 @@ public class MainMenu extends Screen {
 	public void tick() {
 		super.tick();
 	}
-	
+	 	
 	public boolean shouldCloseOnEsc()
     {
         return false;
@@ -48,7 +48,7 @@ public class MainMenu extends Screen {
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float p_96565_) {
 		this.poseStack = poseStack;
 		
-		RenderSystem.setShaderTexture(0, BACKGROUND);
+		RenderSystem.setShaderTexture(0, this.BACKGROUND);
 		blit(poseStack, 0, 0, 0, 0, width, height, width, height);
 		
 		this.fillGradient(poseStack, 0, height-100, width, height, 0x00000000, 0xff000000);

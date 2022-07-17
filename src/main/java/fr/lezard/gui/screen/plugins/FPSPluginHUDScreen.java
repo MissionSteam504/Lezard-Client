@@ -9,7 +9,7 @@ import fr.lezard.gui.screen.MainPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.Colors;
-import fr.lezard.utils.CommonLezardComponents;
+import fr.lezard.utils.CommonLezardVariables;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
@@ -28,16 +28,16 @@ public class FPSPluginHUDScreen extends Screen {
 	      }));
 		Plugin plugin = Lezard.plugins.get(5);
 		PluginHUD p = (PluginHUD) plugin;
-		this.addRenderableWidget(CycleButton.onOffBuilder(plugin.isEnabled()).create(this.width / 2 - 48, this.height / 6, 96, 20, CommonLezardComponents.ENABLED, (p_170168_, p_170169_) -> {
+		this.addRenderableWidget(CycleButton.onOffBuilder(plugin.isEnabled()).create(this.width / 2 - 48, this.height / 6, 96, 20, CommonLezardVariables.ENABLED, (p_170168_, p_170169_) -> {
 			plugin.toggle();
 		}));
-		this.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Arrays.asList(Colors.values())).withInitialValue(p.getColors()).create(this.width / 2 - 48, this.height / 6+ 22, 96, 20, CommonLezardComponents.COLOR, (p_167441_, p_167442_) -> {
+		this.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Arrays.asList(Colors.values())).withInitialValue(p.getColors()).create(this.width / 2 - 48, this.height / 6+ 22, 96, 20, CommonLezardVariables.COLOR, (p_167441_, p_167442_) -> {
             p.setColors(p_167442_);
         }));
-		this.addRenderableWidget(CycleButton.onOffBuilder(p.isRainbow()).create(this.width / 2 - 48, this.height / 6 + 44, 96, 20, CommonLezardComponents.RAINBOW, (p_170168_, p_170169_) -> {
+		this.addRenderableWidget(CycleButton.onOffBuilder(p.isRainbow()).create(this.width / 2 - 48, this.height / 6 + 44, 96, 20, CommonLezardVariables.RAINBOW, (p_170168_, p_170169_) -> {
 			p.setRainbow(!p.isRainbow());
 		}));
-		this.addRenderableWidget(CycleButton.onOffBuilder(p.isFilled()).create(this.width / 2 - 48, this.height / 6 + 66, 96, 20, CommonLezardComponents.FILLED, (p_170168_, p_170169_) -> {
+		this.addRenderableWidget(CycleButton.onOffBuilder(p.isFilled()).create(this.width / 2 - 48, this.height / 6 + 66, 96, 20, CommonLezardVariables.FILLED, (p_170168_, p_170169_) -> {
 			p.setFilled(!p.isFilled());
 		}));
 	}

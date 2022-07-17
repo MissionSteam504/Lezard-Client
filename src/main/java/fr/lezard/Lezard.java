@@ -46,13 +46,15 @@ public class Lezard {
 	
 	public static final String NAME = "Lezard Client";
 	public static final String NAMESPACE = "lezard";
-	public static final String VERSION = "2.0.0-beta7";
+	public static final String VERSION = "2.0.0-beta8";
 	public static final String DISCORD_APP_ID = "971435977199464528";
 	public static final String USERNAME = "LezardUser";
 	public static final String PREFIX = "[" + NAME.replace(" ", "") + "] ";
 	public static final String WINDOW_TITLE = NAME + " " + VERSION + " | " + Minecraft.getInstance().getUser().getName();
 	
 	public static final boolean IDE_CLIENT = true;
+	
+	public static boolean firstLaunch = true;
 	
 	public static int oldWidth;
 	public static int oldHeight;
@@ -72,6 +74,8 @@ public class Lezard {
 	
 	public static void launch() {
 		LOGGER.info(PREFIX + "Starting client...");
+		
+		firstLaunch=false;
 		
 		LOGGER.info(PREFIX + "Looking for " + NAMESPACE + "-settings.json...");
 		
@@ -115,6 +119,7 @@ public class Lezard {
 		plugins.add(new KeyStrokePluginHUD()); // 10
 		plugins.add(new SimplifiedDebugPlugin()); // 11
 		plugins.add(new TabHUD()); // 12
+		plugins.add(new BlockInfoTooltipPlugin()); // 13
 		
 		
 		for(Plugin p : plugins) {
@@ -174,10 +179,10 @@ public class Lezard {
 		if(e instanceof EventInGame) {
 			color = new Color(0, 0, 0, LezardOption.alpha);
 		}
-		if(e instanceof EventStart) {
+		/*if(e instanceof EventStart) {
 			oldWidth=Minecraft.getInstance().getWindow().getGuiScaledWidth();
 			oldHeight=Minecraft.getInstance().getWindow().getGuiScaledHeight();
-		}
+		}*/
 	}
 	
 	public static void checkInputs() {
