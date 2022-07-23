@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class LezardOption {
+public abstract class LezardOptions {
 	public static int alpha = 95;
 	public static int gap = 4;
 	public static int rainbowSpeed = 5;

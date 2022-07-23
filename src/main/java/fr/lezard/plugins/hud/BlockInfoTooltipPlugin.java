@@ -11,7 +11,7 @@ import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.Colors;
 import fr.lezard.utils.CommonLezardVariables;
 import fr.lezard.utils.FileWriterJson;
-import fr.lezard.utils.LezardOption;
+import fr.lezard.utils.LezardOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -40,7 +40,7 @@ public class BlockInfoTooltipPlugin extends Plugin {
 	public void onEvent(Event<?> e) {
 		if(e instanceof EventInGame) {
 			int posX = 0;
-			int posY = 3+LezardOption.gap;
+			int posY = 3+LezardOptions.gap;
 			
 			posX = Minecraft.getInstance().getWindow().getGuiScaledWidth()/2-width/2+8;
 			
@@ -58,7 +58,7 @@ public class BlockInfoTooltipPlugin extends Plugin {
 			Entity mob = mc.crosshairPickEntity;
 			
 			if(filled && ((mob != null && CommonLezardVariables.MOBS_WITH_SPAWNEGG.contains(mob.getType())) || currentBlock.getType() == HitResult.Type.BLOCK)) {
-				GuiComponent.fill(poseStack, posX - LezardOption.gap -18, posY - LezardOption.gap, posX + width + LezardOption.gap, posY + height + LezardOption.gap, Lezard.color.getRGB());
+				GuiComponent.fill(poseStack, posX - LezardOptions.gap -18, posY - LezardOptions.gap, posX + width + LezardOptions.gap, posY + height + LezardOptions.gap, Lezard.color.getRGB());
 			}
 			
 			// Current

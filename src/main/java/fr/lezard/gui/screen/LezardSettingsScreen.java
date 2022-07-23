@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import fr.lezard.Lezard;
 import fr.lezard.utils.FileWriterJson;
-import fr.lezard.utils.LezardOption;
+import fr.lezard.utils.LezardOptions;
 import net.minecraft.client.Option;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.OptionsList;
@@ -27,17 +27,17 @@ public class LezardSettingsScreen extends Screen {
     }
 	
 	protected void init() {
-		Option[] OPTIONS = new Option[]{LezardOption.ALPHA_SLIDER, LezardOption.GAP_SLIDER, LezardOption.SHOW_ANCHOR, LezardOption.RAINBOW_SPEED};
+		Option[] OPTIONS = new Option[]{LezardOptions.ALPHA_SLIDER, LezardOptions.GAP_SLIDER, LezardOptions.SHOW_ANCHOR, LezardOptions.RAINBOW_SPEED};
 		this.list = new OptionsList(this.minecraft, this.width, this.height, 32, this.height - 32, 25);
 		// this.list.addBig(LezardOption.ALPHA_SLIDER);
 		this.list.a(OPTIONS);
 		this.addWidget(this.list);
 		
 		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 200, 20, CommonComponents.GUI_DONE, (p_96827_) -> {
-			FileWriterJson.writeJson(Lezard.NAMESPACE, "alpha", LezardOption.alpha); 
-			FileWriterJson.writeJson(Lezard.NAMESPACE, "gap", LezardOption.gap); 
-			FileWriterJson.writeJson(Lezard.NAMESPACE, "showAnchor", LezardOption.showAnchor); 
-			FileWriterJson.writeJson(Lezard.NAMESPACE, "rainbowSpeed", LezardOption.rainbowSpeed); 
+			FileWriterJson.writeJson(Lezard.NAMESPACE, "alpha", LezardOptions.alpha); 
+			FileWriterJson.writeJson(Lezard.NAMESPACE, "gap", LezardOptions.gap); 
+			FileWriterJson.writeJson(Lezard.NAMESPACE, "showAnchor", LezardOptions.showAnchor); 
+			FileWriterJson.writeJson(Lezard.NAMESPACE, "rainbowSpeed", LezardOptions.rainbowSpeed); 
 			this.minecraft.setScreen(this.lastScreen);
 	      }));
 	}
@@ -65,7 +65,10 @@ public class LezardSettingsScreen extends Screen {
 	}
 	
 	public void onClose() {
-		
+		FileWriterJson.writeJson(Lezard.NAMESPACE, "alpha", LezardOptions.alpha); 
+		FileWriterJson.writeJson(Lezard.NAMESPACE, "gap", LezardOptions.gap); 
+		FileWriterJson.writeJson(Lezard.NAMESPACE, "showAnchor", LezardOptions.showAnchor); 
+		FileWriterJson.writeJson(Lezard.NAMESPACE, "rainbowSpeed", LezardOptions.rainbowSpeed); 
 	}
 
 }

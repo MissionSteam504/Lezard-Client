@@ -9,7 +9,7 @@ import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.InGameTimePluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
-import fr.lezard.utils.LezardOption;
+import fr.lezard.utils.LezardOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -44,7 +44,7 @@ public class InGameTimePluginHUD extends PluginHUD{
 			setHeight(font.lineHeight);
 			
 			if(isFilled()) {
-	            GuiComponent.fill(poseStack, posX - LezardOption.gap, posY - LezardOption.gap, getWidth() + posX + LezardOption.gap, getHeight() + posY + LezardOption.gap, Lezard.color.getRGB());
+	            GuiComponent.fill(poseStack, posX - LezardOptions.gap, posY - LezardOptions.gap, getWidth() + posX + LezardOptions.gap, getHeight() + posY + LezardOptions.gap, Lezard.color.getRGB());
 	        }
 			
 			GuiComponent.drawString(poseStack, font, string, posX, posY, isRainbow() ? Lezard.rainbowText() : getColors().getRgb());

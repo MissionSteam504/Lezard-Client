@@ -15,7 +15,7 @@ public class CommonLezardVariables {
 	public static final TranslatableComponent RAINBOW = new TranslatableComponent(Lezard.NAMESPACE + ".gui.rainbow");
 	public static final TranslatableComponent FILLED = new TranslatableComponent(Lezard.NAMESPACE + ".gui.filled");
 	public static final TranslatableComponent MODE = new TranslatableComponent(Lezard.NAMESPACE + ".gui.mode");
-	public static final TranslatableComponent SECOND_COLOR = new TranslatableComponent(Lezard.NAMESPACE + ".secondColor");
+	public static final TranslatableComponent SECOND_COLOR = new TranslatableComponent(Lezard.NAMESPACE + ".gui.secondColor");
 	
 	public static final List<EntityType<?>> MOBS_WITH_SPAWNEGG = Arrays.asList(
 			EntityType.AXOLOTL,

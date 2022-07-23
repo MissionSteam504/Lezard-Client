@@ -8,8 +8,10 @@ import fr.lezard.Lezard;
 import fr.lezard.gui.screen.MainPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.PluginHUD;
+import fr.lezard.plugins.player.CoordsPluginHUD;
 import fr.lezard.utils.Colors;
 import fr.lezard.utils.CommonLezardVariables;
+import fr.lezard.utils.FileWriterJson;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
@@ -45,6 +47,10 @@ public class CoordsPluginHUDScreen extends Screen {
 		this.addRenderableWidget(CycleButton.onOffBuilder(p.isFilled()).create(this.width / 2 - 48, this.height / 6 + 66, 96, 20, CommonLezardVariables.FILLED, (p_170168_, p_170169_) -> {
 			p.setFilled(!p.isFilled());
 		}));
+		this.addRenderableWidget(CycleButton.builder(CoordsPluginHUD.Mode::getName).withValues(Arrays.asList(CoordsPluginHUD.Mode.values())).withInitialValue(CoordsPluginHUD.mode).create(this.width / 2 - 48, this.height / 6+ 88, 96, 20, CommonLezardVariables.MODE, (p_167441_, p_167442_) -> {
+			CoordsPluginHUD.mode = p_167442_;
+			FileWriterJson.writeJson(plugin.getNamespace(), "mode", CoordsPluginHUD.mode.getLiteralName());
+        }));
 	}
 	
 	public void tick() {

@@ -54,7 +54,9 @@ public class MainMenu extends Screen {
 		this.poseStack = poseStack;
 		
 		RenderSystem.setShaderTexture(0, this.BACKGROUND);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		blit(poseStack, 0, 0, 0, 0, width, height, width, height);
+		
 		
 		this.fillGradient(poseStack, 0, height-100, width, height, 0x00000000, 0xff000000);
 		

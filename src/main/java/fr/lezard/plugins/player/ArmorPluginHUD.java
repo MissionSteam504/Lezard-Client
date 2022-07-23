@@ -12,7 +12,7 @@ import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.ArmorPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
-import fr.lezard.utils.LezardOption;
+import fr.lezard.utils.LezardOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -107,12 +107,12 @@ public class ArmorPluginHUD extends PluginHUD{
 				}else {
 					txt = Minecraft.getInstance().player.getMainHandItem().getHoverName().getString();
 				}
-				width=16+Minecraft.getInstance().font.width(txt) + LezardOption.gap+2;
+				width=16+Minecraft.getInstance().font.width(txt) + LezardOptions.gap+2;
 			}
 			else if(!haveArmor)
 				width=16;
 			
-            GuiComponent.fill(poseStack, posX - LezardOption.gap, posY - LezardOption.gap, width + posX + LezardOption.gap, height + posY + LezardOption.gap, Lezard.color.getRGB());
+            GuiComponent.fill(poseStack, posX - LezardOptions.gap, posY - LezardOptions.gap, width + posX + LezardOptions.gap, height + posY + LezardOptions.gap, Lezard.color.getRGB());
         }
 	}
 	

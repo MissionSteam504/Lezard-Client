@@ -8,7 +8,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fr.lezard.Lezard;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
-import fr.lezard.utils.LezardOption;
+import fr.lezard.utils.LezardOptions;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -49,7 +49,7 @@ public class DragScreen extends Screen {
 	
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float p_96565_) {
 		drawCenteredString(poseStack, this.font, this.title, this.width / 2, 15, 16777215);
-		if(LezardOption.showAnchor) {
+		if(LezardOptions.showAnchor) {
 			fill(poseStack, this.width/2-0.5f, 0, this.width/2+0.5f, this.height, 0x60ff0000);
 			fill(poseStack, this.width/4-0.5f, 0, this.width/4+0.5f, this.height, 0x60ff0000);
 			fill(poseStack, (this.width/4)*3-0.5f, 0, (this.width/4)*3+0.5f, this.height, 0x60ff0000);
@@ -60,10 +60,10 @@ public class DragScreen extends Screen {
 				if(p.isEnabled()) {
 					if(plugin != null) {
 						if(plugin != p) {
-							fill(poseStack, p.getPosX() - LezardOption.gap+0.5f, 0, p.getPosX() - LezardOption.gap-0.5f, this.height, 0x600000ff);
-							fill(poseStack, p.getPosX() + p.getWidth() + LezardOption.gap+0.5f, 0, p.getPosX() + p.getWidth() + LezardOption.gap-0.5f, this.height, 0x600000ff);
-							fill(poseStack, 0, p.getPosY() - LezardOption.gap-0.5f, this.width, p.getPosY() - LezardOption.gap+0.5f, 0x600000ff);
-							fill(poseStack, 0, p.getPosY() + p.getHeight() + LezardOption.gap-0.5f, this.width, p.getPosY() + p.getHeight() + LezardOption.gap+0.5f, 0x600000ff);
+							fill(poseStack, p.getPosX() - LezardOptions.gap+0.5f, 0, p.getPosX() - LezardOptions.gap-0.5f, this.height, 0x600000ff);
+							fill(poseStack, p.getPosX() + p.getWidth() + LezardOptions.gap+0.5f, 0, p.getPosX() + p.getWidth() + LezardOptions.gap-0.5f, this.height, 0x600000ff);
+							fill(poseStack, 0, p.getPosY() - LezardOptions.gap-0.5f, this.width, p.getPosY() - LezardOptions.gap+0.5f, 0x600000ff);
+							fill(poseStack, 0, p.getPosY() + p.getHeight() + LezardOptions.gap-0.5f, this.width, p.getPosY() + p.getHeight() + LezardOptions.gap+0.5f, 0x600000ff);
 							
 							fill(poseStack, p.getPosX() + p.getWidth()/2 + 0.5f, 0, p.getPosX() + p.getWidth()/2 - 0.5f, this.height, 0x6000ff00);
 							fill(poseStack, 0, p.getPosY() + p.getHeight()/2 + 0.5f, this.width, p.getPosY() + p.getHeight()/2 - 0.5f, 0x6000ff00);
@@ -93,7 +93,7 @@ public class DragScreen extends Screen {
 					int relY = relativeY.get(Lezard.pluginsHUD.indexOf(currentPlugin));
 					int anchor = 3;
 		
-					if(relX >= -LezardOption.gap && relX <= currentPlugin.getWidth() + LezardOption.gap && relY >= -LezardOption.gap && relY <= currentPlugin.getHeight() + LezardOption.gap && currentPlugin.isEnabled()){
+					if(relX >= -LezardOptions.gap && relX <= currentPlugin.getWidth() + LezardOptions.gap && relY >= -LezardOptions.gap && relY <= currentPlugin.getHeight() + LezardOptions.gap && currentPlugin.isEnabled()){
 						posX=(int) (mouseX - relX);
 			            posY=(int) (mouseY - relY);
 			            currentPlugin.setDragged(true);
@@ -126,27 +126,27 @@ public class DragScreen extends Screen {
 				        			if(posX >= p.getPosX()-anchor && posX <= p.getPosX()+anchor) {
 							        	posX=p.getPosX();
 							        }
-					        		if(posX >= p.getPosX()+p.getWidth()+LezardOption.gap-anchor && posX <= p.getPosX()+p.getWidth()+LezardOption.gap+anchor) {
-							        	posX=p.getPosX()+p.getWidth()+LezardOption.gap*2;
+					        		if(posX >= p.getPosX()+p.getWidth()+LezardOptions.gap-anchor && posX <= p.getPosX()+p.getWidth()+LezardOptions.gap+anchor) {
+							        	posX=p.getPosX()+p.getWidth()+LezardOptions.gap*2;
 							        }
-					        		if(posX+currentPlugin.getWidth()+LezardOption.gap >= p.getPosX()+p.getWidth()+LezardOption.gap-anchor && posX+currentPlugin.getWidth()+LezardOption.gap <= p.getPosX()+p.getWidth()+LezardOption.gap+anchor) {
+					        		if(posX+currentPlugin.getWidth()+LezardOptions.gap >= p.getPosX()+p.getWidth()+LezardOptions.gap-anchor && posX+currentPlugin.getWidth()+LezardOptions.gap <= p.getPosX()+p.getWidth()+LezardOptions.gap+anchor) {
 					        			posX=p.getPosX()+p.getWidth()-currentPlugin.getWidth();
 					        		}
-					        		if(posX+currentPlugin.getWidth()+LezardOption.gap >= p.getPosX()-LezardOption.gap-anchor && posX+currentPlugin.getWidth()+LezardOption.gap <= p.getPosX()-LezardOption.gap+anchor) {
-					        			posX=p.getPosX()-(LezardOption.gap*2)-currentPlugin.getWidth();
+					        		if(posX+currentPlugin.getWidth()+LezardOptions.gap >= p.getPosX()-LezardOptions.gap-anchor && posX+currentPlugin.getWidth()+LezardOptions.gap <= p.getPosX()-LezardOptions.gap+anchor) {
+					        			posX=p.getPosX()-(LezardOptions.gap*2)-currentPlugin.getWidth();
 					        		}
 					        		
 					        		// Check if posY are the same
 					        		if(posY >= p.getPosY() -anchor && posY <= p.getPosY()+anchor) {
 					        			posY=p.getPosY();
 					        		}
-					        		if(posY+currentPlugin.getHeight()+LezardOption.gap >= p.getPosY()-LezardOption.gap-anchor && posY+currentPlugin.getHeight()+LezardOption.gap <= p.getPosY()-LezardOption.gap+anchor) {
-					        			posY=p.getPosY()-currentPlugin.getHeight()-LezardOption.gap*2;
+					        		if(posY+currentPlugin.getHeight()+LezardOptions.gap >= p.getPosY()-LezardOptions.gap-anchor && posY+currentPlugin.getHeight()+LezardOptions.gap <= p.getPosY()-LezardOptions.gap+anchor) {
+					        			posY=p.getPosY()-currentPlugin.getHeight()-LezardOptions.gap*2;
 					        		}
-					        		if(posY >= p.getPosY()+p.getHeight()+LezardOption.gap-anchor && posY-LezardOption.gap <= p.getPosY()+p.getHeight()+LezardOption.gap+anchor) {
-					        			posY=p.getPosY()+p.getHeight()+LezardOption.gap*2;
+					        		if(posY >= p.getPosY()+p.getHeight()+LezardOptions.gap-anchor && posY-LezardOptions.gap <= p.getPosY()+p.getHeight()+LezardOptions.gap+anchor) {
+					        			posY=p.getPosY()+p.getHeight()+LezardOptions.gap*2;
 					        		}
-					        		if(posY+currentPlugin.getHeight()+LezardOption.gap >=p.getPosY()+p.getHeight()+LezardOption.gap-anchor && posY+currentPlugin.getHeight()+LezardOption.gap <=p.getPosY()+p.getHeight()+LezardOption.gap+anchor) {
+					        		if(posY+currentPlugin.getHeight()+LezardOptions.gap >=p.getPosY()+p.getHeight()+LezardOptions.gap-anchor && posY+currentPlugin.getHeight()+LezardOptions.gap <=p.getPosY()+p.getHeight()+LezardOptions.gap+anchor) {
 					        			posY=p.getPosY()+p.getHeight()-currentPlugin.getHeight();
 					        		}
 					        		

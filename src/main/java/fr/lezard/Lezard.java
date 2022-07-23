@@ -10,16 +10,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.slf4j.Logger;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.*;
-import fr.lezard.gui.screen.BannedScreen;
-import fr.lezard.gui.screen.DragScreen;
-import fr.lezard.gui.screen.MainMenu;
-import fr.lezard.gui.screen.NotWhitelistedScreen;
+import fr.lezard.gui.screen.*;
 import fr.lezard.http.HTTPFunctions;
 import fr.lezard.http.gsonobjs.*;
 import fr.lezard.plugins.Plugin;
@@ -34,9 +29,6 @@ import fr.lezard.utils.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.resources.ResourceLocation;
 
 public class Lezard {
 	// Main class of the client
@@ -76,7 +68,7 @@ public class Lezard {
 	public static ObjUserCosmetics cosmetics;
 	public static ObjServer[] servers = {};
 	
-	public static Color color = new Color(0, 0, 0, LezardOption.alpha);
+	public static Color color = new Color(0, 0, 0, LezardOptions.alpha);
 	
 	public static File pluginFile = new File(Minecraft.getInstance().gameDirectory, NAMESPACE + "-settings.json");
 	
@@ -144,10 +136,10 @@ public class Lezard {
 		LOGGER.info(PREFIX + "Plugins initialized correctly!");
 		LOGGER.info(PREFIX + "Initializing custom options...");
 		
-		LezardOption.alpha = FileWriterJson.getInt(NAMESPACE, "alpha");
-		LezardOption.gap = FileWriterJson.getInt(NAMESPACE, "gap");
-		LezardOption.showAnchor = FileWriterJson.getBoolean(NAMESPACE, "showAnchor");
-		LezardOption.rainbowSpeed = FileWriterJson.getInt(NAMESPACE, "rainbowSpeed");
+		LezardOptions.alpha = FileWriterJson.getInt(NAMESPACE, "alpha");
+		LezardOptions.gap = FileWriterJson.getInt(NAMESPACE, "gap");
+		LezardOptions.showAnchor = FileWriterJson.getBoolean(NAMESPACE, "showAnchor");
+		LezardOptions.rainbowSpeed = FileWriterJson.getInt(NAMESPACE, "rainbowSpeed");
 		
 		LOGGER.info(PREFIX + "Custom options initialized correctly!");
 		 
@@ -190,7 +182,7 @@ public class Lezard {
 			p.onEvent(e);
 		}
 		if(e instanceof EventInGame) {
-			color = new Color(0, 0, 0, LezardOption.alpha);
+			color = new Color(0, 0, 0, LezardOptions.alpha);
 		}
 		/*if(e instanceof EventStart) {
 			oldWidth=Minecraft.getInstance().getWindow().getGuiScaledWidth();
@@ -238,14 +230,6 @@ public class Lezard {
 	}
 	
 	public static int rainbowText(){
-        return Color.HSBtoRGB((float) (System.currentTimeMillis() % (LezardOption.rainbowSpeed * 1000L)) / (LezardOption.rainbowSpeed * 1000F), 0.8f, 0.8f);
+        return Color.HSBtoRGB((float) (System.currentTimeMillis() % (LezardOptions.rainbowSpeed * 1000L)) / (LezardOptions.rainbowSpeed * 1000F), 0.8f, 0.8f);
     }
-	
-	public static void drawImg(int x, int y, boolean lower, ResourceLocation img){
-		PoseStack ps = new PoseStack();
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, img);
-		GuiComponent.blit(ps, x-16, lower ? y +16 : y, 0.0f, 0.0f, 16, 16, 16, 16);
-	}
 }
