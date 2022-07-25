@@ -1,21 +1,23 @@
-package fr.lezard.gui.screen.plugins;
+package fr.lezard.gui.screen.plugins.player;
+
+import java.util.Arrays;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import fr.lezard.Lezard;
-import fr.lezard.gui.screen.MainPluginScreen;
 import fr.lezard.plugins.Plugin;
+import fr.lezard.plugins.player.ArmorPluginHUD;
 import fr.lezard.utils.CommonLezardVariables;
-import net.minecraft.client.gui.components.Button;
+import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.TranslatableComponent;
 
-public class SimplifiedDebugPluginScreen extends Screen {
+public class ArmorPluginHUDScreen extends Screen {
 
-	public SimplifiedDebugPluginScreen() {
-		super(new TranslatableComponent(Lezard.NAMESPACE + ".plugin.debug"));
+	public ArmorPluginHUDScreen() {
+		super(new TranslatableComponent(Lezard.NAMESPACE + ".plugin.armor"));
 	}
 	
 	public boolean isPauseScreen()
@@ -24,13 +26,12 @@ public class SimplifiedDebugPluginScreen extends Screen {
     }
 	
 	protected void init() {
-		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 6 + 168, 200, 20, CommonComponents.GUI_DONE, (p_96257_) -> {
-	         this.minecraft.setScreen(new MainPluginScreen());
-	      }));
-		Plugin plugin = Lezard.plugins.get(11);
-		this.addRenderableWidget(CycleButton.onOffBuilder(plugin.isEnabled()).create(this.width / 2 - 48, this.height / 6, 96, 20, CommonLezardVariables.ENABLED, (p_170168_, p_170169_) -> {
-			plugin.toggle();
-		}));
+		Plugin plugin = Lezard.plugins.get(0);
+		Utils.normalPluginHudScreenInit(0, this, width, height);
+		this.addRenderableWidget(CycleButton.builder(ArmorPluginHUD.Modes::getName).withValues(Arrays.asList(ArmorPluginHUD.Modes.values())).withInitialValue(ArmorPluginHUD.currentMode).create(this.width / 2 - 48, this.height / 6 + 110, 96, 20, CommonLezardVariables.MODE, (p_167441_, p_167442_) -> {
+			ArmorPluginHUD.currentMode = p_167442_;
+            FileWriterJson.writeJson(plugin.getNamespace(), "mode", ArmorPluginHUD.currentMode.getLiteralName());
+        }));
 	}
 	
 	public void tick() {

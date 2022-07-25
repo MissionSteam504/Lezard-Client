@@ -50,6 +50,18 @@ public class FileWriterJson {
             e.printStackTrace();
         }
     }
+    public static void writeJson(String pluginName, String property, float value){
+        JsonObject jsonObject = (JsonObject) jsonFileParser(Lezard.pluginFile);
+        assert jsonObject != null;
+        jsonObject.addProperty(pluginName + "." + property, value);
+
+        try (FileWriter file = new FileWriter(Lezard.pluginFile)) {
+            file.write(jsonObject.toString());
+            file.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static void writeJson(String pluginName, String property, int value){
         JsonObject jsonObject = (JsonObject) jsonFileParser(Lezard.pluginFile);
         assert jsonObject != null;
@@ -88,6 +100,15 @@ public class FileWriterJson {
             return Integer.parseInt(newValue);
         }
         return 0;
+    }
+    public static float getFloat(String pluginName, String property) {
+        JsonObject jsonObject = (JsonObject) jsonFileParser(Lezard.pluginFile);
+        assert jsonObject != null;
+        if(jsonObject.has(pluginName + "." + property)){
+            String newValue = jsonObject.get(pluginName + "." + property).toString().replaceAll("\"", "");
+            return Float.parseFloat(newValue);
+        }
+        return 0f;
     }
     
     
@@ -156,5 +177,14 @@ public class FileWriterJson {
             return Integer.parseInt(newValue);
         }
         return 0;
+    }
+    public static float getFloatWithout(String property) {
+        JsonObject jsonObject = (JsonObject) jsonFileParser(Lezard.pluginFile);
+        assert jsonObject != null;
+        if(jsonObject.has(property)){
+            String newValue = jsonObject.get(property).toString().replaceAll("\"", "");
+            return Float.parseFloat(newValue);
+        }
+        return 0f;
     }
 }

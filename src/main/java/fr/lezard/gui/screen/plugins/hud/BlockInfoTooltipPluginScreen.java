@@ -1,20 +1,20 @@
-package fr.lezard.gui.screen.plugins;
+package fr.lezard.gui.screen.plugins.hud;
 
 import java.util.Arrays;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import fr.lezard.Lezard;
-import fr.lezard.gui.screen.MainPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.hud.BlockInfoTooltipPlugin;
 import fr.lezard.utils.Colors;
 import fr.lezard.utils.CommonLezardVariables;
 import fr.lezard.utils.FileWriterJson;
-import net.minecraft.client.gui.components.Button;
+import fr.lezard.utils.Utils;
+import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 
 public class BlockInfoTooltipPluginScreen extends Screen {
@@ -29,13 +29,8 @@ public class BlockInfoTooltipPluginScreen extends Screen {
     }
 	
 	protected void init() {
-		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 6 + 168, 200, 20, CommonComponents.GUI_DONE, (p_96257_) -> {
-	         this.minecraft.setScreen(new MainPluginScreen());
-	      }));
+		Utils.normalPluginScreenInit(13, this, width, height);
 		Plugin plugin = Lezard.plugins.get(13);
-		this.addRenderableWidget(CycleButton.onOffBuilder(plugin.isEnabled()).create(this.width / 2 - 48, this.height / 6, 96, 20, CommonLezardVariables.ENABLED, (p_170168_, p_170169_) -> {
-			plugin.toggle();
-		}));
 		this.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Arrays.asList(Colors.values())).withInitialValue(BlockInfoTooltipPlugin.firstColor).create(this.width / 2 - 48, this.height / 6+ 22, 96, 20, CommonLezardVariables.COLOR, (p_167441_, p_167442_) -> {
 			BlockInfoTooltipPlugin.firstColor = p_167442_;
 			FileWriterJson.writeJson(plugin.getNamespace(), "color", BlockInfoTooltipPlugin.firstColor.getLiteralName());
@@ -48,7 +43,23 @@ public class BlockInfoTooltipPluginScreen extends Screen {
 			BlockInfoTooltipPlugin.filled = !BlockInfoTooltipPlugin.filled;
 			FileWriterJson.writeJson(plugin.getNamespace(), "filled", BlockInfoTooltipPlugin.filled);
 		}));
-		this.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Arrays.asList(Colors.values())).withInitialValue(BlockInfoTooltipPlugin.secondColor).create(this.width / 2 - 48, this.height / 6+ 88, 96, 20, CommonLezardVariables.SECOND_COLOR, (p_167441_, p_167442_) -> {
+		
+		String sliderTitle = "Size: " + String.format("%.1f%%", BlockInfoTooltipPlugin.size).replace("%", "").replace(",0", "");
+		
+		this.addRenderableWidget(new AbstractSliderButton(width / 2 - 48, height / 6 + 88, 96, 20, new TextComponent(sliderTitle), BlockInfoTooltipPlugin.size/2) {
+
+			@Override
+			protected void updateMessage() {
+				this.setMessage(new TextComponent("Size: " + String.format("%.1f%%", BlockInfoTooltipPlugin.size).replace("%", "").replace(",0", "")));
+			}
+
+			@Override
+			protected void applyValue() {
+				BlockInfoTooltipPlugin.size = (float) (this.value*2);
+				FileWriterJson.writeJson(plugin.getNamespace(), "size", BlockInfoTooltipPlugin.size);
+			}
+		});
+		this.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Arrays.asList(Colors.values())).withInitialValue(BlockInfoTooltipPlugin.secondColor).create(this.width / 2 - 48, this.height / 6+ 110, 96, 20, CommonLezardVariables.SECOND_COLOR, (p_167441_, p_167442_) -> {
 			BlockInfoTooltipPlugin.secondColor = p_167442_;
 			FileWriterJson.writeJson(plugin.getNamespace(), "second", BlockInfoTooltipPlugin.secondColor.getLiteralName());
         }));

@@ -10,7 +10,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 
 import fr.lezard.events.Event;
-import fr.lezard.gui.screen.plugins.ScoreboardPluginHUDScreen;
+import fr.lezard.gui.screen.plugins.hud.ScoreboardPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import net.minecraft.ChatFormatting;

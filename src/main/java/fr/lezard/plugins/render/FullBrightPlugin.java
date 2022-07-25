@@ -1,6 +1,6 @@
 package fr.lezard.plugins.render;
 
-import fr.lezard.gui.screen.plugins.FullBrightPluginScreen;
+import fr.lezard.gui.screen.plugins.render.FullBrightPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.FileWriterJson;
 import net.minecraft.client.Minecraft;

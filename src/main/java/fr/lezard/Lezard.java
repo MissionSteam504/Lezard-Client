@@ -44,11 +44,11 @@ public class Lezard {
 		TextureUtils (line 271)
 	}*/
 	
-	private static final Logger LOGGER = LogUtils.getLogger();
+	public static final Logger LOGGER = LogUtils.getLogger();
 	
 	public static final String NAME = "Lezard Client";
 	public static final String NAMESPACE = "lezard";
-	public static final String VERSION = "2.0.0-beta10";
+	public static final String VERSION = "2.0.0-beta11";
 	public static final String DISCORD_APP_ID = "971435977199464528";
 	public static final String USERNAME = "LezardUser";
 	public static final String PREFIX = "[" + NAME.replace(" ", "") + "] ";
@@ -125,7 +125,7 @@ public class Lezard {
 		plugins.add(new SimplifiedDebugPlugin()); // 11
 		plugins.add(new TabHUD()); // 12
 		plugins.add(new BlockInfoTooltipPlugin()); // 13
-		
+		plugins.add(new RealTimePlugin()); // 14
 		
 		for(Plugin p : plugins) {
 			if(p instanceof PluginHUD pHud) {
@@ -181,13 +181,6 @@ public class Lezard {
 			
 			p.onEvent(e);
 		}
-		if(e instanceof EventInGame) {
-			color = new Color(0, 0, 0, LezardOptions.alpha);
-		}
-		/*if(e instanceof EventStart) {
-			oldWidth=Minecraft.getInstance().getWindow().getGuiScaledWidth();
-			oldHeight=Minecraft.getInstance().getWindow().getGuiScaledHeight();
-		}*/
 	}
 	
 	public static void checkInputs() {

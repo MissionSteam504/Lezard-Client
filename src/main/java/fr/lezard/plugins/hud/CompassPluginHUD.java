@@ -10,7 +10,7 @@ import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
-import fr.lezard.gui.screen.plugins.CompassPluginHUDScreen;
+import fr.lezard.gui.screen.plugins.hud.CompassPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
@@ -31,9 +31,10 @@ public class CompassPluginHUD extends PluginHUD{
 		if(e instanceof EventInGame) {
 			int posX = 0;
 			int posY = 0;
+			float size = getSize();
 			if(isDragged() && DragScreen.plugin == this) {
-				posX = DragScreen.posX;
-				posY = DragScreen.posY;
+				posX = (int) DragScreen.posX;
+				posY = (int) DragScreen.posY;
 			}else {
 				posX = getPosX();
 				posY = getPosY();
@@ -48,20 +49,21 @@ public class CompassPluginHUD extends PluginHUD{
 	        }
 
 			
-			setWidth(192);
-			setHeight(font.lineHeight*2);
+			setWidth(192*size);
+			setHeight((font.lineHeight*2)*size);
 			
 			if(isFilled()) {
 	            GuiComponent.fill(poseStack, posX - LezardOptions.gap, posY - LezardOptions.gap, getWidth() + posX + LezardOptions.gap, getHeight() + posY + LezardOptions.gap, Lezard.color.getRGB());
 	        }
 			
-			int middle = getWidth() / 2;
+			int middle = (int) getWidth() / 2;
 
 	        assert minecraft.player != null;
 	        int angle = (int) Mth.wrapDegrees(minecraft.player.getYRot()) * -1 - 360;
-	        
-	        GuiComponent.drawString(poseStack, font, "V", posX + middle - font.width("V")/2, posY, Color.WHITE.getRGB());
-	        
+	        poseStack.pushPose();
+	        poseStack.scale(size, size, 1);
+	        GuiComponent.drawString(poseStack, font, "V", (posX + middle - font.width("V")/2)*(1/size), posY*(1/size), Color.WHITE.getRGB());
+	        poseStack.popPose();
 	        for(int i =0; i<=1; i++){
 	            for(double d=0.0D; d<=3.5D; d+=0.5D){
 	                if(getWidth() + angle > getWidth() - 60 && getWidth() + angle < getWidth() + 60){
@@ -87,7 +89,10 @@ public class CompassPluginHUD extends PluginHUD{
 	                    if(d==3.5D){
 	                        s = "South-East";
 	                    }
-	                    GuiComponent.drawString(poseStack, font, s, posX + middle + angle - (font.width(s)/2) + (font.width("V") /2), posY + 8, isRainbow() ? Lezard.rainbowText() : getColors().getRgb());
+	                    poseStack.pushPose();
+	                    poseStack.scale(size, size, 1);
+	                    GuiComponent.drawString(poseStack, font, s, (posX + middle + angle - (font.width(s)/2) + (font.width("V") /2))*(1/size), (posY + 8*size)*(1/size), isRainbow() ? Lezard.rainbowText() : getColors().getRgb());
+	                    poseStack.popPose();
 	                }
 	                angle+=45;
 	            }

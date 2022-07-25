@@ -3,7 +3,7 @@ package fr.lezard.plugins.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 
-import fr.lezard.gui.screen.plugins.ItemPhysicsPluginScreen;
+import fr.lezard.gui.screen.plugins.render.ItemPhysicsPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.FileWriterJson;
 import net.minecraft.client.Minecraft;

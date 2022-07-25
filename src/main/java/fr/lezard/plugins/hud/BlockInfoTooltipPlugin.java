@@ -6,7 +6,7 @@ import fr.lezard.Lezard;
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.events.listeners.EventStart;
-import fr.lezard.gui.screen.plugins.BlockInfoTooltipPluginScreen;
+import fr.lezard.gui.screen.plugins.hud.BlockInfoTooltipPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.Colors;
 import fr.lezard.utils.CommonLezardVariables;
@@ -29,6 +29,7 @@ import net.minecraft.world.phys.HitResult;
 public class BlockInfoTooltipPlugin extends Plugin {
 	private static int width, height;
 	public static boolean filled = true, rainbow = false;
+	public static float size = 1f;
 	
 	public static Colors secondColor = Colors.WHITE;
 	public static Colors firstColor = Colors.WHITE;
@@ -61,7 +62,7 @@ public class BlockInfoTooltipPlugin extends Plugin {
 				GuiComponent.fill(poseStack, posX - LezardOptions.gap -18, posY - LezardOptions.gap, posX + width + LezardOptions.gap, posY + height + LezardOptions.gap, Lezard.color.getRGB());
 			}
 			
-			// Current
+			// Current mob
 			if(mob != null) {
 				if(mob instanceof LivingEntity entity) {
 					if(CommonLezardVariables.MOBS_WITH_SPAWNEGG.contains(mob.getType())) {
@@ -77,7 +78,7 @@ public class BlockInfoTooltipPlugin extends Plugin {
 				return;
 			}
 			
-			// CurrentBlock
+			// Current block
 			if (currentBlock.getType() == HitResult.Type.BLOCK) {
                 BlockPos blockpos = ((BlockHitResult)currentBlock).getBlockPos();
                 BlockState blockstate = mc.level.getBlockState(blockpos);
@@ -86,7 +87,7 @@ public class BlockInfoTooltipPlugin extends Plugin {
                 String blockName = block.getName().getString();
                 ItemStack is = new ItemStack(block.asItem());
                 
-                width = font.width(blockName);
+    			width = font.width(blockName);
                 height = font.lineHeight*2;
                 
                 GuiComponent.drawCenteredString(poseStack, font, blockName, posX+width/2, posY+font.lineHeight/2, rainbow ? Lezard.rainbowText() : firstColor.getRgb());
@@ -102,6 +103,10 @@ public class BlockInfoTooltipPlugin extends Plugin {
 	        }
 			filled = FileWriterJson.getBoolean(getNamespace(), "filled");
 			rainbow = FileWriterJson.getBoolean(getNamespace(), "rainbow");
+			size = FileWriterJson.getFloat(getNamespace(), "size");
+			if(size == 0f) {
+				size = 1f;
+			}
 		}
 	}
 	

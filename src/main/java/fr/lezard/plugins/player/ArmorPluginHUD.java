@@ -9,7 +9,7 @@ import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
-import fr.lezard.gui.screen.plugins.ArmorPluginHUDScreen;
+import fr.lezard.gui.screen.plugins.player.ArmorPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.Blocks;
 public class ArmorPluginHUD extends PluginHUD{
 	public static int posX=0;
 	public static int posY=0;
-	public static int width=0, height=0;
+	public static float width=0, height=0;
 	
 	public static Modes currentMode = Modes.BASIC_ITEM;
 	
@@ -37,21 +37,22 @@ public class ArmorPluginHUD extends PluginHUD{
 	
 	public void onEvent(Event<?> e) {
 		if(e instanceof EventInGame) {
+			float size = getSize();
 			if(isDragged() && DragScreen.plugin == this) {
-				posX = DragScreen.posX;
-				posY = DragScreen.posY;
+				posX = (int) DragScreen.posX;
+				posY = (int) DragScreen.posY;
 			}else {
 				posX = getPosX();
 				posY = getPosY();
 			}
 			
 			if(currentMode.isBasic())
-				setWidth(16);
+				setWidth(16*size);
 			
 			if(currentMode.haveItem()) {
-				setHeight(80);
+				setHeight(80*size);
 			}else {
-				setHeight(64);
+				setHeight(64*size);
 			}
 			
 			width=getWidth();
@@ -107,10 +108,10 @@ public class ArmorPluginHUD extends PluginHUD{
 				}else {
 					txt = Minecraft.getInstance().player.getMainHandItem().getHoverName().getString();
 				}
-				width=16+Minecraft.getInstance().font.width(txt) + LezardOptions.gap+2;
+				width=(16+Minecraft.getInstance().font.width(txt) + LezardOptions.gap+2)*p.getSize();
 			}
 			else if(!haveArmor)
-				width=16;
+				width=16*p.getSize();
 			
             GuiComponent.fill(poseStack, posX - LezardOptions.gap, posY - LezardOptions.gap, width + posX + LezardOptions.gap, height + posY + LezardOptions.gap, Lezard.color.getRGB());
         }
@@ -164,28 +165,36 @@ public class ArmorPluginHUD extends PluginHUD{
                 String damageLeft = "(" + (item.getMaxDamage() - item.getDamageValue()) + "/" + item.getMaxDamage() + ")";
                 name = String.format("%.0f%%", damagePercent) + " | " + damageLeft;
                 damageWidth = font.width(name);
+                poseStack.pushPose();
+                poseStack.translate(p.getSize(), p.getSize(), 1);
                 GuiComponent.drawString(poseStack, font, name, rightSide ? posX : posX + 20, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
-                p.setWidth(font.width(name) + 20);
+                poseStack.popPose();
+                p.setWidth((font.width(name) + 20)*p.getSize());
         	}else {
         		if(item.getItem() != Items.AIR) {
         			name = item.getHoverName().getString();
         			int textSize = font.width(name);
+        			poseStack.pushPose();
+                    poseStack.translate(p.getSize(), p.getSize(), 1);
         			GuiComponent.drawString(poseStack, font, name, rightSide ? posX + width- textSize-20: posX + 20, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
-        			if(p.getWidth() < font.width(name) + 20) p.setWidth(font.width(name) + 20);
+        			poseStack.popPose();
+        			if(p.getWidth() < font.width(name) + 20) p.setWidth((font.width(name) + 20)*p.getSize());
         		}
         	}
         }
         
         boolean damageable = item.isDamageableItem();
         
-        int itemX = posX;
+        float itemX = posX;
         
         if(!damageable && rightSide && !currentMode.isBasic()) {
         	itemX = posX+width-20;
         }
-        
+        poseStack.pushPose();
+        poseStack.scale(p.getSize(), p.getSize(), 1);
         Minecraft.getInstance().getItemRenderer().renderGuiItem(item, rightSide && !currentMode.isBasic() ? itemX + damageWidth + 2 : itemX, posY+posYadd);
         Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(font, (item == Minecraft.getInstance().player.getMainHandItem() ? temp : item), rightSide && !currentMode.isBasic() ? posX + damageWidth + 2 : posX, posY + posYadd);
+        poseStack.popPose();
 	}
 	
 	public enum Modes{

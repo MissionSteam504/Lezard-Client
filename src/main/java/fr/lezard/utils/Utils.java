@@ -1,10 +1,23 @@
 package fr.lezard.utils;
 
+import java.util.Arrays;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import fr.lezard.Lezard;
+import fr.lezard.gui.screen.MainPluginScreen;
+import fr.lezard.plugins.Plugin;
+import fr.lezard.plugins.PluginHUD;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.components.AbstractSliderButton;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 
 public class Utils {
@@ -16,7 +29,7 @@ public class Utils {
 		GuiComponent.blit(ps, x-16, lower ? y +16 : y, 0.0f, 0.0f, 16, 16, 16, 16);
 	}
 	
-	public static String LongestString(String[] strings) {
+	public static String longestString(String[] strings) {
 		String longest = "";
 		for(String s : strings) {
 			if(s.length() > longest.length()) {
@@ -24,5 +37,50 @@ public class Utils {
 			}
 		}
 		return longest;
+	}
+	
+	public static void normalPluginScreenInit(int pIndex, Screen screen, int width, int height) {
+		screen.addRenderableWidget(new Button(width / 2 - 100, height / 6 + 168, 200, 20, CommonComponents.GUI_DONE, (p_96257_) -> {
+	         Minecraft.getInstance().setScreen(new MainPluginScreen());
+	      }));
+		Plugin plugin = Lezard.plugins.get(pIndex);
+		screen.addRenderableWidget(CycleButton.onOffBuilder(plugin.isEnabled()).create(width / 2 - 48, height / 6, 96, 20, CommonLezardVariables.ENABLED, (p_170168_, p_170169_) -> {
+			plugin.toggle();
+		}));
+	}
+	
+	public static void normalPluginHudScreenInit(int pIndex, Screen screen, int width, int height) {
+		screen.addRenderableWidget(new Button(width / 2 - 100, height / 6 + 168, 200, 20, CommonComponents.GUI_DONE, (p_96257_) -> {
+			Minecraft.getInstance().setScreen(new MainPluginScreen());
+	      }));
+		Plugin plugin = Lezard.plugins.get(pIndex);
+		PluginHUD p = (PluginHUD) plugin;
+		screen.addRenderableWidget(CycleButton.onOffBuilder(plugin.isEnabled()).create(width / 2 - 48, height / 6, 96, 20, CommonLezardVariables.ENABLED, (p_170168_, p_170169_) -> {
+			plugin.toggle();
+		}));
+		screen.addRenderableWidget(CycleButton.builder(Colors::getName).withValues(Arrays.asList(Colors.values())).withInitialValue(p.getColors()).create(width / 2 - 48, height / 6+ 22, 96, 20, CommonLezardVariables.COLOR, (p_167441_, p_167442_) -> {
+           p.setColors(p_167442_);
+       }));
+		screen.addRenderableWidget(CycleButton.onOffBuilder(p.isRainbow()).create(width / 2 - 48, height / 6 + 44, 96, 20, CommonLezardVariables.RAINBOW, (p_170168_, p_170169_) -> {
+			p.setRainbow(!p.isRainbow());
+		}));
+		screen.addRenderableWidget(CycleButton.onOffBuilder(p.isFilled()).create(width / 2 - 48, height / 6 + 66, 96, 20, CommonLezardVariables.FILLED, (p_170168_, p_170169_) -> {
+			p.setFilled(!p.isFilled());
+		}));
+		
+		String sliderTitle = "Size: " + String.format("%.1f%%", p.getSize()).replace("%", "").replace(",0", "");
+		
+		screen.addRenderableWidget(new AbstractSliderButton(width / 2 - 48, height / 6 + 88, 96, 20, new TextComponent(sliderTitle), p.getSize()/2) {
+
+			@Override
+			protected void updateMessage() {
+				this.setMessage(new TextComponent("Size: " + String.format("%.1f%%", p.getSize()).replace("%", "").replace(",0", "")));
+			}
+
+			@Override
+			protected void applyValue() {
+				p.setSize((float) this.value*2);
+			}
+		});
 	}
 }

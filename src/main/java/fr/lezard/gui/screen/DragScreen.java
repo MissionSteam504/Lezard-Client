@@ -20,8 +20,7 @@ public class DragScreen extends Screen {
 	
     private static final List<Integer> relativeX = new ArrayList<>();
     private static final List<Integer> relativeY = new ArrayList<>();
-    public static int posX;
-    public static int posY;
+    public static float posX, posY;
 	
 	public static PluginHUD plugin = null;
 
@@ -174,8 +173,8 @@ public class DragScreen extends Screen {
 	public boolean mouseReleased(double p_94722_, double p_94723_, int p_94724_) {
 		if(plugin!=null){
 			if(plugin.isEnabled()) {
-				plugin.setPosX(posX);
-				plugin.setPosY(posY);
+				plugin.setPosX((int)posX);
+				plugin.setPosY((int)posY);
 			}
 		}
 		for(PluginHUD plugin : Lezard.pluginsHUD){

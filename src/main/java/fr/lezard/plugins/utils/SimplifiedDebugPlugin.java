@@ -17,7 +17,7 @@ import com.mojang.datafixers.DataFixUtils;
 
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventStart;
-import fr.lezard.gui.screen.plugins.SimplifiedDebugPluginScreen;
+import fr.lezard.gui.screen.plugins.utils.SimplifiedDebugPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.FileWriterJson;
 import net.minecraft.ChatFormatting;

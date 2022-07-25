@@ -1,4 +1,4 @@
-package fr.lezard.plugins.hud;
+package fr.lezard.plugins.utils;
 
 import java.awt.Color;
 import java.util.List;
@@ -11,7 +11,7 @@ import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.events.listeners.EventKey;
 import fr.lezard.gui.screen.DragScreen;
-import fr.lezard.gui.screen.plugins.TabHUDScreen;
+import fr.lezard.gui.screen.plugins.utils.TabHUDScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
@@ -26,7 +26,7 @@ public class TabHUD extends PluginHUD{
 	public boolean expanded;
 
 	public TabHUD() {
-		super("Tab HUD", FileWriterJson.getBoolean("tab", "enabled"), Category.HUD, "tab", Minecraft.getInstance().options.keyTabHud, new TabHUDScreen());
+		super("Tab HUD", FileWriterJson.getBoolean("tab", "enabled"), Category.UTILS, "tab", Minecraft.getInstance().options.keyTabHud, new TabHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {
@@ -42,10 +42,11 @@ public class TabHUD extends PluginHUD{
 			
 			int posX = 0;
 			int posY = 0;
+			float size = getSize();
 			
 			if(isDragged() && DragScreen.plugin == this) {
-				posX = DragScreen.posX;
-				posY = DragScreen.posY;
+				posX = (int) DragScreen.posX;
+				posY = (int) DragScreen.posY;
 			}else {
 				posX = getPosX();
 				posY = getPosY();
@@ -64,18 +65,20 @@ public class TabHUD extends PluginHUD{
 			
 			int categorysize = font.width(cname)+11;
 			
-			
-			GuiComponent.fill(poseStack, posX, posY, posX + categorysize, posY + Plugin.Category.values().length * 16 +1, 0x5f000000);
-			GuiComponent.fill(poseStack, posX + 2, posY+3 + currentTab * 16, posX+2 + categorysize - 4, posY+3 + currentTab * 16 + 12, expanded ? Color.TRANSLUCENT : (isRainbow() ? Lezard.rainbowText() : getColors().getRgb()));
+			poseStack.pushPose();
+			poseStack.scale(size, size, 1);
+			GuiComponent.fill(poseStack, posX*(1/size), posY*(1/size), (posX + categorysize*size)*(1/size), (posY + Plugin.Category.values().length*size * 16 +1)*(1/size), 0x5f000000);
+			GuiComponent.fill(poseStack, (posX + 2)*(1/size), (posY+3 + currentTab*size * 16)*(1/size), (posX+2 + categorysize*size - 4)*(1/size), (posY+3 + currentTab*size * 16 + 12*size)*(1/size), expanded ? Color.TRANSLUCENT : (isRainbow() ? Lezard.rainbowText() : getColors().getRgb()));
 			
 			int count = 0;
 			for(Category c : Plugin.Category.values()) {
-				GuiComponent.drawString(poseStack, font, new TranslatableComponent(Lezard.NAMESPACE + ".category." + c.getNamespace()).getString(), posX+6, posY+5 + count*16, -1);
+				GuiComponent.drawString(poseStack, font, new TranslatableComponent(Lezard.NAMESPACE + ".category." + c.getNamespace()).getString(), (posX+6)*(1/size), (posY+5 + (count*16)*size)*(1/size), -1);
 				count++;
 			}
+			poseStack.popPose();
 			
-			setWidth(categorysize);
-			setHeight(Plugin.Category.values().length * 16 +1);
+			setWidth(categorysize*size);
+			setHeight((Plugin.Category.values().length * 16 +1)*size);
 			
 			if(expanded) {
 				String name = "";
@@ -100,17 +103,21 @@ public class TabHUD extends PluginHUD{
 				
 				int pluginsize = font.width(name) + 10;
 				
-				GuiComponent.fill(poseStack, posX + categorysize +1, posY, posX + categorysize + pluginsize, posY + plugins.size() * 16 +1, 0x5f000000);
-				GuiComponent.fill(poseStack, posX + categorysize + 3, posY+3 + current.pluginIndex * 16, posX+2 + categorysize + pluginsize - 4 , posY+3 + current.pluginIndex * 16 + 12, plugins.get(current.pluginIndex).isEnabled() ? 0xff0060ff : Color.RED.getRGB());
+				poseStack.pushPose();
+				poseStack.scale(size, size, 1);
+				GuiComponent.fill(poseStack, (posX + categorysize*size +1)*(1/size), posY*(1/size), (posX + categorysize*size + pluginsize*size)*(1/size), (posY + plugins.size()*size * 16 +1)*(1/size), 0x5f000000);
+				GuiComponent.fill(poseStack, (posX + categorysize*size + 3)*(1/size), (posY+3 + current.pluginIndex*size * 16)*(1/size), (posX+2 + categorysize*size + pluginsize*size - 4)*(1/size), (posY+3 + current.pluginIndex*size * 16 + 12*size)*(1/size), plugins.get(current.pluginIndex).isEnabled() ? 0xff0060ff : Color.RED.getRGB());
 				
 				count = 0;
 				for(Plugin p : plugins) {
-					GuiComponent.drawString(poseStack, font, new TranslatableComponent(Lezard.NAMESPACE + ".plugin." + p.getNamespace()).getString(), posX+categorysize+6, posY+5 + count*16, -1);
+					GuiComponent.drawString(poseStack, font, new TranslatableComponent(Lezard.NAMESPACE + ".plugin." + p.getNamespace()).getString(), (posX+categorysize*size+6)*(1/size), (posY+5 + count*size*16)*(1/size), -1);
 					count++;
 				}
 				
-				setWidth(categorysize + pluginsize);
-				setHeight(getHeight() < plugins.size() * 16 +1 ? posY + plugins.size() * 16 +1 : getHeight());
+				poseStack.popPose();
+				
+				setWidth((categorysize + pluginsize)*size);
+				setHeight(getHeight() < plugins.size()*size * 16 +1 ? plugins.size()*size * 16 +1 : getHeight());
 			}
 		}
 		if(e instanceof EventKey e2) {

@@ -8,8 +8,9 @@ import net.minecraft.client.gui.screens.Screen;
 public class PluginHUD extends Plugin{
 	private int posX;
 	private int posY;
-	private int height;
-	private int width;
+	private float height;
+	private float width;
+	private float size;
 	
 	private boolean dragged;
 	
@@ -17,23 +18,32 @@ public class PluginHUD extends Plugin{
 		return dragged;
 	}
 
+	public float getSize() {
+		return size;
+	}
+
+	public void setSize(float size) {
+		this.size = size;
+		FileWriterJson.writeJson(getNamespace(), "size", size);
+	}
+
 	public void setDragged(boolean dragged) {
 		this.dragged = dragged;
 	}
 
-	public int getHeight() {
+	public float getHeight() {
 		return height;
 	}
 
-	public void setHeight(int height) {
+	public void setHeight(float height) {
 		this.height = height;
 	}
 
-	public int getWidth() {
+	public float getWidth() {
 		return width;
 	}
 
-	public void setWidth(int width) {
+	public void setWidth(float width) {
 		this.width = width;
 	}
 
@@ -69,6 +79,10 @@ public class PluginHUD extends Plugin{
         }
         posX = FileWriterJson.getInt(namespace, "posX");
         posY = FileWriterJson.getInt(namespace, "posY");
+        size = FileWriterJson.getFloat(namespace, "size");
+        if(size==0f) {
+        	size=1f;
+        }
 	}
 	
 	public boolean isFilled() {

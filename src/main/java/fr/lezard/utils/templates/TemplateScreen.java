@@ -1,4 +1,4 @@
-package fr.lezard.utils;
+package fr.lezard.utils.templates;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 

@@ -6,7 +6,7 @@ import fr.lezard.Lezard;
 import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.gui.screen.DragScreen;
-import fr.lezard.gui.screen.plugins.FPSPluginHUDScreen;
+import fr.lezard.gui.screen.plugins.hud.FPSPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
@@ -23,9 +23,10 @@ public class FPSPluginHUD extends PluginHUD{
 		if(e instanceof EventInGame) {
 			int posX = 0;
 			int posY = 0;
+			float size = getSize();
 			if(isDragged() && DragScreen.plugin == this) {
-				posX = DragScreen.posX;
-				posY = DragScreen.posY;
+				posX = (int) DragScreen.posX;
+				posY = (int) DragScreen.posY;
 			}else {
 				posX = getPosX();
 				posY = getPosY();
@@ -42,14 +43,16 @@ public class FPSPluginHUD extends PluginHUD{
 			String[] data = mc.fpsString.split(" ");
 			
 			String string = "FPS: " + data[0];
-			setWidth(font.width(string));
-			setHeight(font.lineHeight);
-			
+			setWidth(font.width(string)*size);
+			setHeight(font.lineHeight*size);
 			if(isFilled()) {
 	            GuiComponent.fill(poseStack, posX - LezardOptions.gap, posY - LezardOptions.gap, getWidth() + posX + LezardOptions.gap, getHeight() + posY + LezardOptions.gap, Lezard.color.getRGB());
 	        }
 			
-			GuiComponent.drawString(poseStack, font, string, posX, posY, isRainbow() ? Lezard.rainbowText() : getColors().getRgb());
+			poseStack.pushPose();
+			poseStack.scale(size, size, 1);
+			GuiComponent.drawString(poseStack, font, string, posX*(1/size), posY*(1/size), isRainbow() ? Lezard.rainbowText() : getColors().getRgb());
+			poseStack.popPose();
 		}
 	}
 }

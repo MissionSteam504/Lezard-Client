@@ -1,21 +1,16 @@
-package fr.lezard.gui.screen.plugins;
+package fr.lezard.gui.screen.plugins.utils;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import fr.lezard.Lezard;
-import fr.lezard.gui.screen.MainPluginScreen;
-import fr.lezard.plugins.Plugin;
-import fr.lezard.utils.CommonLezardVariables;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.CycleButton;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.TranslatableComponent;
 
-public class FullBrightPluginScreen extends Screen {
+public class TabHUDScreen extends Screen {
 
-	public FullBrightPluginScreen() {
-		super(new TranslatableComponent(Lezard.NAMESPACE + ".plugin.fullbright"));
+	public TabHUDScreen() {
+		super(new TranslatableComponent(Lezard.NAMESPACE + ".plugin.screen"));
 	}
 	
 	public boolean isPauseScreen()
@@ -24,13 +19,7 @@ public class FullBrightPluginScreen extends Screen {
     }
 	
 	protected void init() {
-		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 6 + 168, 200, 20, CommonComponents.GUI_DONE, (p_96257_) -> {
-	         this.minecraft.setScreen(new MainPluginScreen());
-	      }));
-		Plugin plugin = Lezard.plugins.get(6);
-		this.addRenderableWidget(CycleButton.onOffBuilder(plugin.isEnabled()).create(this.width / 2 - 48, this.height / 6, 96, 20, CommonLezardVariables.ENABLED, (p_170168_, p_170169_) -> {
-			plugin.toggle();
-		}));
+		Utils.normalPluginHudScreenInit(12, this, width, height);
 	}
 	
 	public void tick() {

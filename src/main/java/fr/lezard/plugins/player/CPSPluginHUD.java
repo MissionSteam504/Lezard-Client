@@ -11,7 +11,7 @@ import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
-import fr.lezard.gui.screen.plugins.CPSPluginHUDScreen;
+import fr.lezard.gui.screen.plugins.player.CPSPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
 import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
@@ -40,9 +40,10 @@ public class CPSPluginHUD extends PluginHUD{
 		if(e instanceof EventInGame) {
 			int posX = 0;
 			int posY = 0;
+			float size = getSize();
 			if(isDragged() && DragScreen.plugin == this) {
-				posX = DragScreen.posX;
-				posY = DragScreen.posY;
+				posX = (int) DragScreen.posX;
+				posY = (int) DragScreen.posY;
 			}else {
 				posX = getPosX();
 				posY = getPosY();
@@ -68,8 +69,8 @@ public class CPSPluginHUD extends PluginHUD{
 				string = "LMB: " + getLeftCPS();
 			}
 			
-			setWidth(font.width(string));
-			setHeight(font.lineHeight);
+			setWidth(font.width(string)*size);
+			setHeight(font.lineHeight*size);
 			
 			if(isFilled()) {
 	            GuiComponent.fill(poseStack, posX - LezardOptions.gap, posY - LezardOptions.gap, getWidth() + posX + LezardOptions.gap, getHeight() + posY + LezardOptions.gap, Lezard.color.getRGB());
@@ -96,7 +97,10 @@ public class CPSPluginHUD extends PluginHUD{
 				}
 			}
 			
-			GuiComponent.drawString(poseStack, font, string, posX, posY, isRainbow() ? Lezard.rainbowText() : getColors().getRgb());
+			poseStack.pushPose();
+			poseStack.scale(size, size, 1);
+			GuiComponent.drawString(poseStack, font, string, posX*(1/size), posY*(1/size), isRainbow() ? Lezard.rainbowText() : getColors().getRgb());
+			poseStack.popPose();
 		}
 		if(e instanceof EventStart) {
 			if(!FileWriterJson.getString(getNamespace(), "mode").equalsIgnoreCase("")){
