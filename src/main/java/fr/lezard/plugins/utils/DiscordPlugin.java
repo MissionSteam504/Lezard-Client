@@ -4,14 +4,14 @@ import fr.lezard.events.Event;
 import fr.lezard.gui.screen.plugins.utils.DiscordPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.DiscordIntegration;
-import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 
 public class DiscordPlugin extends Plugin {
 	public static DiscordIntegration discord = new DiscordIntegration();
 
 	public DiscordPlugin() {
-		super("Discord RPC", FileWriterJson.getBoolean("discord", "enabled"), Category.UTILS, "discord", Minecraft.getInstance().options.keyDiscord, new DiscordPluginScreen());
+		super("Discord RPC", Utils.getPlugin("discord").isEnabled(), Category.UTILS, "discord", Minecraft.getInstance().options.keyDiscord, new DiscordPluginScreen());
 	}
 	
 	public void onEnable() {

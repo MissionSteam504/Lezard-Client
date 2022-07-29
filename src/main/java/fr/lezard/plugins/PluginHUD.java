@@ -1,7 +1,7 @@
 package fr.lezard.plugins;
 
 import fr.lezard.utils.Colors;
-import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.Screen;
 
@@ -24,7 +24,8 @@ public class PluginHUD extends Plugin{
 
 	public void setSize(float size) {
 		this.size = size;
-		FileWriterJson.writeJson(getNamespace(), "size", size);
+		String size2 = String.format("%.2f%%", size).replace("%", "").replace(",", ".");
+		Utils.getPlugin(getNamespace()).setSize(Float.parseFloat(size2));
 	}
 
 	public void setDragged(boolean dragged) {
@@ -53,7 +54,7 @@ public class PluginHUD extends Plugin{
 
 	public void setPosX(int posX) {
 		this.posX = posX;
-		FileWriterJson.writeJson(getNamespace(), "posX", posX);
+		Utils.getPlugin(getNamespace()).setPosX(posX);
 	}
 
 	public int getPosY() {
@@ -62,7 +63,7 @@ public class PluginHUD extends Plugin{
 
 	public void setPosY(int posY) {
 		this.posY = posY;
-		FileWriterJson.writeJson(getNamespace(), "posY", posY);
+		Utils.getPlugin(getNamespace()).setPosY(posY);
 	}
 
 	private boolean filled;
@@ -71,15 +72,15 @@ public class PluginHUD extends Plugin{
 
 	public PluginHUD(String name, boolean enabled, Category category, String namespace, KeyMapping key, Screen screen) {
 		super(name, enabled, category, namespace, key, screen);
-        filled = FileWriterJson.getBoolean(namespace, "filled");
-        rainbow = FileWriterJson.getBoolean(namespace, "rainbow");
+        filled = Utils.getPlugin(namespace).isFilled();
+        rainbow = Utils.getPlugin(namespace).isRainbow();
         
-        if(!FileWriterJson.getString(namespace, "color").equalsIgnoreCase("")){
-            colors = Colors.valueOf(FileWriterJson.getString(namespace, "color"));
+        if(!Utils.getPlugin(namespace).getColor().equalsIgnoreCase("")){
+            colors = Colors.valueOf(Utils.getPlugin(namespace).getColor());
         }
-        posX = FileWriterJson.getInt(namespace, "posX");
-        posY = FileWriterJson.getInt(namespace, "posY");
-        size = FileWriterJson.getFloat(namespace, "size");
+        posX = Utils.getPlugin(namespace).getPosX();
+        posY = Utils.getPlugin(namespace).getPosY();
+        size = Utils.getPlugin(namespace).getSize();
         if(size==0f) {
         	size=1f;
         }
@@ -97,16 +98,16 @@ public class PluginHUD extends Plugin{
 
 	public void setFilled(boolean filled) {
 		this.filled = filled;
-		FileWriterJson.writeJson(getNamespace(), "filled", filled);
+		Utils.getPlugin(getNamespace()).setFilled(filled);
 	}
 
 	public void setRainbow(boolean rainbow) {
 		this.rainbow = rainbow;
-		FileWriterJson.writeJson(getNamespace(), "rainbow", rainbow);
+		Utils.getPlugin(getNamespace()).setRainbow(rainbow);
 	}
 
 	public void setColors(Colors colors) {
 		this.colors = colors;
-		FileWriterJson.writeJson(getNamespace(), "color", colors.getLiteralName());
+		Utils.getPlugin(getNamespace()).setColor(colors.getLiteralName());
 	}
 }

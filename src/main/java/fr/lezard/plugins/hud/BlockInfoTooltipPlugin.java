@@ -10,8 +10,8 @@ import fr.lezard.gui.screen.plugins.hud.BlockInfoTooltipPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.utils.Colors;
 import fr.lezard.utils.CommonLezardVariables;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -35,7 +35,7 @@ public class BlockInfoTooltipPlugin extends Plugin {
 	public static Colors firstColor = Colors.WHITE;
 	
 	public BlockInfoTooltipPlugin() {
-		super("Block Infos Tooltip", FileWriterJson.getBoolean("blocktooltip", "enabled"), Category.HUD, "blocktooltip", Minecraft.getInstance().options.keyCompass, new BlockInfoTooltipPluginScreen());
+		super("Block Infos Tooltip", Utils.getPlugin("blocktooltip").isEnabled(), Category.HUD, "blocktooltip", Minecraft.getInstance().options.keyCompass, new BlockInfoTooltipPluginScreen());
 	}
 	
 	public void onEvent(Event<?> e) {
@@ -95,15 +95,15 @@ public class BlockInfoTooltipPlugin extends Plugin {
 			}
 		}
 		if(e instanceof EventStart) {
-			if(!FileWriterJson.getString(getNamespace(), "second").equalsIgnoreCase("")){
-	            secondColor = Colors.valueOf(FileWriterJson.getString(getNamespace(), "second"));
+			if(!Utils.getPlugin(getNamespace()).getSecondColor().equalsIgnoreCase("")){
+	            secondColor = Colors.valueOf(Utils.getPlugin(getNamespace()).getSecondColor());
 	        }
-			if(!FileWriterJson.getString(getNamespace(), "color").equalsIgnoreCase("")){
-	            firstColor = Colors.valueOf(FileWriterJson.getString(getNamespace(), "color"));
+			if(!Utils.getPlugin(getNamespace()).getColor().equalsIgnoreCase("")){
+	            firstColor = Colors.valueOf(Utils.getPlugin(getNamespace()).getColor());
 	        }
-			filled = FileWriterJson.getBoolean(getNamespace(), "filled");
-			rainbow = FileWriterJson.getBoolean(getNamespace(), "rainbow");
-			size = FileWriterJson.getFloat(getNamespace(), "size");
+			filled = Utils.getPlugin(getNamespace()).isFilled();
+			rainbow = Utils.getPlugin(getNamespace()).isRainbow();
+			size = Utils.getPlugin(getNamespace()).getSize();
 			if(size == 0f) {
 				size = 1f;
 			}

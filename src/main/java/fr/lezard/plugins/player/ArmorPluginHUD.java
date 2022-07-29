@@ -11,8 +11,8 @@ import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.player.ArmorPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -32,7 +32,7 @@ public class ArmorPluginHUD extends PluginHUD{
 	public static Modes currentMode = Modes.BASIC_ITEM;
 	
 	public ArmorPluginHUD() {
-		super("Armor HUD", FileWriterJson.getBoolean("armor", "enabled"), Category.PLAYER, "armor", Minecraft.getInstance().options.keyArmor, new ArmorPluginHUDScreen());
+		super("Armor HUD", Utils.getPlugin("armor").isEnabled(), Category.PLAYER, "armor", Minecraft.getInstance().options.keyArmor, new ArmorPluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {
@@ -73,8 +73,8 @@ public class ArmorPluginHUD extends PluginHUD{
 			}
 		}
 		if(e instanceof EventStart) {
-			if(!FileWriterJson.getString(getNamespace(), "mode").equalsIgnoreCase("")){
-	            currentMode = Modes.valueOf(FileWriterJson.getString(getNamespace(), "mode"));
+			if(!Utils.getPlugin(getNamespace()).getMode().equalsIgnoreCase("")){
+	            currentMode = Modes.valueOf(Utils.getPlugin(getNamespace()).getMode());
 	        }
 		}
 	}
@@ -98,7 +98,7 @@ public class ArmorPluginHUD extends PluginHUD{
 		
 		PluginHUD p =(PluginHUD) Lezard.plugins.get(0);
 		if(p.isFilled() && (haveArmor || haveItem)) {
-			if(!haveArmor && Minecraft.getInstance().player.getMainHandItem().getItem() != Items.AIR){
+			if(!haveArmor && Minecraft.getInstance().player.getMainHandItem().getItem() != Items.AIR && Minecraft.getInstance().player.getMainHandItem().getItem() != null){
 				String txt = "";
 				if(Minecraft.getInstance().player.getMainHandItem().isDamageableItem()) {
 					ItemStack item = Minecraft.getInstance().player.getMainHandItem();
@@ -110,8 +110,10 @@ public class ArmorPluginHUD extends PluginHUD{
 				}
 				width=(16+Minecraft.getInstance().font.width(txt) + LezardOptions.gap+2)*p.getSize();
 			}
-			else if(!haveArmor)
+			else if(!haveArmor) {
 				width=16*p.getSize();
+			}
+				
 			
             GuiComponent.fill(poseStack, posX - LezardOptions.gap, posY - LezardOptions.gap, width + posX + LezardOptions.gap, height + posY + LezardOptions.gap, Lezard.color.getRGB());
         }
@@ -150,13 +152,16 @@ public class ArmorPluginHUD extends PluginHUD{
         
         boolean rightSide = false;
         
-        if(posX+width/2 > Minecraft.getInstance().getWindow().getGuiScaledWidth()/2) {
+        /*if(posX+width/2 > Minecraft.getInstance().getWindow().getGuiScaledWidth()/2) {
         	rightSide=true;
         }else {
         	rightSide=false;
-        }
+        }*/
         
-        int damageWidth = 0;
+        poseStack.pushPose();
+        poseStack.scale(p.getSize(), p.getSize(), 1);
+        
+        int textSize = 0;
         
         if(!currentMode.isBasic()) {
         	String name = "";
@@ -164,23 +169,19 @@ public class ArmorPluginHUD extends PluginHUD{
                 float damagePercent = (100 * (item.getMaxDamage() - item.getDamageValue())) / item.getMaxDamage();
                 String damageLeft = "(" + (item.getMaxDamage() - item.getDamageValue()) + "/" + item.getMaxDamage() + ")";
                 name = String.format("%.0f%%", damagePercent) + " | " + damageLeft;
-                damageWidth = font.width(name);
-                poseStack.pushPose();
-                poseStack.translate(p.getSize(), p.getSize(), 1);
-                GuiComponent.drawString(poseStack, font, name, rightSide ? posX : posX + 20, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
-                poseStack.popPose();
+                textSize = font.width(name);
+                GuiComponent.drawString(poseStack, font, name, rightSide ? posX+width-textSize-20 : posX + 20, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
                 p.setWidth((font.width(name) + 20)*p.getSize());
         	}else {
         		if(item.getItem() != Items.AIR) {
         			name = item.getHoverName().getString();
-        			int textSize = font.width(name);
-        			poseStack.pushPose();
-                    poseStack.translate(p.getSize(), p.getSize(), 1);
-        			GuiComponent.drawString(poseStack, font, name, rightSide ? posX + width- textSize-20: posX + 20, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
-        			poseStack.popPose();
-        			if(p.getWidth() < font.width(name) + 20) p.setWidth((font.width(name) + 20)*p.getSize());
+        			textSize = font.width(name);
+        			GuiComponent.drawString(poseStack, font, name, rightSide ? posX+width-textSize-20: posX + 20, posY + posYadd + 4, p.isRainbow() ? Lezard.rainbowText() : p.getColors().getRgb());
         		}
         	}
+        	//System.out.println(p.getWidth() < textSize+20);
+        	if(p.getWidth() < textSize+20) 
+				p.setWidth((textSize+20)*p.getSize());
         }
         
         boolean damageable = item.isDamageableItem();
@@ -189,11 +190,11 @@ public class ArmorPluginHUD extends PluginHUD{
         
         if(!damageable && rightSide && !currentMode.isBasic()) {
         	itemX = posX+width-20;
+        }else {
+        	itemX=posX;
         }
-        poseStack.pushPose();
-        poseStack.scale(p.getSize(), p.getSize(), 1);
-        Minecraft.getInstance().getItemRenderer().renderGuiItem(item, rightSide && !currentMode.isBasic() ? itemX + damageWidth + 2 : itemX, posY+posYadd);
-        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(font, (item == Minecraft.getInstance().player.getMainHandItem() ? temp : item), rightSide && !currentMode.isBasic() ? posX + damageWidth + 2 : posX, posY + posYadd);
+        Minecraft.getInstance().getItemRenderer().renderGuiItem(item, rightSide && !currentMode.isBasic() ? posX + width-16 : itemX, posY+posYadd);
+        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(font, temp, (int) (rightSide && !currentMode.isBasic() ? posX + width-16 : itemX), posY + posYadd);
         poseStack.popPose();
 	}
 	

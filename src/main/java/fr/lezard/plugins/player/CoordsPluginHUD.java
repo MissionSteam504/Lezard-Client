@@ -11,7 +11,6 @@ import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.player.CoordsPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
 import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
@@ -22,7 +21,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 
 public class CoordsPluginHUD extends PluginHUD{
 	public CoordsPluginHUD() {
-		super("Coords HUD", FileWriterJson.getBoolean("coords", "enabled"), Category.PLAYER, "coords", Minecraft.getInstance().options.keyCoords, new CoordsPluginHUDScreen());
+		super("Coords HUD", Utils.getPlugin("coords").isEnabled(), Category.PLAYER, "coords", Minecraft.getInstance().options.keyCoords, new CoordsPluginHUDScreen());
 	}
 	
 	public static Mode mode = Mode.INLINE;
@@ -77,8 +76,8 @@ public class CoordsPluginHUD extends PluginHUD{
 			}
 		}
 		if(e instanceof EventStart) {
-			if(!FileWriterJson.getString(getNamespace(), "mode").equalsIgnoreCase("")){
-	            mode = Mode.valueOf(FileWriterJson.getString(getNamespace(), "mode"));
+			if(!Utils.getPlugin(getNamespace()).getMode().equalsIgnoreCase("")){
+	            mode = Mode.valueOf(Utils.getPlugin(getNamespace()).getMode());
 	        }
 		}
 	}

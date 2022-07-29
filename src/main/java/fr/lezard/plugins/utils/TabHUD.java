@@ -14,8 +14,8 @@ import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.utils.TabHUDScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -26,7 +26,7 @@ public class TabHUD extends PluginHUD{
 	public boolean expanded;
 
 	public TabHUD() {
-		super("Tab HUD", FileWriterJson.getBoolean("tab", "enabled"), Category.UTILS, "tab", Minecraft.getInstance().options.keyTabHud, new TabHUDScreen());
+		super("Tab HUD", Utils.getPlugin("tab").isEnabled(), Category.UTILS, "tab", Minecraft.getInstance().options.keyTabHud, new TabHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {

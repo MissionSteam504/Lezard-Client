@@ -7,8 +7,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import fr.lezard.Lezard;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -78,8 +78,8 @@ public class DragScreen extends Screen {
 		relativeX.clear();
         relativeY.clear();
         for(PluginHUD plugin : Lezard.pluginsHUD){
-            relativeX.add((int) (mouseX - FileWriterJson.getInt(plugin.getNamespace(), "posX")));
-            relativeY.add((int) (mouseY - FileWriterJson.getInt(plugin.getNamespace(), "posY")));
+            relativeX.add((int) (mouseX - Utils.getPlugin(plugin.getNamespace()).getPosX()));
+            relativeY.add((int) (mouseY - Utils.getPlugin(plugin.getNamespace()).getPosY()));
         }
 		return super.mouseClicked(mouseX, mouseY, button);
 	}

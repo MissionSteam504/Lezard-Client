@@ -5,7 +5,6 @@ import java.awt.Color;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import fr.lezard.Lezard;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
 import net.minecraft.client.Option;
 import net.minecraft.client.gui.components.Button;
@@ -36,10 +35,10 @@ public class LezardSettingsScreen extends Screen {
 		this.addWidget(this.list);
 		
 		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 200, 20, CommonComponents.GUI_DONE, (p_96827_) -> {
-			FileWriterJson.writeJson(Lezard.NAMESPACE, "alpha", LezardOptions.alpha); 
-			FileWriterJson.writeJson(Lezard.NAMESPACE, "gap", LezardOptions.gap); 
-			FileWriterJson.writeJson(Lezard.NAMESPACE, "showAnchor", LezardOptions.showAnchor); 
-			FileWriterJson.writeJson(Lezard.NAMESPACE, "rainbowSpeed", LezardOptions.rainbowSpeed);
+			Lezard.settings.setAlpha(LezardOptions.alpha);
+			Lezard.settings.setGap(LezardOptions.gap);
+			Lezard.settings.setShowAnchors(LezardOptions.showAnchor);
+			Lezard.settings.setRainbowSpeed(LezardOptions.rainbowSpeed);
 			Lezard.color = new Color(0, 0, 0, LezardOptions.alpha);
 			this.minecraft.setScreen(this.lastScreen);
 	      }));
@@ -69,10 +68,10 @@ public class LezardSettingsScreen extends Screen {
 	
 	public void onClose() {
 		Lezard.LOGGER.info("Saving options...");
-		FileWriterJson.writeJson(Lezard.NAMESPACE, "alpha", LezardOptions.alpha); 
-		FileWriterJson.writeJson(Lezard.NAMESPACE, "gap", LezardOptions.gap); 
-		FileWriterJson.writeJson(Lezard.NAMESPACE, "showAnchor", LezardOptions.showAnchor); 
-		FileWriterJson.writeJson(Lezard.NAMESPACE, "rainbowSpeed", LezardOptions.rainbowSpeed);
+		Lezard.settings.setAlpha(LezardOptions.alpha);
+		Lezard.settings.setGap(LezardOptions.gap);
+		Lezard.settings.setShowAnchors(LezardOptions.showAnchor);
+		Lezard.settings.setRainbowSpeed(LezardOptions.rainbowSpeed);
 		Lezard.color = new Color(0, 0, 0, LezardOptions.alpha);
 	}
 

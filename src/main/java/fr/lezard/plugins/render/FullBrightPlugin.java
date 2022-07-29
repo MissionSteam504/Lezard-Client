@@ -2,7 +2,7 @@ package fr.lezard.plugins.render;
 
 import fr.lezard.gui.screen.plugins.render.FullBrightPluginScreen;
 import fr.lezard.plugins.Plugin;
-import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -10,7 +10,7 @@ import net.minecraft.world.effect.MobEffects;
 public class FullBrightPlugin extends Plugin {
 
 	public FullBrightPlugin() {
-		super("Full Bright", FileWriterJson.getBoolean("fullbright", "enabled"), Category.RENDER, "fullbright", Minecraft.getInstance().options.keyFullbright, new FullBrightPluginScreen());
+		super("Full Bright", Utils.getPlugin("fullbright").isEnabled(), Category.RENDER, "fullbright", Minecraft.getInstance().options.keyFullbright, new FullBrightPluginScreen());
 	}
 	
 	public void onEnable() {

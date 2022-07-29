@@ -8,7 +8,6 @@ import fr.lezard.Lezard;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.player.ArmorPluginHUD;
 import fr.lezard.utils.CommonLezardVariables;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.Utils;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
@@ -30,7 +29,7 @@ public class ArmorPluginHUDScreen extends Screen {
 		Utils.normalPluginHudScreenInit(0, this, width, height);
 		this.addRenderableWidget(CycleButton.builder(ArmorPluginHUD.Modes::getName).withValues(Arrays.asList(ArmorPluginHUD.Modes.values())).withInitialValue(ArmorPluginHUD.currentMode).create(this.width / 2 - 48, this.height / 6 + 110, 96, 20, CommonLezardVariables.MODE, (p_167441_, p_167442_) -> {
 			ArmorPluginHUD.currentMode = p_167442_;
-            FileWriterJson.writeJson(plugin.getNamespace(), "mode", ArmorPluginHUD.currentMode.getLiteralName());
+			Utils.getPlugin(plugin.getNamespace()).setMode(ArmorPluginHUD.currentMode.getLiteralName());
         }));
 	}
 	

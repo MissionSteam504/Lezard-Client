@@ -8,15 +8,15 @@ import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.hud.FPSPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 
 public class FPSPluginHUD extends PluginHUD{
 	public FPSPluginHUD() {
-		super("FPS HUD", FileWriterJson.getBoolean("fps", "enabled"), Category.HUD, "fps", Minecraft.getInstance().options.keyFpsHud, new FPSPluginHUDScreen());
+		super("FPS HUD", Utils.getPlugin("fps").isEnabled(), Category.HUD, "fps", Minecraft.getInstance().options.keyFpsHud, new FPSPluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {

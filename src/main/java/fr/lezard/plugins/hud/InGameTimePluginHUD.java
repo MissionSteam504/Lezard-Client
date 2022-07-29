@@ -8,15 +8,15 @@ import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.hud.InGameTimePluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 
 public class InGameTimePluginHUD extends PluginHUD{
 	public InGameTimePluginHUD() {
-		super("In Game Time HUD", FileWriterJson.getBoolean("igtime", "enabled"), Category.HUD, "igtime", Minecraft.getInstance().options.keyInGameTime, new InGameTimePluginHUDScreen());
+		super("In Game Time HUD", Utils.getPlugin("igtime").isEnabled(), Category.HUD, "igtime", Minecraft.getInstance().options.keyInGameTime, new InGameTimePluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {

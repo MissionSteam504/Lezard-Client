@@ -1,7 +1,12 @@
 package fr.lezard.utils;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import com.google.gson.Gson;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -9,6 +14,8 @@ import fr.lezard.Lezard;
 import fr.lezard.gui.screen.MainPluginScreen;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.PluginHUD;
+import fr.lezard.utils.files.LezardSettings;
+import fr.lezard.utils.files.PluginJson;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractSliderButton;
@@ -68,19 +75,43 @@ public class Utils {
 			p.setFilled(!p.isFilled());
 		}));
 		
-		String sliderTitle = "Size: " + String.format("%.1f%%", p.getSize()).replace("%", "").replace(",0", "");
+		String sliderTitle = "Size: " + String.format("%.2f%%", p.getSize()).replace("%", "").replace(",00", "");
 		
-		screen.addRenderableWidget(new AbstractSliderButton(width / 2 - 48, height / 6 + 88, 96, 20, new TextComponent(sliderTitle), p.getSize()/2) {
+		screen.addRenderableWidget(new AbstractSliderButton(width / 2 - 48, height / 6 + 88, 96, 20, new TextComponent(sliderTitle), p.getSize()) {
 
 			@Override
 			protected void updateMessage() {
-				this.setMessage(new TextComponent("Size: " + String.format("%.1f%%", p.getSize()).replace("%", "").replace(",0", "")));
+				this.setMessage(new TextComponent("Size: " + String.format("%.2f%%", p.getSize()).replace("%", "").replace(",00", "")));
 			}
 
 			@Override
 			protected void applyValue() {
-				p.setSize((float) this.value*2);
+				p.setSize((float) this.value);
 			}
 		});
 	}
+
+	public static PluginJson getPlugin(String namespace) {
+		for(PluginJson p : Lezard.settings.getPlugins()) {
+			if(p.getNamespace().equalsIgnoreCase(namespace)) {
+				return p;
+			}
+		}
+		
+		PluginJson p = new PluginJson(namespace);
+		List<PluginJson> pluginsjson = new ArrayList<>(Arrays.asList(Lezard.settings.getPlugins()));
+		pluginsjson.add(p);
+		Lezard.settings.setPlugins((PluginJson[]) pluginsjson.toArray(new PluginJson[pluginsjson.size()]));
+		return p;
+	} 
+	
+	public static LezardSettings getSettings() {
+		Gson gson = new Gson();
+    	try {
+			return gson.fromJson(Files.readString(Paths.get(Lezard.settingsFile.getPath())), LezardSettings.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return getSettings();
+		}
+    }
 }

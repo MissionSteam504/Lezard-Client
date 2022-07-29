@@ -12,7 +12,7 @@ import com.mojang.datafixers.util.Pair;
 import fr.lezard.events.Event;
 import fr.lezard.gui.screen.plugins.hud.ScoreboardPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -27,7 +27,7 @@ import net.minecraft.world.scores.Scoreboard;
 public class ScoreboardPluginHUD extends PluginHUD {
 
 	public ScoreboardPluginHUD() {
-		super("Scoreboard HUD", FileWriterJson.getBoolean("score", "enabled"), Category.HUD, "score", Minecraft.getInstance().options.keyScoreboard, new ScoreboardPluginHUDScreen());
+		super("Scoreboard HUD", Utils.getPlugin("score").isEnabled(), Category.HUD, "score", Minecraft.getInstance().options.keyScoreboard, new ScoreboardPluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {

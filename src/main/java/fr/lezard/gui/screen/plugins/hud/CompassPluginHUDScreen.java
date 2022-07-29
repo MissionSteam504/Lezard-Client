@@ -8,7 +8,6 @@ import fr.lezard.Lezard;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.hud.CompassPluginHUD;
 import fr.lezard.utils.CommonLezardVariables;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.Utils;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
@@ -30,8 +29,8 @@ public class CompassPluginHUDScreen extends Screen {
 		Utils.normalPluginHudScreenInit(1, this, width, height);
 		this.addRenderableWidget(CycleButton.builder(CompassPluginHUD.SecondColor::getName).withValues(Arrays.asList(CompassPluginHUD.SecondColor.values())).withInitialValue(CompassPluginHUD.second).create(this.width / 2 - 48, this.height / 6 + 110, 96, 20, CommonLezardVariables.SECOND_COLOR, (p_167441_, p_167442_) -> {
 			CompassPluginHUD.second = p_167442_;
-            FileWriterJson.writeJson(plugin.getNamespace(), "second", CompassPluginHUD.second.getLiteralName());
-        }));
+            Utils.getPlugin(plugin.getNamespace()).setSecondColor(CompassPluginHUD.second.getLiteralName());
+		}));
 	}
 	
 	public void tick() {

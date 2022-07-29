@@ -19,7 +19,7 @@ import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.plugins.utils.SimplifiedDebugPluginScreen;
 import fr.lezard.plugins.Plugin;
-import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;
@@ -28,11 +28,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.server.IntegratedServer;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.SectionPos;
+import net.minecraft.core.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -63,7 +59,7 @@ public class SimplifiedDebugPlugin extends Plugin {
     private static CompletableFuture<LevelChunk> serverChunk;
 
 	public SimplifiedDebugPlugin() {
-		super("Simplified Debug", FileWriterJson.getBoolean("debug", "enabled"), Category.UTILS, "debug", Minecraft.getInstance().options.keySimplfiedDebug, new SimplifiedDebugPluginScreen());
+		super("Simplified Debug", Utils.getPlugin("debug").isEnabled(), Category.UTILS, "debug", Minecraft.getInstance().options.keySimplfiedDebug, new SimplifiedDebugPluginScreen());
 	}
 	
 	

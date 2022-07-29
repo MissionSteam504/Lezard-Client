@@ -1,7 +1,7 @@
 package fr.lezard.plugins;
 
 import fr.lezard.events.Event;
-import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.Screen;
 
@@ -42,7 +42,7 @@ public class Plugin {
 		else {
 			onDisable();
 		}
-		FileWriterJson.writeJson(namespace, "enabled", enabled);
+		Utils.getPlugin(namespace).setEnabled(enabled);
 	}
 	
 	public Category getCategory() {

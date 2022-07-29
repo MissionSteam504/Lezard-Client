@@ -5,7 +5,7 @@ import com.mojang.math.Vector3f;
 
 import fr.lezard.gui.screen.plugins.render.ItemPhysicsPluginScreen;
 import fr.lezard.plugins.Plugin;
-import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 import net.minecraft.client.resources.model.BakedModel;
@@ -19,7 +19,7 @@ public class ItemPhysicsPlugin extends Plugin{
 	public static double speed = 1;
 	
 	public ItemPhysicsPlugin() {
-		super("Item Physics", FileWriterJson.getBoolean("itemphysics", "enabled"), Category.RENDER, "itemphysics", Minecraft.getInstance().options.keyItemPhysics, new ItemPhysicsPluginScreen());
+		super("Item Physics", Utils.getPlugin("itemphysics").isEnabled(), Category.RENDER, "itemphysics", Minecraft.getInstance().options.keyItemPhysics, new ItemPhysicsPluginScreen());
 	}
 	
 	public static void setPhysics(PoseStack poseStack, BakedModel bakedModel, ItemEntity itemEntity, float p1538, ItemStack itemStack,ItemEntityRenderer i) {

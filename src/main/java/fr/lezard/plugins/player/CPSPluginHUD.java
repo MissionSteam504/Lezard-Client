@@ -13,8 +13,8 @@ import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.player.CPSPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -33,7 +33,7 @@ public class CPSPluginHUD extends PluginHUD{
 	private Long lastPressedButtonRight;
 	
 	public CPSPluginHUD() {
-		super("CPS HUD", FileWriterJson.getBoolean("cps", "enabled"), Category.PLAYER, "cps", Minecraft.getInstance().options.keyCps, new CPSPluginHUDScreen());
+		super("CPS HUD", Utils.getPlugin("cps").isEnabled(), Category.PLAYER, "cps", Minecraft.getInstance().options.keyCps, new CPSPluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {
@@ -103,8 +103,8 @@ public class CPSPluginHUD extends PluginHUD{
 			poseStack.popPose();
 		}
 		if(e instanceof EventStart) {
-			if(!FileWriterJson.getString(getNamespace(), "mode").equalsIgnoreCase("")){
-	            currentMode = CPSPluginHUD.Mode.valueOf(FileWriterJson.getString(getNamespace(), "mode"));
+			if(!Utils.getPlugin(getNamespace()).getMode().equalsIgnoreCase("")){
+	            currentMode = CPSPluginHUD.Mode.valueOf(Utils.getPlugin(getNamespace()).getMode());
 	        }
 		}
 	}

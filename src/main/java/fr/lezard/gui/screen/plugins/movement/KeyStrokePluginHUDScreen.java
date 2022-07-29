@@ -8,7 +8,6 @@ import fr.lezard.Lezard;
 import fr.lezard.plugins.Plugin;
 import fr.lezard.plugins.movement.KeyStrokePluginHUD;
 import fr.lezard.utils.CommonLezardVariables;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.Utils;
 import fr.lezard.utils.keystroke.KeyStrokeModule;
 import net.minecraft.client.gui.components.CycleButton;
@@ -31,7 +30,7 @@ public class KeyStrokePluginHUDScreen extends Screen {
 		Utils.normalPluginHudScreenInit(10, this, width, height);
 		this.addRenderableWidget(CycleButton.builder(KeyStrokeModule::getName).withValues(Arrays.asList(KeyStrokeModule.values())).withInitialValue(KeyStrokePluginHUD.keyMode).create(this.width / 2 - 48, this.height / 6 + 110, 96, 20, CommonLezardVariables.MODE, (p_167441_, p_167442_) -> {
             KeyStrokePluginHUD.keyMode = p_167442_;
-            FileWriterJson.writeJson(plugin.getNamespace(), "mode", KeyStrokePluginHUD.keyMode.getLiteralName());
+            Utils.getPlugin(plugin.getNamespace()).setMode(KeyStrokePluginHUD.keyMode.getLiteralName());
         }));
 	}
 	

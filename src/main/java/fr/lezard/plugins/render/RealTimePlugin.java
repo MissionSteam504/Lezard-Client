@@ -7,16 +7,13 @@ import fr.lezard.events.Event;
 import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.gui.screen.plugins.render.RealTimePluginScreen;
 import fr.lezard.plugins.Plugin;
-import fr.lezard.utils.DiscordIntegration;
-import fr.lezard.utils.FileWriterJson;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 
 public class RealTimePlugin extends Plugin {
-	public static DiscordIntegration discord = new DiscordIntegration();
-
 	public RealTimePlugin() {
-		super("RealTime", FileWriterJson.getBoolean("realtime", "enabled"), Category.RENDER, "realtime", Minecraft.getInstance().options.keyDiscord, new RealTimePluginScreen());
+		super("RealTime", Utils.getPlugin("realtime").isEnabled(), Category.RENDER, "realtime", Minecraft.getInstance().options.keyDiscord, new RealTimePluginScreen());
 	}
 	
 	public void onEnable() {

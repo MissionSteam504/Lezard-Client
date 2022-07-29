@@ -11,8 +11,8 @@ import fr.lezard.events.listeners.EventInGame;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.hud.IRLTimePluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -20,7 +20,7 @@ import net.minecraft.client.gui.GuiComponent;
 public class IRLTimePluginHUD extends PluginHUD {
 
 	public IRLTimePluginHUD() {
-		super("IRL Time", FileWriterJson.getBoolean("irl", "enabled"), Category.HUD, "irl", Minecraft.getInstance().options.keyIrlTime, new IRLTimePluginHUDScreen());
+		super("IRL Time", Utils.getPlugin("irl").isEnabled(), Category.HUD, "irl", Minecraft.getInstance().options.keyIrlTime, new IRLTimePluginHUDScreen());
 	}
 
 	public void onEvent(Event<?> e) {

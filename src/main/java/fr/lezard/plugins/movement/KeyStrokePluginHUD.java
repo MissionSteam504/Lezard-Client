@@ -11,8 +11,8 @@ import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.movement.KeyStrokePluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
+import fr.lezard.utils.Utils;
 import fr.lezard.utils.keystroke.KeyStroke;
 import fr.lezard.utils.keystroke.KeyStrokeModule;
 import net.minecraft.client.Minecraft;
@@ -24,7 +24,7 @@ public class KeyStrokePluginHUD extends PluginHUD{
 	public static KeyStrokeModule keyMode = KeyStrokeModule.WASD;
 	
 	public KeyStrokePluginHUD() {
-		super("KeyStroke HUD", FileWriterJson.getBoolean("key", "enabled"), Category.MOVEMENT, "key", Minecraft.getInstance().options.keyStroke, new KeyStrokePluginHUDScreen());
+		super("KeyStroke HUD", Utils.getPlugin("key").isEnabled(), Category.MOVEMENT, "key", Minecraft.getInstance().options.keyStroke, new KeyStrokePluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {
@@ -79,8 +79,8 @@ public class KeyStrokePluginHUD extends PluginHUD{
 			poseStack.popPose();
 		}
 		if(e instanceof EventStart) {
-			if(!FileWriterJson.getString(getNamespace(), "mode").equalsIgnoreCase("")){
-	            keyMode = KeyStrokeModule.valueOf(FileWriterJson.getString(getNamespace(), "mode"));
+			if(!Utils.getPlugin(getNamespace()).getMode().equalsIgnoreCase("")){
+	            keyMode = KeyStrokeModule.valueOf(Utils.getPlugin(getNamespace()).getMode());
 	        }
 		}
 	}

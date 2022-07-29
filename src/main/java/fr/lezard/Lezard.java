@@ -2,14 +2,16 @@ package fr.lezard;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.slf4j.Logger;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 
 import fr.lezard.events.Event;
@@ -26,6 +28,7 @@ import fr.lezard.plugins.player.*;
 import fr.lezard.plugins.render.*;
 import fr.lezard.plugins.utils.*;
 import fr.lezard.utils.*;
+import fr.lezard.utils.files.LezardSettings;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
@@ -48,7 +51,7 @@ public class Lezard {
 	
 	public static final String NAME = "Lezard Client";
 	public static final String NAMESPACE = "lezard";
-	public static final String VERSION = "2.0.0-beta11";
+	public static final String VERSION = "2.0.0-beta12";
 	public static final String DISCORD_APP_ID = "971435977199464528";
 	public static final String USERNAME = "LezardUser";
 	public static final String PREFIX = "[" + NAME.replace(" ", "") + "] ";
@@ -68,34 +71,43 @@ public class Lezard {
 	public static ObjUserCosmetics cosmetics;
 	public static ObjServer[] servers = {};
 	
+	public static LezardSettings settings;
+	
 	public static Color color = new Color(0, 0, 0, LezardOptions.alpha);
 	
-	public static File pluginFile = new File(Minecraft.getInstance().gameDirectory, NAMESPACE + "-settings.json");
+	public static File settingsFile = new File(Minecraft.getInstance().gameDirectory, NAMESPACE + ".json");
 	
 	public static CopyOnWriteArrayList<Plugin> plugins = new CopyOnWriteArrayList<Plugin>();
 	public static CopyOnWriteArrayList<PluginHUD> pluginsHUD = new CopyOnWriteArrayList<PluginHUD>();
+	
+	public static Gson gsonBuilder = new GsonBuilder()
+			  .setPrettyPrinting()
+			  .create();
 	
 	public static void launch() {
 		LOGGER.info(PREFIX + "Starting client...");
 		
 		firstLaunch=false;
 		
-		LOGGER.info(PREFIX + "Looking for " + NAMESPACE + "-settings.json...");
+		LOGGER.info(PREFIX + "Looking for " + NAMESPACE + ".json...");
 		
-		if(!pluginFile.exists()){
-			LOGGER.info(PREFIX + NAMESPACE + "-settings.json doesnt exist. Crafting new file...");
-            try {
-                pluginFile.createNewFile();
-                PrintWriter printWriter = new PrintWriter(pluginFile);
-                printWriter.write("{\"" + NAMESPACE + ".alpha\": 95, \"" + NAMESPACE + ".gap\": 4, \"" + NAMESPACE + ".showAnchor\": false, \"" + NAMESPACE+ ".rainbowSpeed\": 5}");
-                printWriter.close();
-            }catch (IOException e){
-                LOGGER.warn(PREFIX + "Error when creating the file: ");
+		if(!settingsFile.exists()) {
+			LOGGER.info(PREFIX + NAMESPACE + ".json doesnt exist. Crafting new file...");
+			try {
+				settingsFile.createNewFile();
+				String json = "{\r\n\"alpha\": 90,\r\n\"gap\": 4,\r\n\"showAnchors\": false,\r\n\"rainbowSpeed\": 5,\r\n\"plugins\": []\r\n}";
+				FileWriter writer = new FileWriter(settingsFile);
+				writer.write(json);
+				writer.close();
+			}catch (IOException e) {
+				LOGGER.warn(PREFIX + "Error when creating the file: ");
                 e.printStackTrace();
-            }
-        }else {
-        	LOGGER.info(PREFIX + NAMESPACE + "-settings.json exist");
-        }
+			}
+		}else {
+			LOGGER.info(PREFIX + NAMESPACE + ".json already exist");
+		}
+		
+		settings = Utils.getSettings();
 		
 		LOGGER.info(PREFIX + "Communicating with the server...");
 		if(HTTPFunctions.isAPIUp()) {
@@ -126,8 +138,10 @@ public class Lezard {
 		plugins.add(new TabHUD()); // 12
 		plugins.add(new BlockInfoTooltipPlugin()); // 13
 		plugins.add(new RealTimePlugin()); // 14
+		plugins.add(new CustomTimePlugin()); // 15
 		
 		for(Plugin p : plugins) {
+			Utils.getPlugin(p.getNamespace());
 			if(p instanceof PluginHUD pHud) {
 				pluginsHUD.add(pHud);
 			}
@@ -136,10 +150,10 @@ public class Lezard {
 		LOGGER.info(PREFIX + "Plugins initialized correctly!");
 		LOGGER.info(PREFIX + "Initializing custom options...");
 		
-		LezardOptions.alpha = FileWriterJson.getInt(NAMESPACE, "alpha");
-		LezardOptions.gap = FileWriterJson.getInt(NAMESPACE, "gap");
-		LezardOptions.showAnchor = FileWriterJson.getBoolean(NAMESPACE, "showAnchor");
-		LezardOptions.rainbowSpeed = FileWriterJson.getInt(NAMESPACE, "rainbowSpeed");
+		LezardOptions.alpha = settings.getAlpha();
+		LezardOptions.gap = settings.getGap();
+		LezardOptions.showAnchor = settings.isShowAnchors();
+		LezardOptions.rainbowSpeed = settings.getRainbowSpeed();
 		
 		LOGGER.info(PREFIX + "Custom options initialized correctly!");
 		 

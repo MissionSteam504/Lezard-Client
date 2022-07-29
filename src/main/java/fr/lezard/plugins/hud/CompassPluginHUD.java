@@ -12,8 +12,8 @@ import fr.lezard.events.listeners.EventStart;
 import fr.lezard.gui.screen.DragScreen;
 import fr.lezard.gui.screen.plugins.hud.CompassPluginHUDScreen;
 import fr.lezard.plugins.PluginHUD;
-import fr.lezard.utils.FileWriterJson;
 import fr.lezard.utils.LezardOptions;
+import fr.lezard.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -24,7 +24,7 @@ import net.minecraft.util.Mth;
 public class CompassPluginHUD extends PluginHUD{
 	public static SecondColor second = SecondColor.GOLD;
 	public CompassPluginHUD() {
-		super("Compass HUD", FileWriterJson.getBoolean("compass", "enabled"), Category.HUD, "compass", Minecraft.getInstance().options.keyCompass, new CompassPluginHUDScreen());
+		super("Compass HUD", Utils.getPlugin("compass").isEnabled(), Category.HUD, "compass", Minecraft.getInstance().options.keyCompass, new CompassPluginHUDScreen());
 	}
 	
 	public void onEvent(Event<?> e) {
@@ -99,8 +99,8 @@ public class CompassPluginHUD extends PluginHUD{
 	        }
 		}
 		if(e instanceof EventStart) {
-			if(!FileWriterJson.getString(getNamespace(), "second").equalsIgnoreCase("")){
-	            second = SecondColor.valueOf(FileWriterJson.getString(getNamespace(), "second"));
+			if(!Utils.getPlugin(getNamespace()).getSecondColor().equalsIgnoreCase("")){
+	            second = SecondColor.valueOf(Utils.getPlugin(getNamespace()).getSecondColor());
 	        }
 		}
 	}
